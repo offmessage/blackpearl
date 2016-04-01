@@ -1,4 +1,26 @@
+from zope.interface import Interface
+from zope.interface import implements
+
+
+class IFlotillaModule:
+    module = "The module name"
+    
+class IFlotillaInput:
+    def change(data):
+        """
+        Accept a data update from the Flotilla Client, return None if no change,
+        a dict if there is a change
+        """
+        
+class IFlotillaOutput:
+    def send(channel, data):
+        """
+        Send an update to the Flotilla Client for the matching output device
+        """
+        
 class FlotillaModule:
+    
+    implements(IFlotillaModule)
     
     def __init__(self, flotilla, channel):
         self.flotilla = flotilla
@@ -8,8 +30,9 @@ class FlotillaModule:
 class FlotillaInput(FlotillaModule):
     """
     Base class for input modules
-    Pretty sure in Twisted land these should be Interfaces?
     """
+    
+    implements(IFlotillaInput)
     
     def change(self, data):
         """Called when the Flotilla identifies an update from this module"""
@@ -33,7 +56,11 @@ class LinearInput(FlotillaInput):
     
     
 class FlotillaOutput(FlotillaModule):
-    """base class for output modules"""
+    """
+    Base class for output modules
+    """
+    
+    implements(IFlotillaOutput)
     
     def send(self, data):
         """One should perform validation on the data here"""
