@@ -64,20 +64,21 @@ class FlotillaClient(LineReceiver):
     def handle_C(self, channel, module):
         print("Found a {} on channel {}".format(module, channel))
         new_module = self.MODULES[module](self, channel)
-        self.modules[int(channel)] = new_module
+        self.modules[channel] = new_module
         
     def handle_D(self, channel):
-        self.modules[int(channel)] = None
+        self.modules[channel] = None
         
     def handle_U(self, channel, data):
-        if self.modules[int(channel)] is not None:
-            # We appear to get a race condition here, where modules are
-            # reporting data before they've been enumerated. This is a perfect
-            # moment for callbacks, surely?
-            d = self.modules[int(channel)].change(data)
-            if d is not None:
-                # here we loop through all the subscribers with the new data
-                print(d)
+        if self.modules[channel] is None:
+            # We appear to have a problem with the Flotilla here, where modules
+            # are reporting data so quickly and frequently that the Flotilla
+            # can't respond to a request to enumerate the connected modules.
+            return
+        d = self.modules[channel].change(data)
+        if d is not None:
+            # here we loop through all the subscribers with the new data
+            print(d)
         
     def connectedModules(self, type_=None):
         if type_ is None:
@@ -99,6 +100,7 @@ class FlotillaClient(LineReceiver):
             print(line)
             return
         channel, module = parts[1].decode('ascii').split('/')
+        channel = int(channel)
         if cmd == b'c':
             self.handle_C(channel, module)
             return
