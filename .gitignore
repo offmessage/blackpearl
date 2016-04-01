@@ -66,3 +66,6 @@ wingdbstub.py
 bin/
 include/
 local/
+
+#Project specific
+twisted/
