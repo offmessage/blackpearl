@@ -65,6 +65,8 @@ class FlotillaClient(LineReceiver):
         print("Found a {} on channel {}".format(module, channel))
         new_module = self.MODULES[module](self, channel)
         self.modules[channel] = new_module
+        if module == 'matrix':
+            self.modules[channel].scroll("Max is awesome and Amy isn't!")
         
     def handle_D(self, channel):
         self.modules[channel] = None
@@ -93,7 +95,7 @@ class FlotillaClient(LineReceiver):
         l.sort()
         return l[0][1]
         
-    def lineReceived(self,data):      
+    def lineReceived(self, line):      
         parts = line.split(b" ")
         cmd = parts[0]
         if cmd == b'#':
