@@ -12,6 +12,7 @@ from .colour import ColourInput
 from .dial import DialInput
 from .joystick import JoystickInput
 from .light import LightInput
+from .matrix import MatrixOutput
 from .motion import MotionInput
 from .slider import SliderInput
 from .touch import TouchInput

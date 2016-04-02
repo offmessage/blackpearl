@@ -1,3 +1,5 @@
+from .base import FlotillaInput
+
 class WeatherInput(FlotillaInput):
     """
     Weather

@@ -7,13 +7,13 @@ FlotillaClient
 
 from twisted.protocols.basic import LineReceiver
 
-
-from modules.base import FlotillaOutput # temporary
+from .modules.base import FlotillaOutput # temporary
 
 from .modules import ColourInput
 from .modules import DialInput
 from .modules import JoystickInput
 from .modules import LightInput
+from .modules import MatrixOutput
 from .modules import MotionInput
 from .modules import SliderInput
 from .modules import TouchInput
@@ -22,7 +22,7 @@ from .modules import WeatherInput
 
 class FlotillaClient(LineReceiver):
     
-    MODULES = {'matrix': FlotillaOutput,
+    MODULES = {'matrix': MatrixOutput,
                'number': FlotillaOutput,
                'rainbow': FlotillaOutput,
                'motor': FlotillaOutput,

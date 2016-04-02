@@ -5,8 +5,8 @@ class JoystickInput(FlotillaInput):
     The Joystick.
     """
     module = "joystick"
-    COORDINATES = {x:0,
-                   y:0,
+    COORDINATES = {'x':0,
+                   'y':0,
                    }
     BUTTON = False
     
