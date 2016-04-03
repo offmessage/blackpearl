@@ -20,6 +20,7 @@ class MatrixOutput(FlotillaOutput):
         self.brightness = 40
         self.pixels = [0, 0, 0, 0, 0, 0, 0, 0]
         self.status = 'STOPPED'
+        self.scrollspeed = 0.1
         data = self.pixels + [self.brightness,]
         self.send(data)
     
