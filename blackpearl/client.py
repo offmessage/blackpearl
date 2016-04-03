@@ -86,7 +86,10 @@ class FlotillaClient(LineReceiver):
                 if d['buttons'][0]:
                     #matrix.text("1234567890123456789012345678901234567890", False)
                     #matrix.text("1234567890", True)
-                    matrix.frames()
+                    #matrix.frames()
+                    matrix.reset()
+                    matrix.addText("1234567890")
+                    matrix.scroller(loop=True)
                 if d['buttons'][1]:
                     matrix.reset()
                 if d['buttons'][3]:

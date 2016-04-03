@@ -15,6 +15,7 @@ class MatrixOutput(FlotillaOutput):
     .addText("string")
     .addColumn(0x00)
     .addFrame([0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,])
+    .addToFrame(x,y)
     
     And then:
     .scroll(loop=False)
@@ -29,23 +30,50 @@ class MatrixOutput(FlotillaOutput):
     pixels = [0, 0, 0, 0, 0, 0, 0, 0]
     scrollspeed = 0.1
     status = 'STOPPED'
+    active = None
     queue = []
+    workingframe = []
+    lastindex = 0
     
     def reset(self):
         self.queue = []
         self.brightness = 40
         self.pixels = [0, 0, 0, 0, 0, 0, 0, 0]
         self.status = 'STOPPED'
+        self.active = None
         self.scrollspeed = 0.1
-        data = self.pixels + [self.brightness,]
-        self.send(data)
+        self.workingframe = []
+        self.lastindex = 0
+        self.update(self.pixels)
     
-    def letter(self, text):
-        pixels = ascii_letters[ord(text)]
-        self.update(pixels)
+    def addText(self, text):
+        for ch in text:
+            i = ord(ch)
+            self.queue.extend(ascii_letters[i])
+            
+    def addColumn(self, column):
+        """Bottom is 1, top is 128, we expect it bottom to top"""
+        if isinstance(column, int):
+            if 0 <= column <= 255:
+                self.queue.append(column)
+                return
+            raise TypeError("column must be an integer between 0 and 255")
+        if isinstance(column, list):
+            if len(column) == 8:
+                if set(column) in [{0},{1},{0,1}]:
+                    val = 0
+                    for j in range(8):
+                        val = val + (2**j)*column[j]
+                    self.queue.append(val)
+                    return
+            raise TypeError("column must be a list of len 8, consisting of {0,1}")
+    
+    def addFrame(self, frame):
+        """left to right"""
+        self.queue.extend(frame)
         
-    def update(self, pixels, brightness=40):
-        data = pixels + [brightness,]
+    def update(self, pixels):
+        data = pixels + [self.brightness,]
         self.send(data)
         
     def text(self, text, loop):
@@ -68,6 +96,33 @@ class MatrixOutput(FlotillaOutput):
         else:
             self.scroll()
         
+    @defer.deferredGenerator
+    def scroller(self, loop=False):
+        self.status = "RUNNING"
+        self.active = self.scroller
+        finalindex = len(self.queue) - 7
+        while self.status == "RUNNING":
+            for i in range(self.lastindex, len(self.queue)):
+                if self.status != "RUNNING":
+                    # we are paused or stopped
+                    break
+                self.lastindex = i
+                chars = self.queue[i:i+8]
+                if i == finalindex and not loop:
+                    self.status = "STOPPED"
+                    break
+                if len(chars) < 8 and loop:
+                    chars += self.queue[:8-len(chars)]
+                d = defer.Deferred()
+                reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
+                wfd = defer.waitForDeferred(d)
+                yield wfd
+            if not loop:
+                break
+            else:
+                self.lastindex = 0
+            
+            
     @defer.deferredGenerator
     def scroll(self, fresh=True):
         pixels = self.queue[:]
