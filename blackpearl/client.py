@@ -95,8 +95,17 @@ class FlotillaClient(LineReceiver):
             if 'slider' in d:
                 matrix = self.firstOf('matrix')
                 value = d['slider']
-                scalar = (1000 - value)/1000
-                matrix.scrollspeed = scalar
+                if 0 <= value < 200:
+                    speed = 0.3
+                elif 200 <= value < 400:
+                    speed = 0.2
+                elif 400 <= value < 600:
+                    speed = 0.1
+                elif 600 <= value < 800:
+                    speed = 0.07
+                else:
+                    speed = 0.03
+                matrix.scrollspeed = speed
                 
                 
                 
