@@ -27,12 +27,6 @@ class MatrixOutput(FlotillaOutput):
         data = self.pixels + [self.brightness,]
         self.send(data)
     
-    def scroll(self, text, loop=False):
-        self.text(text)
-    
-    def loop(self, text):
-        self.scroll(text, loop=True)
-        
     def letter(self, text):
         pixels = ascii_letters[ord(text)]
         self.update(pixels)
@@ -41,27 +35,41 @@ class MatrixOutput(FlotillaOutput):
         data = pixels + [brightness,]
         self.send(data)
         
-    def text(self, text):
-        if self.status == 'SCROLLING':
+    def text(self, text, loop):
+        if self.status == 'SCROLLING' or self.status == 'LOOPING':
             return
-        self.status = 'SCROLLING'
+        if loop:
+            self.status = 'LOOPING'
+        else:
+            self.status = 'SCROLLING'
         pixels = []
         for ch in text:
             i = ord(ch)
             pixels.extend(ascii_letters[i])
-        pixels.extend(ascii_letters[0])
+        if not loop:
+            pixels.extend(ascii_letters[0])
         self.queue = pixels
-        self.scroll()
+        print(len(self.queue), loop)
+        if loop:
+            self.loopscroll()
+        else:
+            self.scroll()
         
     @defer.deferredGenerator
     def scroll(self, fresh=True):
         pixels = self.queue[:]
-        for c, i in enumerate(range(len(pixels) - 7)):
+        finalindex = len(pixels) - 7
+        if fresh:
+            # restart the queue from column 1
+            self.lastindex = 0
+        for i in range(self.lastindex, finalindex):
             if self.status != 'SCROLLING':
+                # we are paused (or stopped)
                 break
+            self.lastindex = i
             chars = pixels[i:i+8]
-            self.queue = self.queue[1:]
-            if len(self.queue) == 7:
+            if i == finalindex:
+                # we've consumed the queue, delete it and set status to stopped
                 self.queue = []
                 self.status = 'STOPPED'
             data = chars + [self.brightness,]
@@ -70,17 +78,45 @@ class MatrixOutput(FlotillaOutput):
             wfd = defer.waitForDeferred(d)
             yield wfd
         
+    @defer.deferredGenerator
+    def loopscroll(self, fresh=True):
+        finalindex = len(self.queue) - 7
+        if fresh:
+            # restart the queue from column 1
+            self.lastindex = 0
+        while self.status == 'LOOPING':
+            for i in range(self.lastindex, len(self.queue)):
+                if self.status != 'LOOPING':
+                    break
+                self.lastindex = i
+                if i <= finalindex:
+                    chars = self.queue[i:i+8]
+                else:
+                    start = i - finalindex
+                    chars = self.queue[i:] + self.queue[:start]
+                data = chars + [self.brightness,]
+                d = defer.Deferred()
+                reactor.callLater(self.scrollspeed, d.callback, self.send(data))
+                wfd = defer.waitForDeferred(d)
+                yield wfd
+            if self.status == 'LOOPING':
+                self.lastindex = 0
+                    
     def stop(self):
-        if self.status == 'SCROLLING':
+        if self.status == 'SCROLLING' or self.status == 'LOOPING':
             self.reset()
             
     def pause(self):
-        if self.status == 'SCROLLING':
+        if self.status == 'SCROLLING' or self.status == 'LOOPING':
+            self.last_status = self.status
             self.status = 'PAUSED'
             return
         if self.status == 'PAUSED' and self.queue != []:
-            self.status = 'SCROLLING'
-            self.scroll(fresh=False)
+            self.status = self.last_status
+            if self.status == 'LOOPING':
+                self.loopscroll(fresh=False)
+            elif self.status == 'SCROLLING':
+                self.scroll(fresh=False)
             return
         
             

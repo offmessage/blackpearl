@@ -84,7 +84,8 @@ class FlotillaClient(LineReceiver):
                 # It's a touch
                 matrix = self.firstOf('matrix')
                 if d['buttons'][0]:
-                    matrix.text("1234567890123456789012345678901234567890")
+                    #matrix.text("1234567890123456789012345678901234567890", False)
+                    matrix.text("1234567890", True)
                 if d['buttons'][1]:
                     matrix.reset()
                 if d['buttons'][2]:
