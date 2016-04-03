@@ -3,6 +3,8 @@ from twisted.internet import reactor
 
 from .base import FlotillaOutput
 
+import blackpearl.wingdbstub
+
 class MatrixOutput(FlotillaOutput):
     """
     Matrix
@@ -21,6 +23,7 @@ class MatrixOutput(FlotillaOutput):
         self.pixels = [0, 0, 0, 0, 0, 0, 0, 0]
         self.status = 'STOPPED'
         self.scrollspeed = 0.1
+        self.scroller = None
         data = self.pixels + [self.brightness,]
         self.send(data)
     
@@ -39,6 +42,8 @@ class MatrixOutput(FlotillaOutput):
         self.send(data)
         
     def text(self, text):
+        if self.status == 'SCROLLING':
+            return
         self.status = 'SCROLLING'
         pixels = []
         for ch in text:
@@ -49,13 +54,16 @@ class MatrixOutput(FlotillaOutput):
         self.scroll()
         
     @defer.deferredGenerator
-    def scroll(self):
+    def scroll(self, fresh=True):
         pixels = self.queue[:]
-        for i in range(len(pixels) - 7):
+        for c, i in enumerate(range(len(pixels) - 7)):
             if self.status != 'SCROLLING':
                 break
             chars = pixels[i:i+8]
             self.queue = self.queue[1:]
+            if len(self.queue) == 7:
+                self.queue = []
+                self.status = 'STOPPED'
             data = chars + [self.brightness,]
             d = defer.Deferred()
             reactor.callLater(self.scrollspeed, d.callback, self.send(data))
@@ -64,18 +72,19 @@ class MatrixOutput(FlotillaOutput):
         
     def stop(self):
         if self.status == 'SCROLLING':
-            self.status = 'STOPPED'
             self.reset()
             
     def pause(self):
         if self.status == 'SCROLLING':
             self.status = 'PAUSED'
             return
-        if self.status == 'PAUSED':
+        if self.status == 'PAUSED' and self.queue != []:
             self.status = 'SCROLLING'
+            self.scroll(fresh=False)
             return
+        
             
-    
+            
 ascii_letters = [
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],

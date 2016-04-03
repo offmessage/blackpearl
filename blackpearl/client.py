@@ -84,13 +84,24 @@ class FlotillaClient(LineReceiver):
                 # It's a touch
                 matrix = self.firstOf('matrix')
                 if d['buttons'][0]:
-                    matrix.text("Theyerses!")
+                    matrix.text("1234567890123456789012345678901234567890")
                 if d['buttons'][1]:
                     matrix.reset()
                 if d['buttons'][2]:
                     matrix.letter("W")
                 if d['buttons'][3]:
-                    matrix.stop()
+                    matrix.pause()
+            if 'slider' in d:
+                matrix = self.firstOf('matrix')
+                value = d['slider']
+                if value > 999:
+                    value = 999
+                if value < 10:
+                    value = 1
+                scalar = (1000 - value)/1000
+                matrix.scrollspeed = scalar
+                
+                
                 
         
     def connectedModules(self, type_=None):

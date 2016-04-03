@@ -29,7 +29,7 @@ class LinearInput(FlotillaInput):
             # This will never happen, unlike the Touch
             return None
         self.VALUE = value
-        return {'value': value,}
+        return {self.module: value,}
     
 
 class FlotillaOutput(FlotillaModule):
