@@ -24,13 +24,20 @@ class LinearInput(FlotillaInput):
     VALUE = None
     
     def change(self, data):
-        value = int(data)
+        value = self.calculate(int(data))
         if self.VALUE == value:
-            # This will never happen, unlike the Touch
+            # This might happen at the the upper and lower bounds
             return None
         self.VALUE = value
         return {self.module: value,}
     
+    def calculate(self, value):
+        # coping with the fuzziness around min and max values
+        if value < 6:
+            value = 0
+        if value > 999:
+            value = 1000
+        return value
 
 class FlotillaOutput(FlotillaModule):
     """
