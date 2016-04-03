@@ -12,10 +12,16 @@ class MatrixOutput(FlotillaOutput):
     brightness = 40
     pixels = [0, 0, 0, 0, 0, 0, 0, 0]
     scrollspeed = 0.1
+    status = 'STOPPED'
+    queue = []
     
     def reset(self):
-        reset = [0]*8 + [40]
-        self.send(reset)
+        self.queue = []
+        self.brightness = 40
+        self.pixels = [0, 0, 0, 0, 0, 0, 0, 0]
+        self.status = 'STOPPED'
+        data = self.pixels + [self.brightness,]
+        self.send(data)
     
     def scroll(self, text, loop=False):
         self.text(text)
@@ -27,28 +33,46 @@ class MatrixOutput(FlotillaOutput):
         pixels = ascii_letters[ord(text)]
         self.update(pixels)
         
-    @defer.deferredGenerator
-    def update(self, pixels, brightness=40, delay=0.001):
-        d = defer.Deferred()
+    def update(self, pixels, brightness=40):
         data = pixels + [brightness,]
-        reactor.callLater(delay, d.callback, self.send(data))
-        wfd = defer.waitForDeferred(d)
-        yield wfd
+        self.send(data)
         
-    @defer.deferredGenerator
     def text(self, text):
+        self.status = 'SCROLLING'
         pixels = []
         for ch in text:
             i = ord(ch)
             pixels.extend(ascii_letters[i])
         pixels.extend(ascii_letters[0])
+        self.queue = pixels
+        self.scroll()
+        
+    @defer.deferredGenerator
+    def scroll(self):
+        pixels = self.queue[:]
         for i in range(len(pixels) - 7):
+            if self.status != 'SCROLLING':
+                break
             chars = pixels[i:i+8]
+            self.queue = self.queue[1:]
             data = chars + [self.brightness,]
             d = defer.Deferred()
             reactor.callLater(self.scrollspeed, d.callback, self.send(data))
             wfd = defer.waitForDeferred(d)
             yield wfd
+        
+    def stop(self):
+        if self.status == 'SCROLLING':
+            self.status = 'STOPPED'
+            self.reset()
+            
+    def pause(self):
+        if self.status == 'SCROLLING':
+            self.status = 'PAUSED'
+            return
+        if self.status == 'PAUSED':
+            self.status = 'SCROLLING'
+            return
             
     
 ascii_letters = [
