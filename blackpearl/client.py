@@ -74,6 +74,7 @@ class FlotillaClient(LineReceiver):
             # We appear to have a problem with the Flotilla here, where modules
             # are reporting data so quickly and frequently that the Flotilla
             # can't respond to a request to enumerate the connected modules.
+            # We should probably emit an 'e' at this point?
             return
         d = self.modules[channel].change(data)
         if d is not None:
