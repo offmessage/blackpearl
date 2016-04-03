@@ -204,17 +204,13 @@ class MatrixOutput(FlotillaOutput):
             self.reset()
             
     def pause(self):
-        if self.status == 'SCROLLING' or self.status == 'LOOPING':
+        if self.status == "RUNNING":
             self.last_status = self.status
-            self.status = 'PAUSED'
+            self.status = "PAUSED"
             return
-        if self.status == 'PAUSED' and self.queue != []:
-            self.status = self.last_status
-            if self.status == 'LOOPING':
-                self.loopscroll(fresh=False)
-            elif self.status == 'SCROLLING':
-                self.scroll(fresh=False)
-            return
+        if self.status == "PAUSED":
+            self.status = "RUNNING"
+            self.active()
         
             
             
