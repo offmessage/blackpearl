@@ -88,10 +88,24 @@ class FlotillaClient(LineReceiver):
                     #matrix.text("1234567890", True)
                     #matrix.frames()
                     matrix.reset()
+                    matrix.addColumn(127)
+                    matrix.addColumn(1)
+                    matrix.addColumn(3)
+                    matrix.addColumn(7)
+                    matrix.addColumn(15)
+                    matrix.addColumn(31)
+                    matrix.addColumn(63)
+                    matrix.addColumn(127)
+                    matrix.addFrame([255,255,255,255,255,255,255,255])
                     matrix.addText("1234567890")
-                    matrix.scroller(loop=True)
+                    matrix.scrollspeed = 2
+                    matrix.loop = True
+                    matrix.scroller()
                 if d['buttons'][1]:
                     matrix.reset()
+                if d['buttons'][2]:
+                    matrix.update([228, 230, 162, 162, 190, 156, 0, 0,])
+                    
                 if d['buttons'][3]:
                     matrix.pause()
             if 'slider' in d:

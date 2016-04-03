@@ -34,6 +34,7 @@ class MatrixOutput(FlotillaOutput):
     queue = []
     workingframe = []
     lastindex = 0
+    loop = False
     
     def reset(self):
         self.queue = []
@@ -44,6 +45,7 @@ class MatrixOutput(FlotillaOutput):
         self.scrollspeed = 0.1
         self.workingframe = []
         self.lastindex = 0
+        self.loop = False
         self.update(self.pixels)
     
     def addText(self, text):
@@ -97,29 +99,41 @@ class MatrixOutput(FlotillaOutput):
             self.scroll()
         
     @defer.deferredGenerator
-    def scroller(self, loop=False):
+    def scroller(self, steps=1):
         self.status = "RUNNING"
         self.active = self.scroller
         finalindex = len(self.queue) - 7
+        loopcount = 0
         while self.status == "RUNNING":
-            for i in range(self.lastindex, len(self.queue)):
+            for i in range(self.lastindex, len(self.queue), steps):
+                print("Step:", i)
                 if self.status != "RUNNING":
                     # we are paused or stopped
                     break
                 self.lastindex = i
                 chars = self.queue[i:i+8]
-                if i == finalindex and not loop:
+                print("scroller", i, chars)
+                if i == finalindex and not self.loop:
                     self.status = "STOPPED"
                     break
-                if len(chars) < 8 and loop:
+                if len(chars) < 8 and self.loop:
                     chars += self.queue[:8-len(chars)]
                 d = defer.Deferred()
-                reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
+                if loopcount == 0:
+                    # Don't wait to send the first one...
+                    # XXX For some reason this doesn't update the matrix?
+                    # XXX And doing it as a deferred didn't either...
+                    self.update(chars)
+                    loopcount += 1
+                    continue
+                else:
+                    reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
                 wfd = defer.waitForDeferred(d)
+                loopcount += 1
                 yield wfd
-            if not loop:
+            if not self.loop:
                 break
-            else:
+            if self.status == "RUNNING":
                 self.lastindex = 0
             
             
@@ -205,7 +219,6 @@ class MatrixOutput(FlotillaOutput):
             
     def pause(self):
         if self.status == "RUNNING":
-            self.last_status = self.status
             self.status = "PAUSED"
             return
         if self.status == "PAUSED":
