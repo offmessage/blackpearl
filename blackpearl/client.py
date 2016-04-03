@@ -65,9 +65,7 @@ class FlotillaClient(LineReceiver):
         print("Found a {} on channel {}".format(module, channel))
         new_module = self.MODULES[module](self, channel)
         self.modules[channel] = new_module
-        if module == 'matrix':
-            self.modules[channel].scroll("Max is awesome and Amy isn't!")
-        
+            
     def handle_D(self, channel):
         self.modules[channel] = None
         
@@ -81,6 +79,16 @@ class FlotillaClient(LineReceiver):
         if d is not None:
             # here we loop through all the subscribers with the new data
             print(d)
+            if 'buttons' in d:
+                # It's a touch
+                matrix = self.firstOf('matrix')
+                if d['buttons'][0]:
+                    matrix.text("Max is awesome and Amy isn't!")
+                if d['buttons'][1]:
+                    matrix.reset()
+                if d['buttons'][2]:
+                    matrix.letter("W")
+                
         
     def connectedModules(self, type_=None):
         if type_ is None:
