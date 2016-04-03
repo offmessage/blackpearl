@@ -84,11 +84,13 @@ class FlotillaClient(LineReceiver):
                 # It's a touch
                 matrix = self.firstOf('matrix')
                 if d['buttons'][0]:
-                    matrix.text("Max is awesome and Amy isn't!")
+                    matrix.text("Theyerses!")
                 if d['buttons'][1]:
                     matrix.reset()
                 if d['buttons'][2]:
                     matrix.letter("W")
+                if d['buttons'][3]:
+                    matrix.stop()
                 
         
     def connectedModules(self, type_=None):
