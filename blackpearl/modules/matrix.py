@@ -9,16 +9,34 @@ class MatrixOutput(FlotillaOutput):
     """
     module = "matrix"
     
+    brightness = 40
+    pixels = [0, 0, 0, 0, 0, 0, 0, 0]
+    scrollspeed = 0.1
     
-    def scroll(self, text):
+    def reset(self):
+        reset = [0]*8 + [40]
+        self.send(reset)
+    
+    def scroll(self, text, loop=False):
         self.text(text)
     
+    def loop(self, text):
+        self.scroll(text, loop=True)
+        
+    def letter(self, text):
+        pixels = ascii_letters[ord(text)]
+        self.update(pixels)
+        
+    @defer.deferredGenerator
+    def update(self, pixels, brightness=40, delay=0.001):
+        d = defer.Deferred()
+        data = pixels + [brightness,]
+        reactor.callLater(delay, d.callback, self.send(data))
+        wfd = defer.waitForDeferred(d)
+        yield wfd
+        
     @defer.deferredGenerator
     def text(self, text):
-        def sender(data):
-            d = defer.Deferred()
-            reactor.callLater(0.1, d.callback, self.send(data))
-            return d
         pixels = []
         for ch in text:
             i = ord(ch)
@@ -26,8 +44,9 @@ class MatrixOutput(FlotillaOutput):
         pixels.extend(ascii_letters[0])
         for i in range(len(pixels) - 7):
             chars = pixels[i:i+8]
-            chars.append(40)
-            d = sender(chars)
+            data = chars + [self.brightness,]
+            d = defer.Deferred()
+            reactor.callLater(self.scrollspeed, d.callback, self.send(data))
             wfd = defer.waitForDeferred(d)
             yield wfd
             
