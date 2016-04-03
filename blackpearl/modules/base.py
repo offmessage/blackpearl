@@ -49,7 +49,9 @@ class FlotillaOutput(FlotillaModule):
         #num = ["0"]*8
         #num.append("40")
         #data = ",".join(num)
-        cmd = "s {} {}".format(self.channel, data).encode()
+        datastring = ','.join([ str(d) for d in data ])
+        cmd = "s {} {}".format(self.channel, datastring).encode()
+        print(cmd)
         self.flotilla.flotillaCommand(cmd)
 
 
