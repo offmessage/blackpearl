@@ -8,6 +8,7 @@ import blackpearl.wingdbstub
 class MatrixOutput(FlotillaOutput):
     """
     Matrix
+    This is an absolute mess at the moment, but it works :)
     """
     module = "matrix"
     
@@ -72,9 +73,8 @@ class MatrixOutput(FlotillaOutput):
                 # we've consumed the queue, delete it and set status to stopped
                 self.queue = []
                 self.status = 'STOPPED'
-            data = chars + [self.brightness,]
             d = defer.Deferred()
-            reactor.callLater(self.scrollspeed, d.callback, self.send(data))
+            reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
             wfd = defer.waitForDeferred(d)
             yield wfd
         
@@ -94,9 +94,8 @@ class MatrixOutput(FlotillaOutput):
                 else:
                     start = i - finalindex
                     chars = self.queue[i:] + self.queue[:start]
-                data = chars + [self.brightness,]
                 d = defer.Deferred()
-                reactor.callLater(self.scrollspeed, d.callback, self.send(data))
+                reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
                 wfd = defer.waitForDeferred(d)
                 yield wfd
             if self.status == 'LOOPING':
