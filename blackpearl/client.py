@@ -85,11 +85,10 @@ class FlotillaClient(LineReceiver):
                 matrix = self.firstOf('matrix')
                 if d['buttons'][0]:
                     #matrix.text("1234567890123456789012345678901234567890", False)
-                    matrix.text("1234567890", True)
+                    #matrix.text("1234567890", True)
+                    matrix.frames()
                 if d['buttons'][1]:
                     matrix.reset()
-                if d['buttons'][2]:
-                    matrix.letter("W")
                 if d['buttons'][3]:
                     matrix.pause()
             if 'slider' in d:
