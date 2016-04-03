@@ -9,6 +9,19 @@ class MatrixOutput(FlotillaOutput):
     """
     Matrix
     This is an absolute mess at the moment, but it works :)
+    
+    Would be nice to separate building the queue from the way that we empty
+    it. In other words:
+    .addText("string")
+    .addColumn(0x00)
+    .addFrame([0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,])
+    
+    And then:
+    .scroll(loop=False)
+    .frames(loop=False)
+    .next()
+    
+    And then we could handle the pause/unpause better too
     """
     module = "matrix"
     
@@ -24,7 +37,6 @@ class MatrixOutput(FlotillaOutput):
         self.pixels = [0, 0, 0, 0, 0, 0, 0, 0]
         self.status = 'STOPPED'
         self.scrollspeed = 0.1
-        self.scroller = None
         data = self.pixels + [self.brightness,]
         self.send(data)
     
@@ -101,6 +113,37 @@ class MatrixOutput(FlotillaOutput):
             if self.status == 'LOOPING':
                 self.lastindex = 0
                     
+    @defer.deferredGenerator
+    def frames(self, fresh=True):
+        self.status = 'SCROLLING'
+        self.scrollspeed = 0.3
+        pixels = []
+        for ch in "1234567890":
+            i = ord(ch)
+            pixels.extend(ascii_letters[i])
+        pixels.extend(ascii_letters[0])
+        self.queue = pixels
+        #above here is shite
+        pixels = self.queue[:]
+        finalindex = len(pixels) - 7
+        if fresh:
+            # restart the queue from column 1
+            self.lastindex = 0
+        for i in range(self.lastindex, finalindex, 8):
+            if self.status != 'SCROLLING':
+                # we are paused (or stopped)
+                break
+            self.lastindex = i
+            chars = pixels[i:i+8]
+            if i == finalindex:
+                # we've consumed the queue, delete it and set status to stopped
+                self.queue = []
+                self.status = 'STOPPED'
+            d = defer.Deferred()
+            reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
+            wfd = defer.waitForDeferred(d)
+            yield wfd
+        
     def stop(self):
         if self.status == 'SCROLLING' or self.status == 'LOOPING':
             self.reset()
