@@ -85,7 +85,7 @@ class FlotillaClient(LineReceiver):
     def connectedModules(self, type_=None):
         if type_ is None:
             return self.modules.values()
-        return [ m for m in self.modules.values if m.module == type_ ]
+        return [ m for m in self.modules.values() if m is not None and m.module == type_ ]
     
     def firstOf(self, type_):
         modules = self.connectedModules(type_)
