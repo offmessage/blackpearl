@@ -15,6 +15,7 @@ from .modules import JoystickInput
 from .modules import LightInput
 from .modules import MatrixOutput
 from .modules import MotionInput
+from .modules import RainbowOutput
 from .modules import SliderInput
 from .modules import TouchInput
 from .modules import WeatherInput
@@ -24,7 +25,7 @@ class FlotillaClient(LineReceiver):
     
     MODULES = {'matrix': MatrixOutput,
                'number': FlotillaOutput,
-               'rainbow': FlotillaOutput,
+               'rainbow': RainbowOutput,
                'motor': FlotillaOutput,
                'touch': TouchInput,
                'dial': DialInput,
@@ -83,6 +84,7 @@ class FlotillaClient(LineReceiver):
             if 'buttons' in d:
                 # It's a touch
                 matrix = self.firstOf('matrix')
+                rainbow = self.firstOf('rainbow')
                 if d['buttons'][0]:
                     #matrix.text("1234567890123456789012345678901234567890", False)
                     #matrix.text("1234567890", True)
@@ -102,12 +104,14 @@ class FlotillaClient(LineReceiver):
                     matrix.loop = True
                     matrix.scroller()
                 if d['buttons'][1]:
-                    matrix.reset()
-                if d['buttons'][2]:
-                    matrix.update([228, 230, 162, 162, 190, 156, 0, 0,])
-                    
+                    #matrix.reset()
+                    #rainbow.set_all(10, 10, 10)
+                    rainbow.reset()
                 if d['buttons'][3]:
                     matrix.pause()
+                if d['buttons'][2]:
+                    rainbow.set_all(255, 0, 0)
+                    rainbow.update()
             if 'slider' in d:
                 matrix = self.firstOf('matrix')
                 value = d['slider']
@@ -122,6 +126,12 @@ class FlotillaClient(LineReceiver):
                 else:
                     speed = 0.03
                 matrix.scrollspeed = speed
+                rainbow = self.firstOf('rainbow')
+                if rainbow is not None:
+                    color = rainbow.hue(value/1000.0)
+                    rainbow.set_all(*color)
+                    rainbow.update()
+                
                 
                 
                 

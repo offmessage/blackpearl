@@ -14,6 +14,7 @@ from .joystick import JoystickInput
 from .light import LightInput
 from .matrix import MatrixOutput
 from .motion import MotionInput
+from .rainbow import RainbowOutput
 from .slider import SliderInput
 from .touch import TouchInput
 from .weather import WeatherInput

@@ -92,7 +92,7 @@ class MatrixOutput(FlotillaOutput):
         if not loop:
             pixels.extend(ascii_letters[0])
         self.queue = pixels
-        print(len(self.queue), loop)
+        #print(len(self.queue), loop)
         if loop:
             self.loopscroll()
         else:
@@ -106,13 +106,13 @@ class MatrixOutput(FlotillaOutput):
         loopcount = 0
         while self.status == "RUNNING":
             for i in range(self.lastindex, len(self.queue), steps):
-                print("Step:", i)
+                #print("Step:", i)
                 if self.status != "RUNNING":
                     # we are paused or stopped
                     break
                 self.lastindex = i
                 chars = self.queue[i:i+8]
-                print("scroller", i, chars)
+                #print("scroller", i, chars)
                 if i == finalindex and not self.loop:
                     self.status = "STOPPED"
                     break
