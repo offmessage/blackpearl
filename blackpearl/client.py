@@ -19,6 +19,7 @@ from .modules import LightInput
 from .modules import MatrixOutput
 from .modules import MotionInput
 from .modules import MotorOutput
+from .modules import NumberOutput
 from .modules import RainbowOutput
 from .modules import SliderInput
 from .modules import TouchInput
@@ -28,7 +29,7 @@ from .modules import WeatherInput
 class FlotillaClient(LineReceiver):
     
     MODULES = {'matrix': MatrixOutput,
-               'number': FlotillaOutput,
+               'number': NumberOutput,
                'rainbow': RainbowOutput,
                'motor': MotorOutput,
                'touch': TouchInput,

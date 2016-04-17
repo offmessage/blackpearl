@@ -15,6 +15,7 @@ from .light import LightInput
 from .matrix import MatrixOutput
 from .motion import MotionInput
 from .motor import MotorOutput
+from .number import NumberOutput
 from .rainbow import RainbowOutput
 from .slider import SliderInput
 from .touch import TouchInput
