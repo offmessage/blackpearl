@@ -10,7 +10,8 @@ What is it?
 
 This packages provides an asyncronous API to the Pimoroni Flotilla (you can
 read more at `http://flotil.la`). It is so named because we rely on the
-excellent Twisted network communication library to do all our heavy lifting.
+excellent Twisted network communication library to do all our heavy lifting, and
+because we like Pirates of the Caribbean.
 
 Why?
 ====
