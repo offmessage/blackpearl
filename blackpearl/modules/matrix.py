@@ -8,21 +8,8 @@ import blackpearl.wingdbstub
 class MatrixOutput(FlotillaOutput):
     """
     Matrix
-    This is an absolute mess at the moment, but it works :)
+    There is much to do. Particularly look at .frames()
     
-    Would be nice to separate building the queue from the way that we empty
-    it. In other words:
-    .addText("string")
-    .addColumn(0x00)
-    .addFrame([0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,])
-    .addToFrame(x,y)
-    
-    And then:
-    .scroll(loop=False)
-    .frames(loop=False)
-    .next()
-    
-    And then we could handle the pause/unpause better too
     """
     module = "matrix"
     
