@@ -12,7 +12,7 @@ except ImportError:
 
 class RainbowOutput(FlotillaOutput):
     """
-    Matrix
+    Rainbow
     """
     module = "rainbow"
     
@@ -51,6 +51,9 @@ class RainbowOutput(FlotillaOutput):
             self.set_pixel(i, r, g, b)
             
     def hue(self, value):
+        """
+        This is wholesale lifted from the rockpool Javascript :)
+        """
         h = value
         s = 1.0
         v = 1.0
