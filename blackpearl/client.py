@@ -18,6 +18,7 @@ from .modules import JoystickInput
 from .modules import LightInput
 from .modules import MatrixOutput
 from .modules import MotionInput
+from .modules import MotorOutput
 from .modules import RainbowOutput
 from .modules import SliderInput
 from .modules import TouchInput
@@ -29,7 +30,7 @@ class FlotillaClient(LineReceiver):
     MODULES = {'matrix': MatrixOutput,
                'number': FlotillaOutput,
                'rainbow': RainbowOutput,
-               'motor': FlotillaOutput,
+               'motor': MotorOutput,
                'touch': TouchInput,
                'dial': DialInput,
                'slider': SliderInput,
@@ -90,11 +91,12 @@ class FlotillaClient(LineReceiver):
             if 'buttons' in d:
                 # It's a touch
                 matrix = self.firstOf('matrix')
-                rainbow = self.firstOf('rainbow')
+                #rainbow = self.firstOf('rainbow')
+                motor = self.firstOf('motor')
                 if d['buttons'][0]:
-                    rainbow.reset()
-                    rainbow.set_all(255,255,255)
-                    rainbow.update()
+                    #rainbow.reset()
+                    #rainbow.set_all(255,255,255)
+                    #rainbow.update()
                     matrix.reset()
                     matrix.addColumn(127)
                     matrix.addColumn(1)
@@ -110,32 +112,38 @@ class FlotillaClient(LineReceiver):
                     matrix.loop = True
                     matrix.scroller()
                 if d['buttons'][1]:
-                    rainbow.reset()
+                    #rainbow.reset()
                     matrix.reset()
+                    motor.stop()
                 if d['buttons'][3]:
                     matrix.pause()
                 if d['buttons'][2]:
-                    rainbow.set_all(255, 0, 0)
-                    rainbow.update()
+                    #rainbow.set_all(255, 0, 0)
+                    #rainbow.update()
+                    motor.set_speed(50)
             if 'slider' in d:
                 matrix = self.firstOf('matrix')
-                value = d['slider']
-                if 0 <= value < 200:
-                    speed = 0.3
-                elif 200 <= value < 400:
-                    speed = 0.2
-                elif 400 <= value < 600:
-                    speed = 0.1
-                elif 600 <= value < 800:
-                    speed = 0.07
-                else:
-                    speed = 0.03
-                matrix.scrollspeed = speed
+                if matrix is not None:
+                    value = d['slider']
+                    if 0 <= value < 200:
+                        speed = 0.3
+                    elif 200 <= value < 400:
+                        speed = 0.2
+                    elif 400 <= value < 600:
+                        speed = 0.1
+                    elif 600 <= value < 800:
+                        speed = 0.07
+                    else:
+                        speed = 0.03
+                    matrix.scrollspeed = speed
                 rainbow = self.firstOf('rainbow')
                 if rainbow is not None:
                     color = rainbow.hue(value/1000.0)
                     rainbow.set_all(*color)
                     rainbow.update()
+                motor = self.firstOf('motor')
+                if motor is not None:
+                    motor.linearinput(value)
                 
                 
                 
