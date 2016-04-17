@@ -25,7 +25,7 @@ in.
 
 Unfortunately the Python API as provided isn't the most efficient way of doing
 things. In fact, the Python API also pegs the processor, largely because of its
-reliance on ```while True``` loops and lots of ```time.sleep()``` calls.
+reliance on ``while True`` loops and lots of ``time.sleep()`` calls.
 
 blackpeal is capable of taking input from multiple inputs, processing that input
 and sending it to multiple outputs with the Rpi2 running at around 7% processor
@@ -35,12 +35,12 @@ watching a movie. On a Raspberry Pi.
 Installation
 ============
 
-I assume that you are looking for something more than the "pipe this URL through
-bash, while running as root". I know that those types of instructions are easy
+I assume that you are looking for something more than the *"pipe this URL through
+bash, while running as root"*. I know that those types of instructions are easy
 to follow, but they are dangerous. We are pirates. We only take calculated
 risks.
 
-Add the ```pi``` (or your preferred user) to the ```dialout``` group
+Add the ``pi`` (or your preferred user) to the ``dialout`` group
 
 Create a python virtual environment
 
