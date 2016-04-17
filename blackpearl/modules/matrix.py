@@ -39,14 +39,13 @@ class MatrixOutput(FlotillaOutput):
     def reset(self):
         self.queue = []
         self.brightness = 40
-        self.pixels = [0, 0, 0, 0, 0, 0, 0, 0]
         self.status = 'STOPPED'
         self.active = None
         self.scrollspeed = 0.1
         self.workingframe = []
         self.lastindex = 0
         self.loop = False
-        self.update(self.pixels)
+        self.update([0, 0, 0, 0, 0, 0, 0, 0])
     
     def addText(self, text):
         for ch in text:
@@ -75,6 +74,7 @@ class MatrixOutput(FlotillaOutput):
         self.queue.extend(frame)
         
     def update(self, pixels):
+        self.pixels = pixels
         data = pixels + [self.brightness,]
         self.send(data)
         
@@ -92,7 +92,6 @@ class MatrixOutput(FlotillaOutput):
         if not loop:
             pixels.extend(ascii_letters[0])
         self.queue = pixels
-        #print(len(self.queue), loop)
         if loop:
             self.loopscroll()
         else:
@@ -106,13 +105,11 @@ class MatrixOutput(FlotillaOutput):
         loopcount = 0
         while self.status == "RUNNING":
             for i in range(self.lastindex, len(self.queue), steps):
-                #print("Step:", i)
                 if self.status != "RUNNING":
                     # we are paused or stopped
                     break
                 self.lastindex = i
                 chars = self.queue[i:i+8]
-                #print("scroller", i, chars)
                 if i == finalindex and not self.loop:
                     self.status = "STOPPED"
                     break

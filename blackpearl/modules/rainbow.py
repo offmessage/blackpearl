@@ -31,7 +31,6 @@ class RainbowOutput(FlotillaOutput):
     
     def update(self):
         data = list(chain.from_iterable([ list(pixel) for pixel in self.pixels ]))
-        print(data)
         self.send(data)
         
     def set_pixel(self, pos, r, g, b):
@@ -52,7 +51,6 @@ class RainbowOutput(FlotillaOutput):
             self.set_pixel(i, r, g, b)
             
     def hue(self, value):
-        print(value)
         h = value
         s = 1.0
         v = 1.0
@@ -88,6 +86,5 @@ class RainbowOutput(FlotillaOutput):
             g = p
             b = q
         rgb = [int(r*255), int(g*255), int(b*255)]
-        print(rgb)
         return rgb
     

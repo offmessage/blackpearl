@@ -5,6 +5,9 @@ FlotillaClient
 """
 
 
+import time
+
+from twisted.internet.defer import DeferredQueue
 from twisted.protocols.basic import LineReceiver
 
 from .modules.base import FlotillaOutput # temporary
@@ -36,6 +39,7 @@ class FlotillaClient(LineReceiver):
                'colour': ColourInput,
                'weather': WeatherInput,
                }
+    #queue = None
     
     def _resetModules(self):
         self.modules = {0: None,
@@ -50,10 +54,12 @@ class FlotillaClient(LineReceiver):
         
     def connectionLost(self, reason):
         self._resetModules()
+        self.queue = None
         print('Flotilla is disconnected.')
         
     def connectionMade(self):
         self._resetModules()
+        #self.queue = DeferredQueue()
         print('Flotilla is connected.')
         self.flotillaCommand(b'e')
         
@@ -86,9 +92,9 @@ class FlotillaClient(LineReceiver):
                 matrix = self.firstOf('matrix')
                 rainbow = self.firstOf('rainbow')
                 if d['buttons'][0]:
-                    #matrix.text("1234567890123456789012345678901234567890", False)
-                    #matrix.text("1234567890", True)
-                    #matrix.frames()
+                    rainbow.reset()
+                    rainbow.set_all(255,255,255)
+                    rainbow.update()
                     matrix.reset()
                     matrix.addColumn(127)
                     matrix.addColumn(1)
@@ -104,9 +110,8 @@ class FlotillaClient(LineReceiver):
                     matrix.loop = True
                     matrix.scroller()
                 if d['buttons'][1]:
-                    #matrix.reset()
-                    #rainbow.set_all(10, 10, 10)
                     rainbow.reset()
+                    matrix.reset()
                 if d['buttons'][3]:
                     matrix.pause()
                 if d['buttons'][2]:
