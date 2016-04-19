@@ -10,8 +10,6 @@ import time
 from twisted.internet.defer import DeferredQueue
 from twisted.protocols.basic import LineReceiver
 
-from .modules.base import FlotillaOutput # temporary
-
 from .modules import ColourInput
 from .modules import DialInput
 from .modules import JoystickInput
@@ -41,7 +39,6 @@ class FlotillaClient(LineReceiver):
                'colour': ColourInput,
                'weather': WeatherInput,
                }
-    #queue = None
     
     def _resetModules(self):
         self.modules = {0: None,
@@ -56,12 +53,10 @@ class FlotillaClient(LineReceiver):
         
     def connectionLost(self, reason):
         self._resetModules()
-        self.queue = None
         print('Flotilla is disconnected.')
         
     def connectionMade(self):
         self._resetModules()
-        #self.queue = DeferredQueue()
         print('Flotilla is connected.')
         self.flotillaCommand(b'e')
         
@@ -146,10 +141,6 @@ class FlotillaClient(LineReceiver):
                 if motor is not None:
                     motor.linearinput(value)
                 
-                
-                
-                
-        
     def connectedModules(self, type_=None):
         if type_ is None:
             return self.modules.values()
@@ -163,7 +154,9 @@ class FlotillaClient(LineReceiver):
         l.sort()
         return l[0][1]
         
-    def lineReceived(self, line):      
+    def lineReceived(self, line):
+        # TODO:
+        # Better error handling
         parts = line.split(b" ")
         cmd = parts[0]
         if cmd == b'#':
