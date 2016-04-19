@@ -34,12 +34,34 @@ class NumberOutput(FlotillaOutput):
         #self.loop = False
         self.update([0, 0, 0, 0, ])
     
-    def set_number(self, number):
-        # turn it into a string
-        # if it's only digits, maxlength 4
-        # if there's a decimal, maxlength 5
-        # then reverse the string and set each digit from the right (so we
-        # can cope with numbers less then 4 digits in length
+    def set_digit(self, posn, value):
+        if not (0 <= value <= 255):
+            raise ValueError("value should be between 0 and 255")
+        if not (0 <= value <= 3):
+            raise ValueError("posn should be between 0 and 3")
+        self.digits[posn] = value
+        
+    def set_number(self, number, pad=None):
+        # That's all bollocks
+        if not (-999 <= number <= 9999):
+            raise ValueError("Number is too large. Must be between -999 and 9999")
+        digits = str(number)
+        count = len(digits)
+        pointloc = digits.find(".")
+        if pointloc >= 0:
+            # decimal points do not consume a digit
+            count = count - 1
+        # Insert the correct number of _pad_ at the front of digits to make
+        # digits length 4
+        # cycle through digits, setting each one
+        # capture the decimal point and set it
+                
+    def set_time(self, hours, minutes, pad=None):
+        if not (0 <= hours <= 23):
+            raise ValueError("Hours must be between 0 and 23")
+        if not (0 <= minutes <= 59):
+            raise ValueError("Minutes must be between 0 and 59")
+        self.set_colon(True)
         return
             
     def update(self, digits):
