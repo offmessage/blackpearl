@@ -3,7 +3,7 @@ from .base import FlotillaInput
 class ColourInput(FlotillaInput):
     """
     Colour
-    Notably the Flotilla crew ignore the 'brightness' element!
+    Notably the Flotilla crew ignore the 'brightness' element (c)!
     """
     module = "colour"
     RGB = [0,0,0,]
