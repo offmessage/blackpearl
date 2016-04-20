@@ -40,9 +40,10 @@ class NumberOutput(FlotillaOutput):
         self.set_value(posn, value)
         
     def set_value(self, posn, value):
+        print(posn, value)
         if not (0 <= value <= 255):
             raise ValueError("value should be between 0 and 255")
-        if not (0 <= value <= 3):
+        if not (0 <= posn <= 3):
             raise ValueError("posn should be between 0 and 3")
         self.digits[posn] = value
         
@@ -138,7 +139,7 @@ class NumberOutput(FlotillaOutput):
         for i in range(4):
             self.set_digit(i, digits[i])
             
-    def update(self, digits):
+    def update(self):
         data = self.digits + [self.colon, self.apostrophe, self.brightness,]
         self.send(data)
         
