@@ -152,7 +152,7 @@ class FlotillaClient(LineReceiver):
                     motor.linearinput(value)
                 number = self.firstOf('number')
                 if number is not None:
-                    number.set_number(value)
+                    number.set_number(value, pad="0")
                     number.update()
                 
     def connectedModules(self, type_=None):
