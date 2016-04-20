@@ -86,36 +86,47 @@ class FlotillaClient(LineReceiver):
             if 'buttons' in d:
                 # It's a touch
                 matrix = self.firstOf('matrix')
-                #rainbow = self.firstOf('rainbow')
+                rainbow = self.firstOf('rainbow')
                 motor = self.firstOf('motor')
-                if d['buttons'][0]:
-                    #rainbow.reset()
-                    #rainbow.set_all(255,255,255)
-                    #rainbow.update()
-                    matrix.reset()
-                    matrix.addColumn(127)
-                    matrix.addColumn(1)
-                    matrix.addColumn(3)
-                    matrix.addColumn(7)
-                    matrix.addColumn(15)
-                    matrix.addColumn(31)
-                    matrix.addColumn(63)
-                    matrix.addColumn(127)
-                    matrix.addFrame([255,255,255,255,255,255,255,255])
-                    matrix.addText("1234567890")
-                    matrix.scrollspeed = 2
-                    matrix.loop = True
-                    matrix.scroller()
+                number = self.firstOf('number')
+                if d['buttons'][0] and matrix is not None:
+                    if rainbow is not None:
+                        rainbow.reset()
+                        rainbow.set_all(255,255,255)
+                        rainbow.update()
+                    if matrix is not None:
+                        matrix.reset()
+                        matrix.addColumn(127)
+                        matrix.addColumn(1)
+                        matrix.addColumn(3)
+                        matrix.addColumn(7)
+                        matrix.addColumn(15)
+                        matrix.addColumn(31)
+                        matrix.addColumn(63)
+                        matrix.addColumn(127)
+                        matrix.addFrame([255,255,255,255,255,255,255,255])
+                        matrix.addText("1234567890")
+                        matrix.scrollspeed = 2
+                        matrix.loop = True
+                        matrix.scroller()
                 if d['buttons'][1]:
-                    #rainbow.reset()
-                    matrix.reset()
-                    motor.stop()
+                    if rainbow is not None:
+                        rainbow.reset()
+                    if matrix is not None:
+                        matrix.reset()
+                    if motor is not None:
+                        motor.stop()
+                    if number is not None:
+                        number.reset()
                 if d['buttons'][3]:
-                    matrix.pause()
+                    if matrix is not None:
+                        matrix.pause()
                 if d['buttons'][2]:
-                    #rainbow.set_all(255, 0, 0)
-                    #rainbow.update()
-                    motor.set_speed(50)
+                    if rainbow is not None:
+                        rainbow.set_all(255, 0, 0)
+                        rainbow.update()
+                    if motor is not None:
+                        motor.set_speed(50)
             if 'slider' in d:
                 matrix = self.firstOf('matrix')
                 if matrix is not None:
@@ -139,6 +150,10 @@ class FlotillaClient(LineReceiver):
                 motor = self.firstOf('motor')
                 if motor is not None:
                     motor.linearinput(value)
+                number = self.firstOf('number')
+                if number is not None:
+                    number.set_number(value)
+                    number.update()
                 
     def connectedModules(self, type_=None):
         if type_ is None:
