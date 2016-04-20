@@ -50,9 +50,12 @@ class RainbowOutput(FlotillaOutput):
         for i in range(5):
             self.set_pixel(i, r, g, b)
             
-    def hue(self, value):
+    @staticmethod
+    def hue(value):
+        # XXX Check I haven't ballsed this by making it a staticmethod
         """
         This is wholesale lifted from the rockpool Javascript :)
+        Takes a value between 0 and 1 and returns an RGB value
         """
         h = value
         s = 1.0
