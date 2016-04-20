@@ -52,11 +52,13 @@ class FlotillaClient(LineReceiver):
         
     def connectionLost(self, reason):
         self._resetModules()
+        self.subscribers = []
         print('Flotilla is disconnected.')
         
     def connectionMade(self):
         # XXX This needs far better error handling!
         self._resetModules()
+        self.subscribers = []
         print('Flotilla is connected.')
         self.flotillaCommand(b'e')
         
@@ -65,15 +67,22 @@ class FlotillaClient(LineReceiver):
         self.sendLine(cmd)
         self.delimiter = b'\r\n'
         
+    def addSubscriber(self, cls):
+        self.subscribers.append(cls(self))
+        
     def handle_C(self, channel, module):
         print("Found a {} on channel {}".format(module, channel))
         new_module = self.MODULES[module](self, channel)
         self.modules[channel] = new_module
+        for s in self.subscribers:
+            s.newModule(channel, module)
             
-    def handle_D(self, channel):
+    def handle_D(self, channel, module):
         self.modules[channel] = None
+        for s in self.subscribers:
+            s.delModule(channel, module)
         
-    def handle_U(self, channel, data):
+    def handle_U(self, channel, module, data):
         if self.modules[channel] is None:
             # We appear to have a problem with the Flotilla here, where modules
             # are reporting data so quickly and frequently that the Flotilla
@@ -82,6 +91,8 @@ class FlotillaClient(LineReceiver):
             return
         d = self.modules[channel].change(data)
         if d is not None:
+            for s in self.subscribers:
+                s.update(channel, module, data)
             # here we loop through all the subscribers with the new data
             print(d)
             if 'buttons' in d:
@@ -184,10 +195,10 @@ class FlotillaClient(LineReceiver):
             self.handle_C(channel, module)
             return
         if cmd == b'd':
-            self.handle_D(channel)
+            self.handle_D(channel, module)
             return
         if cmd == b'u':
             data = parts[2]
-            self.handle_U(channel, data)
+            self.handle_U(channel, module, data)
             return
 
