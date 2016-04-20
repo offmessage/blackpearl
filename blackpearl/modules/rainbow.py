@@ -1,8 +1,5 @@
 from itertools import chain
 
-from twisted.internet import defer
-from twisted.internet import reactor
-
 from .base import FlotillaOutput
 
 try:
