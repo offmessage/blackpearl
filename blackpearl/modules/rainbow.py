@@ -30,26 +30,27 @@ class RainbowOutput(FlotillaOutput):
         data = list(chain.from_iterable([ list(pixel) for pixel in self.pixels ]))
         self.send(data)
         
-    def set_pixel(self, pos, r, g, b):
-        if pos > 4:
-            raise TypeError
+    def set_pixel(self, posn, r, g, b):
+        if posn > 4:
+            raise ValueError("posn should be between 0 and 4")
         if max([r,g,b]) > 255:
-            raise TypeError
+            raise ValueError("r g & b should be less than 256")
         if min([r,g,b]) < 0:
-            raise TypeError
+            raise ValueError("r, g & b should be greater or equal than 0")
         self.pixels[pos] = (r, g, b)
     
     def set_all(self, r, g, b):
         if max([r,g,b]) > 255:
-            raise TypeError
+            raise ValueError("r, g & b should be less than 256")
         if min([r,g,b]) < 0:
-            raise TypeError
+            raise ValueError("r, g & b should be greater or equal than 0")
         for i in range(5):
             self.set_pixel(i, r, g, b)
             
     @staticmethod
     def hue(value):
         # XXX Check I haven't ballsed this by making it a staticmethod
+        # XXX do some sense checking on input - we are everywhere else
         """
         This is wholesale lifted from the rockpool Javascript :)
         Takes a value between 0 and 1 and returns an RGB value
