@@ -28,18 +28,18 @@ Unfortunately the Python API as provided isn't the most efficient way of doing
 things. In fact, the Python API also pegs the processor, largely because of its
 reliance on ``while True`` loops and lots of ``time.sleep()`` calls.
 
-**blackpearl** is capable of taking input from multiple inputs, processing that input
-and sending it to multiple outputs with the Rpi2 running at around 7% processor
-load. In other words, you could be playing with your Flotilla whilst also
-watching a movie. On a Raspberry Pi.
+**blackpearl** is capable of taking input from multiple inputs, processing that
+input and sending it to multiple outputs with the Rpi2 running at around 7%
+processor load. In other words, you could be playing with your Flotilla whilst
+also watching a movie. On a Raspberry Pi.
 
 Installation
 ============
 
-I assume that you are looking for something more than the *"pipe this URL through
-bash, while running as root"*. I know that those types of instructions are easy
-to follow, but they are dangerous. We are pirates. We only take calculated
-risks.
+I assume that you are looking for something more than the *"pipe this URL
+through bash, while running as root"*. I know that those types of instructions
+are easy to follow, but they are dangerous. We are pirates. We only take
+calculated risks. That's how we've evaded capture and kept all our treasure.
 
 Add the ``pi`` (or your preferred user) to the ``dialout`` group
 
