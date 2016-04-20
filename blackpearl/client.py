@@ -7,7 +7,6 @@ FlotillaClient
 
 import time
 
-from twisted.internet.defer import DeferredQueue
 from twisted.protocols.basic import LineReceiver
 
 from .modules import ColourInput
