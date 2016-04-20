@@ -27,11 +27,11 @@ class MatrixOutput(FlotillaOutput):
         self.queue = []
         self.brightness = 40
         self.status = 'STOPPED'
-        self.active = None # Think this can be removed once we've removed the call to self.active() in self.pause()
         self.scrollspeed = 0.1
         self.workingframe = []
         self.lastindex = 0
         self.loop = False
+        self.steps = 1
         self.update([0, 0, 0, 0, 0, 0, 0, 0])
     
     def addText(self, text):
@@ -65,33 +65,17 @@ class MatrixOutput(FlotillaOutput):
         data = pixels + [self.brightness,]
         self.send(data)
         
-    def text(self, text, loop):
-        # XXX Think this can be removed entirely? Test?
-        if self.status == 'SCROLLING' or self.status == 'LOOPING':
-            return
-        if loop:
-            self.status = 'LOOPING'
-        else:
-            self.status = 'SCROLLING'
-        pixels = []
-        for ch in text:
-            i = ord(ch)
-            pixels.extend(ascii_letters[i])
-        if not loop:
-            pixels.extend(ascii_letters[0])
-        self.queue = pixels
-        if loop:
-            self.loopscroll()
-        else:
-            self.scroll()
+    def frames(self):
+        self.scroller(steps=8)
+        
+    def scroll(self):
+        self.scroller(steps=1)
         
     @defer.deferredGenerator
     def scroller(self, steps=1):
-        # XXX Test this works with frames (steps == 8)
+        self.steps = steps
         self.status = "RUNNING"
-        self.active = self.scroller
         finalindex = len(self.queue) - 7
-        loopcount = 0
         while self.status == "RUNNING":
             for i in range(self.lastindex, len(self.queue), steps):
                 if self.status != "RUNNING":
@@ -105,105 +89,13 @@ class MatrixOutput(FlotillaOutput):
                 if len(chars) < 8 and self.loop:
                     chars += self.queue[:8-len(chars)]
                 d = defer.Deferred()
-                if loopcount == 0:
-                    # Don't wait to send the first one...
-                    self.update(chars)
-                    loopcount += 1
-                    continue
-                else:
-                    reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
+                reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
                 wfd = defer.waitForDeferred(d)
-                loopcount += 1
                 yield wfd
             if not self.loop:
                 break
             if self.status == "RUNNING":
                 self.lastindex = 0
-            
-            
-    @defer.deferredGenerator
-    def scroll(self, fresh=True):
-        # XXX Think this can be removed entirely? Test?
-        pixels = self.queue[:]
-        finalindex = len(pixels) - 7
-        if fresh:
-            # restart the queue from column 1
-            self.lastindex = 0
-        for i in range(self.lastindex, finalindex):
-            if self.status != 'SCROLLING':
-                # we are paused (or stopped)
-                break
-            self.lastindex = i
-            chars = pixels[i:i+8]
-            if i == finalindex:
-                # we've consumed the queue, delete it and set status to stopped
-                self.queue = []
-                self.status = 'STOPPED'
-            d = defer.Deferred()
-            reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
-            wfd = defer.waitForDeferred(d)
-            yield wfd
-        
-    @defer.deferredGenerator
-    def loopscroll(self, fresh=True):
-        # XXX Think this can be removed entirely? Test?
-        finalindex = len(self.queue) - 7
-        if fresh:
-            # restart the queue from column 1
-            self.lastindex = 0
-        while self.status == 'LOOPING':
-            for i in range(self.lastindex, len(self.queue)):
-                if self.status != 'LOOPING':
-                    break
-                self.lastindex = i
-                if i <= finalindex:
-                    chars = self.queue[i:i+8]
-                else:
-                    start = i - finalindex
-                    chars = self.queue[i:] + self.queue[:start]
-                d = defer.Deferred()
-                reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
-                wfd = defer.waitForDeferred(d)
-                yield wfd
-            if self.status == 'LOOPING':
-                self.lastindex = 0
-                    
-    @defer.deferredGenerator
-    def frames(self, fresh=True):
-        # XXX Think this can be removed entirely? Test?
-        self.status = 'SCROLLING'
-        self.scrollspeed = 0.3
-        pixels = []
-        for ch in "1234567890":
-            i = ord(ch)
-            pixels.extend(ascii_letters[i])
-        pixels.extend(ascii_letters[0])
-        self.queue = pixels
-        #above here is shite
-        pixels = self.queue[:]
-        finalindex = len(pixels) - 7
-        if fresh:
-            # restart the queue from column 1
-            self.lastindex = 0
-        for i in range(self.lastindex, finalindex, 8):
-            if self.status != 'SCROLLING':
-                # we are paused (or stopped)
-                break
-            self.lastindex = i
-            chars = pixels[i:i+8]
-            if i == finalindex:
-                # we've consumed the queue, delete it and set status to stopped
-                self.queue = []
-                self.status = 'STOPPED'
-            d = defer.Deferred()
-            reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
-            wfd = defer.waitForDeferred(d)
-            yield wfd
-        
-    def stop(self):
-        # XXX Think this can be removed entirely? Test?
-        if self.status == 'SCROLLING' or self.status == 'LOOPING':
-            self.reset()
             
     def pause(self):
         if self.status == "RUNNING":
@@ -211,7 +103,7 @@ class MatrixOutput(FlotillaOutput):
             return
         if self.status == "PAUSED":
             self.status = "RUNNING"
-            self.active() # XXX Think this can just be a call to .scroller() ?
+            self.scroller(self.steps)
         
             
             
