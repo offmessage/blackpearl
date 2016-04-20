@@ -15,12 +15,20 @@ class NumberOutput(FlotillaOutput):
     digits = [0, 0, 0, 0, ]
     colon = 0
     apostrophe = 0
+    number = None
+    hours = None
+    minutes = None
+    seconds = None
     
     def reset(self):
         self.brightness = 40
         self.digits = [0, 0, 0, 0,]
         self.colon = 0
         self.apostrophe = 0
+        self.number = None
+        self.hours = None
+        self.minutes = None
+        self.seconds = None
         self.update()
     
     def set_digit(self, posn, digit):
@@ -52,6 +60,10 @@ class NumberOutput(FlotillaOutput):
             raise ValueError("invalid pad character")
         if not (-999 <= number <= 9999):
             raise ValueError("Number is too large. Must be between -999 and 9999")
+        
+        self.number = number
+        self.hours, self.minutes, self.seconds = None, None, None
+        
         digits = list(str(number))
         
         # Need to calculate if we need to left pad, and what with
@@ -102,6 +114,9 @@ class NumberOutput(FlotillaOutput):
         if not (0 <= minutes <= 59):
             raise ValueError("Minutes must be between 0 and 59")
         
+        self.hours, self.minutes = hours, minutes
+        self.number, self.seconds = None, None
+        
         self.colon = 1
         
         hours = list(str(hours))
@@ -126,6 +141,9 @@ class NumberOutput(FlotillaOutput):
         if not (0 <= seconds <= 59):
             raise ValueError("Seconds must be between 0 and 59")
         
+        self.minutes, self.seconds = minutes, seconds
+        self.number, self.hours = None, None
+
         self.colon = 1
         
         minutes = list(str(minutes))
