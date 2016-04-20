@@ -40,7 +40,6 @@ class NumberOutput(FlotillaOutput):
         self.set_value(posn, value)
         
     def set_value(self, posn, value):
-        print(posn, value)
         if not (0 <= value <= 255):
             raise ValueError("value should be between 0 and 255")
         if not (0 <= posn <= 3):
