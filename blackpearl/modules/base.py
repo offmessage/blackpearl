@@ -45,7 +45,6 @@ class FlotillaOutput(FlotillaModule):
     """
     
     def send(self, data):
-        """One should perform validation on the data here"""
         datastring = ','.join([ str(d) for d in data ])
         cmd = "s {} {}".format(self.channel, datastring).encode()
         self.flotilla.flotillaCommand(cmd)
