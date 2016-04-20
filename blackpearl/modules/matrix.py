@@ -27,7 +27,7 @@ class MatrixOutput(FlotillaOutput):
         self.queue = []
         self.brightness = 40
         self.status = 'STOPPED'
-        self.active = None
+        self.active = None # Think this can be removed once we've removed the call to self.active() in self.pause()
         self.scrollspeed = 0.1
         self.workingframe = []
         self.lastindex = 0
@@ -66,6 +66,7 @@ class MatrixOutput(FlotillaOutput):
         self.send(data)
         
     def text(self, text, loop):
+        # XXX Think this can be removed entirely? Test?
         if self.status == 'SCROLLING' or self.status == 'LOOPING':
             return
         if loop:
@@ -86,6 +87,7 @@ class MatrixOutput(FlotillaOutput):
         
     @defer.deferredGenerator
     def scroller(self, steps=1):
+        # XXX Test this works with frames (steps == 8)
         self.status = "RUNNING"
         self.active = self.scroller
         finalindex = len(self.queue) - 7
@@ -121,6 +123,7 @@ class MatrixOutput(FlotillaOutput):
             
     @defer.deferredGenerator
     def scroll(self, fresh=True):
+        # XXX Think this can be removed entirely? Test?
         pixels = self.queue[:]
         finalindex = len(pixels) - 7
         if fresh:
@@ -143,6 +146,7 @@ class MatrixOutput(FlotillaOutput):
         
     @defer.deferredGenerator
     def loopscroll(self, fresh=True):
+        # XXX Think this can be removed entirely? Test?
         finalindex = len(self.queue) - 7
         if fresh:
             # restart the queue from column 1
@@ -166,6 +170,7 @@ class MatrixOutput(FlotillaOutput):
                     
     @defer.deferredGenerator
     def frames(self, fresh=True):
+        # XXX Think this can be removed entirely? Test?
         self.status = 'SCROLLING'
         self.scrollspeed = 0.3
         pixels = []
@@ -196,6 +201,7 @@ class MatrixOutput(FlotillaOutput):
             yield wfd
         
     def stop(self):
+        # XXX Think this can be removed entirely? Test?
         if self.status == 'SCROLLING' or self.status == 'LOOPING':
             self.reset()
             
@@ -205,7 +211,7 @@ class MatrixOutput(FlotillaOutput):
             return
         if self.status == "PAUSED":
             self.status = "RUNNING"
-            self.active()
+            self.active() # XXX Think this can just be a call to .scroller() ?
         
             
             
