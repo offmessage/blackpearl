@@ -36,7 +36,7 @@ class NumberOutput(FlotillaOutput):
         elif len(digit) == 1:
             value = NUMBERS[int(digit)]
         else:
-            value = NUMBERS[int(digit[0])+1]
+            value = NUMBERS[int(digit[0])]+1
         self.set_value(posn, value)
         
     def set_value(self, posn, value):
@@ -84,7 +84,10 @@ class NumberOutput(FlotillaOutput):
             # test if there is a decimal point at [i+1]
             if digits[i] == '.':
                 continue
-            if digits[i+1] == '.':
+            if i == (len(digits) - 1):
+                # we know this is the last digit and won't have a decimal point
+                self.set_digit(workingdigit, digits[i])
+            elif digits[i+1] == '.':
                 self.set_digit(workingdigit, digits[i]+digits[i+1])
             else:
                 self.set_digit(workingdigit, digits[i])
