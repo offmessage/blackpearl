@@ -12,7 +12,7 @@ class MotorOutput(FlotillaOutput):
     """
     module = "motor"
     
-    forwards = True
+    forwards = True # XXX refactor as self.direction in [-1, 1] ?
     
     def stop(self):
         self.update(0)
@@ -59,8 +59,8 @@ class MotorOutput(FlotillaOutput):
     def set_speed(self, v):
         # Let the user set the speed directly
         if max(v, 63) > 63:
-            raise TypeError("Speed must be between -63 and +63. Speed was "+str(v))
+            raise ValueError("Speed must be between -63 and +63. Speed was "+str(v))
         if min(v, -63) < -63:
-            raise TypeError("Speed must be between -63 and +63. Speed was "+str(v))
+            raise ValueError("Speed must be between -63 and +63. Speed was "+str(v))
         speed = int(v)
         self.update(speed)
