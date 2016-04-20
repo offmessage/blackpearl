@@ -37,7 +37,7 @@ class RainbowOutput(FlotillaOutput):
             raise ValueError("r g & b should be less than 256")
         if min([r,g,b]) < 0:
             raise ValueError("r, g & b should be greater or equal than 0")
-        self.pixels[pos] = (r, g, b)
+        self.pixels[posn] = (r, g, b)
     
     def set_all(self, r, g, b):
         if max([r,g,b]) > 255:
