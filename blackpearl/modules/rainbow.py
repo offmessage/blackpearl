@@ -49,7 +49,6 @@ class RainbowOutput(FlotillaOutput):
             
     @staticmethod
     def hue(value):
-        # XXX Check I haven't ballsed this by making it a staticmethod
         # XXX do some sense checking on input - we are everywhere else
         """
         This is wholesale lifted from the rockpool Javascript :)
