@@ -108,7 +108,7 @@ class FlotillaClient(LineReceiver):
                         matrix.addText("1234567890")
                         matrix.scrollspeed = 2
                         matrix.loop = True
-                        matrix.scroller()
+                        matrix.frames()
                 if d['buttons'][1]:
                     if rainbow is not None:
                         rainbow.reset()
@@ -118,15 +118,16 @@ class FlotillaClient(LineReceiver):
                         motor.stop()
                     if number is not None:
                         number.reset()
-                if d['buttons'][3]:
-                    if matrix is not None:
-                        matrix.pause()
                 if d['buttons'][2]:
                     if rainbow is not None:
                         rainbow.set_all(255, 0, 0)
                         rainbow.update()
-                    if motor is not None:
-                        motor.set_speed(50)
+                    if number is not None:
+                        number.set_number(1223.2345)
+                        number.update()
+                if d['buttons'][3]:
+                    if matrix is not None:
+                        matrix.pause()
             if 'slider' in d:
                 matrix = self.firstOf('matrix')
                 if matrix is not None:
