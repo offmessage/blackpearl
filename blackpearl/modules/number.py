@@ -42,19 +42,25 @@ class NumberOutput(FlotillaOutput):
         self.digits[posn] = value
         
     def set_number(self, number, pad=None):
-        # That's all bollocks
         if not (-999 <= number <= 9999):
             raise ValueError("Number is too large. Must be between -999 and 9999")
-        digits = str(number)
+        digits = list(str(number))
+        
+        # Need to calculate if we need to pad
         count = len(digits)
-        pointloc = digits.find(".")
-        if pointloc >= 0:
-            # decimal points do not consume a digit
+        if "." in digits:
+            # decimals don't consume a whole digit on the ouput
             count = count - 1
-        # Insert the correct number of _pad_ at the front of digits to make
-        # digits length 4
-        # cycle through digits, setting each one
-        # capture the decimal point and set it
+        for i in range(4 - count):
+            digits.insert(0, pad)
+        
+        workingdigit = 0
+        for i in range(len(digits)):
+            # test if there is a decimal point at [i+1]
+            # decide what to set
+            # increment workingdigit by 1
+            pass
+            
                 
     def set_time(self, hours, minutes, pad=None):
         if not (0 <= hours <= 23):
