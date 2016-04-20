@@ -55,6 +55,7 @@ class FlotillaClient(LineReceiver):
         print('Flotilla is disconnected.')
         
     def connectionMade(self):
+        # XXX This needs far better error handling!
         self._resetModules()
         print('Flotilla is connected.')
         self.flotillaCommand(b'e')
