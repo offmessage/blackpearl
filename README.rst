@@ -30,7 +30,7 @@ reliance on ``while True`` loops and lots of ``time.sleep()`` calls.
 
 **blackpearl** is capable of taking input from multiple inputs, processing that input
 and sending it to multiple outputs with the Rpi2 running at around 7% processor
-load. In other words, you could be playing with your Flotilla while also
+load. In other words, you could be playing with your Flotilla whilst also
 watching a movie. On a Raspberry Pi.
 
 Installation
