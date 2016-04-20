@@ -105,8 +105,6 @@ class MatrixOutput(FlotillaOutput):
                 d = defer.Deferred()
                 if loopcount == 0:
                     # Don't wait to send the first one...
-                    # XXX For some reason this doesn't update the matrix?
-                    # XXX And doing it as a deferred didn't either...
                     self.update(chars)
                     loopcount += 1
                     continue
