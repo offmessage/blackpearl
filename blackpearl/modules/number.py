@@ -15,26 +15,31 @@ class NumberOutput(FlotillaOutput):
     digits = [0, 0, 0, 0, ]
     colon = 0
     apostrophe = 0
-    #scrollspeed = 0.1
-    #status = 'STOPPED'
-    #active = None
-    #queue = []
-    #workingframe = []
-    #lastindex = 0
-    #loop = False
     
     def reset(self):
-        #self.queue = []
         self.brightness = 40
-        #self.status = 'STOPPED'
-        #self.active = None
-        #self.scrollspeed = 0.1
-        #self.workingframe = []
-        #self.lastindex = 0
-        #self.loop = False
-        self.update([0, 0, 0, 0, ])
+        self.digits = [0, 0, 0, 0,]
+        self.colon = 0
+        self.apostrophe = 0
+        self.update()
     
-    def set_digit(self, posn, value):
+    def set_digit(self, posn, digit):
+        valid = [None, '-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                 '0.', '1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.',]
+        if digit not in valid:
+            raise ValueError("digit must be one of " + ", ".join(valid))
+        
+        if digit is None:
+            value = 0
+        elif digit == '-':
+            value = NUM_MID
+        elif len(digit) == 1:
+            value = NUMBERS[int(digit)]
+        else:
+            value = NUMBERS[int(digit[0])+1]
+        self.set_value(posn, value)
+        
+    def set_value(self, posn, value):
         if not (0 <= value <= 255):
             raise ValueError("value should be between 0 and 255")
         if not (0 <= value <= 3):
@@ -42,184 +47,102 @@ class NumberOutput(FlotillaOutput):
         self.digits[posn] = value
         
     def set_number(self, number, pad=None):
+        valid = [None, '-', '0',]
+        if pad not in valid:
+            raise ValueError("invalid pad character")
         if not (-999 <= number <= 9999):
             raise ValueError("Number is too large. Must be between -999 and 9999")
         digits = list(str(number))
         
-        # Need to calculate if we need to pad
+        # Need to calculate if we need to left pad, and what with
         count = len(digits)
+        haspoint = False
         if "." in digits:
             # decimals don't consume a whole digit on the ouput
             count = count - 1
+            haspoint = True
+        if haspoint and count > 4:
+            # we need to trim off extraneous decimal points
+            digits = digits[:5]
+            if digits[4] == '.':
+                # case where we have a 4 digit number with a decimal point 
+                # strip *all* decimals, including the point
+                digits = digits[:4]
+                haspoint = False
         for i in range(4 - count):
+            # left pad with *pad* as appropriate
             digits.insert(0, pad)
         
         workingdigit = 0
         for i in range(len(digits)):
-            # test if there is a decimal point at [i+1]
-            # decide what to set
-            # increment workingdigit by 1
-            pass
+            if not haspoint:
+                # simple case, no decimal point
+                self.set_digit(workingdigit, digits[i])
+                workingdigit += 1
+                continue
             
-                
-    def set_time(self, hours, minutes, pad=None):
+            # test if there is a decimal point at [i+1]
+            if digits[i] == '.':
+                continue
+            if digits[i+1] == '.':
+                self.set_digit(workingdigit, digits[i]+digits[i+1])
+            else:
+                self.set_digit(workingdigit, digits[i])
+            workingdigit += 1
+        
+    def set_hoursminutes(self, hours, minutes, pad=None):
+        if pad not in [None, '0']:
+            raise ValueError("invalid pad character")
+        
         if not (0 <= hours <= 23):
             raise ValueError("Hours must be between 0 and 23")
         if not (0 <= minutes <= 59):
             raise ValueError("Minutes must be between 0 and 59")
-        self.set_colon(True)
-        return
+        
+        self.colon = 1
+        
+        hours = list(str(hours))
+        if len(hours) == 1:
+            hours.insert(0, pad)
+            
+        minutes = list(str(minutes))
+        if len(minutes) == 1:
+            minutes.insert(0, pad)
+            
+        digits = hours + minutes
+        
+        for i in range(4):
+            self.set_digit(i, digits[i])
+        
+    def set_minutesseconds(self, minutes, seconds, pad=None):
+        if pad not in [None, '0']:
+            raise ValueError("invalid pad character")
+        
+        if not (0 <= minutes <= 59):
+            raise ValueError("Minutes must be between 0 and 59")
+        if not (0 <= seconds <= 59):
+            raise ValueError("Seconds must be between 0 and 59")
+        
+        self.colon = 1
+        
+        minutes = list(str(minutes))
+        if len(minutes) == 1:
+            minutes.insert(0, pad)
+            
+        seconds = list(str(seconds))
+        if len(seconds) == 1:
+            seconds.insert(0, pad)
+            
+        digits = minutes + seconds
+        
+        for i in range(4):
+            self.set_digit(i, digits[i])
             
     def update(self, digits):
-        self.digits = digits
-        data = digits + [self.colon, self.apostrophe, self.brightness,]
+        data = self.digits + [self.colon, self.apostrophe, self.brightness,]
         self.send(data)
         
-    def text(self, text, loop):
-        if self.status == 'SCROLLING' or self.status == 'LOOPING':
-            return
-        if loop:
-            self.status = 'LOOPING'
-        else:
-            self.status = 'SCROLLING'
-        pixels = []
-        for ch in text:
-            i = ord(ch)
-            pixels.extend(ascii_letters[i])
-        if not loop:
-            pixels.extend(ascii_letters[0])
-        self.queue = pixels
-        if loop:
-            self.loopscroll()
-        else:
-            self.scroll()
-        
-    @defer.deferredGenerator
-    def scroller(self, steps=1):
-        self.status = "RUNNING"
-        self.active = self.scroller
-        finalindex = len(self.queue) - 7
-        loopcount = 0
-        while self.status == "RUNNING":
-            for i in range(self.lastindex, len(self.queue), steps):
-                if self.status != "RUNNING":
-                    # we are paused or stopped
-                    break
-                self.lastindex = i
-                chars = self.queue[i:i+8]
-                if i == finalindex and not self.loop:
-                    self.status = "STOPPED"
-                    break
-                if len(chars) < 8 and self.loop:
-                    chars += self.queue[:8-len(chars)]
-                d = defer.Deferred()
-                if loopcount == 0:
-                    # Don't wait to send the first one...
-                    # XXX For some reason this doesn't update the matrix?
-                    # XXX And doing it as a deferred didn't either...
-                    self.update(chars)
-                    loopcount += 1
-                    continue
-                else:
-                    reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
-                wfd = defer.waitForDeferred(d)
-                loopcount += 1
-                yield wfd
-            if not self.loop:
-                break
-            if self.status == "RUNNING":
-                self.lastindex = 0
-            
-            
-    @defer.deferredGenerator
-    def scroll(self, fresh=True):
-        pixels = self.queue[:]
-        finalindex = len(pixels) - 7
-        if fresh:
-            # restart the queue from column 1
-            self.lastindex = 0
-        for i in range(self.lastindex, finalindex):
-            if self.status != 'SCROLLING':
-                # we are paused (or stopped)
-                break
-            self.lastindex = i
-            chars = pixels[i:i+8]
-            if i == finalindex:
-                # we've consumed the queue, delete it and set status to stopped
-                self.queue = []
-                self.status = 'STOPPED'
-            d = defer.Deferred()
-            reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
-            wfd = defer.waitForDeferred(d)
-            yield wfd
-        
-    @defer.deferredGenerator
-    def loopscroll(self, fresh=True):
-        finalindex = len(self.queue) - 7
-        if fresh:
-            # restart the queue from column 1
-            self.lastindex = 0
-        while self.status == 'LOOPING':
-            for i in range(self.lastindex, len(self.queue)):
-                if self.status != 'LOOPING':
-                    break
-                self.lastindex = i
-                if i <= finalindex:
-                    chars = self.queue[i:i+8]
-                else:
-                    start = i - finalindex
-                    chars = self.queue[i:] + self.queue[:start]
-                d = defer.Deferred()
-                reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
-                wfd = defer.waitForDeferred(d)
-                yield wfd
-            if self.status == 'LOOPING':
-                self.lastindex = 0
-                    
-    @defer.deferredGenerator
-    def frames(self, fresh=True):
-        self.status = 'SCROLLING'
-        self.scrollspeed = 0.3
-        pixels = []
-        for ch in "1234567890":
-            i = ord(ch)
-            pixels.extend(ascii_letters[i])
-        pixels.extend(ascii_letters[0])
-        self.queue = pixels
-        #above here is shite
-        pixels = self.queue[:]
-        finalindex = len(pixels) - 7
-        if fresh:
-            # restart the queue from column 1
-            self.lastindex = 0
-        for i in range(self.lastindex, finalindex, 8):
-            if self.status != 'SCROLLING':
-                # we are paused (or stopped)
-                break
-            self.lastindex = i
-            chars = pixels[i:i+8]
-            if i == finalindex:
-                # we've consumed the queue, delete it and set status to stopped
-                self.queue = []
-                self.status = 'STOPPED'
-            d = defer.Deferred()
-            reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
-            wfd = defer.waitForDeferred(d)
-            yield wfd
-        
-    def stop(self):
-        if self.status == 'SCROLLING' or self.status == 'LOOPING':
-            self.reset()
-            
-    def pause(self):
-        if self.status == "RUNNING":
-            self.status = "PAUSED"
-            return
-        if self.status == "PAUSED":
-            self.status = "RUNNING"
-            self.active()
-        
-            
+
 NUM_DOT = 1
 NUM_MID = 2
 NUM_TL = 4
