@@ -4,7 +4,7 @@ FlotillaClient
 ==============
 """
 
-
+import json # This is temporary while we're still processing messages in here
 import time
 
 from twisted.protocols.basic import LineReceiver
@@ -89,19 +89,20 @@ class FlotillaClient(LineReceiver):
             # can't respond to a request to enumerate the connected modules.
             # We should probably emit an 'e' at this point?
             return
-        d = self.modules[channel].change(data)
+        j = self.modules[channel].change(data)
+        d = json.loads(j)
         if d is not None:
             for s in self.subscribers:
                 s.update(channel, module, data)
             # here we loop through all the subscribers with the new data
             print(d)
-            if 'buttons' in d:
+            if 'touch' in d:
                 # It's a touch
                 matrix = self.firstOf('matrix')
                 rainbow = self.firstOf('rainbow')
                 motor = self.firstOf('motor')
                 number = self.firstOf('number')
-                if d['buttons'][0] and matrix is not None:
+                if d['touch']['buttons']['1'] and matrix is not None:
                     if rainbow is not None:
                         rainbow.reset()
                         rainbow.set_all(255,255,255)
@@ -121,7 +122,7 @@ class FlotillaClient(LineReceiver):
                         matrix.scrollspeed = 2
                         matrix.loop = True
                         matrix.frames()
-                if d['buttons'][1]:
+                if d['touch']['buttons']['2']:
                     if rainbow is not None:
                         rainbow.reset()
                     if matrix is not None:
@@ -130,20 +131,20 @@ class FlotillaClient(LineReceiver):
                         motor.stop()
                     if number is not None:
                         number.reset()
-                if d['buttons'][2]:
+                if d['touch']['buttons']['3']:
                     if rainbow is not None:
                         rainbow.set_all(255, 0, 0)
                         rainbow.update()
                     if number is not None:
                         number.set_number(1223.2345)
                         number.update()
-                if d['buttons'][3]:
+                if d['touch']['buttons']['4']:
                     if matrix is not None:
                         matrix.pause()
             if 'slider' in d:
                 matrix = self.firstOf('matrix')
                 if matrix is not None:
-                    value = d['slider']
+                    value = d['slider']['value']
                     if 0 <= value < 200:
                         speed = 0.3
                     elif 200 <= value < 400:

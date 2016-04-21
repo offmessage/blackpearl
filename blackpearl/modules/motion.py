@@ -2,10 +2,27 @@ from .base import FlotillaInput
 
 class MotionInput(FlotillaInput):
     """
-    The Motion.
-    TODO
-     - we need to talk about sensitivity here
+    Motion sensor
+    =============
+    
+    NB: This is hyper sensitive. Look at the recipes to see how to ignore some
+    of the noise this generates.
+    
+    Outputs
+    -------
+    
+    Returns a dictionary of coordinates x, y and z
+    
+    Example::
+    
+      {'motion': {'coordinates': {'x': 145,
+                                  'y': 196,
+                                  'z': 200,
+                                  }
+                  }
+       }
     """
+    # XXX TODO understand the bounds of how this one works
     module = "motion"
     COORDINATES = [0,0,0,]
     
@@ -16,6 +33,10 @@ class MotionInput(FlotillaInput):
             # This should never happen
             return None
         self.COORDINATES = coordinates
-        return {'coordinates': coordinates}
+        output = {'x': coordinates[0],
+                  'y': coordinates[1],
+                  'z': coordinates[2],
+                  }
+        return self.emit({'coordinates': output})
     
 

@@ -3,7 +3,18 @@ from .base import FlotillaInput
 class ColourInput(FlotillaInput):
     """
     Colour
-    Notably the Flotilla crew ignore the 'brightness' element (c)!
+    ======
+    
+    NB: The Flotilla crew ignore the 'brightness' element (c), so I do too
+    
+    Outputs
+    -------
+    Emits a list in traditional RGB form (e.g ``[r, g, b,]``) where all values
+    are between 0 and 255
+    
+    Example:
+    
+    ``{'colour': {'rgb': [255,255,255,]}}``
     """
     module = "colour"
     RGB = [0,0,0,]
@@ -15,6 +26,6 @@ class ColourInput(FlotillaInput):
             # This could happen, due to 'c' changing
             return None
         self.RGB = rgb
-        return {'rgb': rgb}
+        return self.emit({'rgb': rgb})
     
     

@@ -3,7 +3,21 @@ from .base import FlotillaInput
 class WeatherInput(FlotillaInput):
     """
     Weather
-    We need to talk about sensitivity here too
+    =======
+    
+    NB: Like the motion this is hypersensitive. Expect a lot of noise.
+    
+    Outputs
+    -------
+    Output is converted into Celsius and kPa (kilopascals) for more human
+    readability. It emits two floats - ``temperature`` and ``pressure``.
+    
+    Example::
+    
+      {'weather': {'temperature': 23.45,
+                   'pressure': 101.325,
+                   }
+       }
     """
     module = "weather"
     TEMPERATURE = None
@@ -18,6 +32,7 @@ class WeatherInput(FlotillaInput):
             return None
         self.TEMPERATURE = temp
         self.PRESSURE = pressure
-        return {'temperature': temp,
-                'pressure': pressure,
-                }
+        output = {'temperature': temp,
+                  'pressure': pressure,
+                  }
+        return self.emit(output)

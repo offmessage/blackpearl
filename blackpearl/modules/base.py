@@ -1,3 +1,4 @@
+import json
 
 class FlotillaModule:
     
@@ -13,7 +14,14 @@ class FlotillaInput(FlotillaModule):
     
     def change(self, data):
         """Called when the Flotilla identifies an update from this module"""
-        print(data)
+        # Process the data as you see fit
+        self.emit(data)
+        
+    def emit(self, data):
+        if data is None:
+            return data
+        output = {self.module: data}
+        return json.dumps(output)
 
 
 class LinearInput(FlotillaInput):
@@ -29,7 +37,7 @@ class LinearInput(FlotillaInput):
             # This might happen at the the upper and lower bounds
             return None
         self.VALUE = value
-        return {self.module: value,}
+        return self.emit({self.module: value,})
     
     def calculate(self, value):
         # coping with the fuzziness around min and max values
