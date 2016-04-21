@@ -2,49 +2,43 @@
 blackpearl
 ==========
 
-For Twisted Little Pirates
---------------------------
+Flotilla for Twisted Little Pirates
+-----------------------------------
 
 What is it?
 ===========
 
 This packages provides an asyncronous API to the Pimoroni Flotilla (you can
-read more at `http://flotil.la`). It is so named because we rely on the
-excellent Twisted network communication library to do all our heavy lifting, and
-because we like Pirates of the Caribbean.
+read more at `http://flotil.la`).
+
+  I've heard of one, supposed to be very fast, nigh uncatchable: The Black Pearl
+  
+It is so named because we rely on the Twisted network communication library to
+do all our heavy lifting, and because we want to be like Captain Jack.
 
 Why?
 ====
 
-With some excitement I fired up my Flotilla when it first arrived. I was running
-it on a Raspberry Pi 2 (as recommended), but as soon as we tried to do anything
-complicated - more than a couple of inputs, outputs and transformations, for
-example - the CPU usage went flat out and loads of lag was introduced. I had a
-quick read of the various forum posts and it seemed like I should try the Python
-API instead. Luckily I used to write Python for a living and still keep my hand
-in.
-
-Unfortunately the Python API as provided isn't the most efficient way of doing
-things. In fact, the Python API also pegs the processor, largely because of its
-reliance on ``while True`` loops and lots of ``time.sleep()`` calls.
+As provided both the Javascript and Python APIs for the Flotilla cause the
+Raspberry Pi 2 processor to max out and lots of lag to be introduced as soon as
+you try to do anything complicated with it. Javascript is not my thing, but
+Python is. So I thought I'd help out and write a more efficient Python API.
 
 **blackpearl** is capable of taking input from multiple inputs, processing that
-input and sending it to multiple outputs with the Rpi2 running at around 7%
+input and sending it to multiple outputs with the Rpi2 running at around 4%
 processor load. In other words, you could be playing with your Flotilla whilst
 also watching a movie. On a Raspberry Pi.
 
 Installation
 ============
 
-I assume that you are looking for something more than the *"pipe this URL
-through bash, while running as root"*. I know that those types of instructions
-are easy to follow, but they are dangerous. We are pirates. We only take
-calculated risks. That's how we've evaded capture and kept all our treasure.
+Right now (0.0.1.dev0) you really need to know what you're doing, Python-wise,
+so I'm deliberately making the instructions very high level. If the following
+don't make sense you should probably hang on for a bit. Version 1.0.0 is just
+around the corner and will be well documented:
 
-Add the ``pi`` (or your preferred user) to the ``dialout`` group
+- Create a python3 virtual environment
+- Clone this repository into it
+- ``pip install -e .``
 
-Create a python virtual environment
-
-Clone this package into that virtualenv
-
-pip install -e .
+Examples will be forthcoming.
