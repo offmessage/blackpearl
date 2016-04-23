@@ -40,15 +40,7 @@ class FlotillaClient(LineReceiver):
                }
     
     def _resetModules(self):
-        self.modules = {0: None,
-                        1: None,
-                        2: None,
-                        3: None,
-                        4: None,
-                        5: None,
-                        6: None,
-                        7: None,
-                        }
+        self.modules = { x: None for x in range(1, 9) }
         
     def connectionLost(self, reason):
         self._resetModules()
