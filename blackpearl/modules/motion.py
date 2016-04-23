@@ -27,7 +27,6 @@ class MotionInput(FlotillaInput):
     COORDINATES = [0,0,0,]
     
     def change(self, data):
-        print(data)
         x, y, z, i, j, k = data.split(b',')
         coordinates = [int(x), int(y), int(z),]
         if coordinates == self.COORDINATES:
