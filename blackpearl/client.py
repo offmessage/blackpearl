@@ -70,9 +70,9 @@ class FlotillaClient(LineReceiver):
             s.newModule(channel, module)
             
     def handle_D(self, channel, module):
-        self.modules[channel] = None
         for s in self.subscribers:
             s.delModule(channel, module)
+        self.modules[channel] = None
         
     def handle_U(self, channel, module, data):
         if self.modules[channel] is None:
