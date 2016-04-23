@@ -37,7 +37,7 @@ class LinearInput(FlotillaInput):
             # This might happen at the the upper and lower bounds
             return None
         self.VALUE = value
-        return self.emit({self.module: value,})
+        return self.emit({'value': value,})
     
     def calculate(self, value):
         # coping with the fuzziness around min and max values
