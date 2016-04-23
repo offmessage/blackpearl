@@ -135,20 +135,7 @@ class FlotillaClient(LineReceiver):
                 if matrix is not None:
                     matrix.pause()
         if 'slider' in d:
-            matrix = self.firstOf('matrix')
-            if matrix is not None:
-                value = d['slider']['value']
-                if 0 <= value < 200:
-                    speed = 0.3
-                elif 200 <= value < 400:
-                    speed = 0.2
-                elif 400 <= value < 600:
-                    speed = 0.1
-                elif 600 <= value < 800:
-                    speed = 0.07
-                else:
-                    speed = 0.03
-                matrix.scrollspeed = speed
+            value = d['slider']['value']
             rainbow = self.firstOf('rainbow')
             if rainbow is not None:
                 color = rainbow.hue(value/1000.0)
@@ -161,6 +148,22 @@ class FlotillaClient(LineReceiver):
             if number is not None:
                 number.set_number(value, pad="0")
                 number.update()
+        if 'dial' in d:
+            matrix = self.firstOf('matrix')
+            if matrix is not None:
+                value = d['dial']['value']
+                if 0 <= value < 200:
+                    speed = 0.3
+                elif 200 <= value < 400:
+                    speed = 0.2
+                elif 400 <= value < 600:
+                    speed = 0.1
+                elif 600 <= value < 800:
+                    speed = 0.07
+                else:
+                    speed = 0.03
+                matrix.scrollspeed = speed
+            
                 
     def connectedModules(self, type_=None):
         if type_ is None:
