@@ -105,7 +105,7 @@ class NumberOutput(FlotillaOutput):
                 self.set_digit(workingdigit, digits[i])
             workingdigit += 1
         
-    def set_hoursminutes(self, hours, minutes, pad=None):
+    def set_hoursminutes(self, hours, minutes, pad="0"):
         if pad not in [None, '0']:
             raise ValueError("invalid pad character")
         
