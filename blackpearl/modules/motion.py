@@ -7,6 +7,8 @@ class MotionInput(FlotillaInput):
     
     NB: This is hyper sensitive. Look at the recipes to see how to ignore some
     of the noise this generates.
+    NB: The sensor returns 6 numbers, the Pimoroni Python API ignores the last
+    3, so I do too...
     
     Outputs
     -------
@@ -30,7 +32,7 @@ class MotionInput(FlotillaInput):
         x, y, z, i, j, k = data.split(b',')
         coordinates = [int(x), int(y), int(z),]
         if coordinates == self.COORDINATES:
-            # This should never happen
+            # This will happen frequently, as i, j and k change
             return None
         self.COORDINATES = coordinates
         output = {'x': coordinates[0],
