@@ -23,6 +23,7 @@ class MotorOutput(FlotillaOutput):
     
     def reverse(self):
         self.direction = self.direction * -1
+        self.set_speed(self.speed * -1)
         
     def set_direction(self, direction):
         if direction in ["forwards", 1]:
@@ -46,17 +47,12 @@ class MotorOutput(FlotillaOutput):
         
     def linearinput(self, d):
         # d is between 0 and 1000 from our linear input modules
-        if self.forwards:
-            mult = 1
-        else:
-            mult = -1
-            
         if d == 0:
             v = -63
         elif d == 1000:
             v = 63
         else:
             v = int((d - 500)/8)
-        v = v * mult
+        v = v * self.direction
         self.set_speed(v)
         
