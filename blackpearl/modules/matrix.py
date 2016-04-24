@@ -65,6 +65,10 @@ class MatrixOutput(FlotillaOutput):
         data = pixels + [self.brightness,]
         self.send(data)
         
+    def next_frame(self):
+        # Consumed the next frame from the queue
+        pass
+    
     def frames(self):
         self.scroller(steps=8)
         
