@@ -66,7 +66,7 @@ class MatrixOutput(FlotillaOutput):
         self.send(data)
         
     def next_frame(self):
-        # Consumed the next frame from the queue
+        # XXX Consume the next frame from the queue
         pass
     
     def frames(self):
