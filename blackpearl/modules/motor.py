@@ -12,33 +12,37 @@ class MotorOutput(FlotillaOutput):
     """
     module = "motor"
     
-    forwards = True # XXX refactor as self.direction in [-1, 1] ?
+    direction = 1 # XXX refactor as self.direction in [-1, 1] ?
+    speed = 0
     
     def stop(self):
-        self.update(0)
+        self.set_speed(0)
         
     def reset(self):
         self.set_speed(0)
-        self.update()
     
     def reverse(self):
-        self.forwards = not self.forwards
+        self.direction = self.direction * -1
         
-    def get_direction(self):
-        if self.forwards:
-            return "forwards"
-        else:
-            return "backwards"
-    
     def set_direction(self, direction):
-        if direction == "forwards":
-            self.forwards = True
-        elif direction == "backwards":
-            self.forwards = False
+        if direction in ["forwards", 1]:
+            self.direction = 1
+        elif direction in ["backwards", -1]:
+            self.direction = -1
         
     def update(self, data):
         data = [data,]
         self.send(data)
+        
+    def set_speed(self, v):
+        # Let the user set the speed directly
+        if max(v, 63) > 63:
+            raise ValueError("Speed must be between -63 and +63. Speed was "+str(v))
+        if min(v, -63) < -63:
+            raise ValueError("Speed must be between -63 and +63. Speed was "+str(v))
+        speed = int(v)
+        self.update(speed)
+        self.speed = speed
         
     def linearinput(self, d):
         # d is between 0 and 1000 from our linear input modules
@@ -56,11 +60,3 @@ class MotorOutput(FlotillaOutput):
         v = v * mult
         self.set_speed(v)
         
-    def set_speed(self, v):
-        # Let the user set the speed directly
-        if max(v, 63) > 63:
-            raise ValueError("Speed must be between -63 and +63. Speed was "+str(v))
-        if min(v, -63) < -63:
-            raise ValueError("Speed must be between -63 and +63. Speed was "+str(v))
-        speed = int(v)
-        self.update(speed)
