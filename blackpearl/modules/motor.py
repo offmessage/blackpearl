@@ -46,6 +46,7 @@ class MotorOutput(FlotillaOutput):
         self.speed = speed
         
     def linearinput(self, d):
+        # XXX TODO This should be factored into a recipe, not here
         # d is between 0 and 1000 from our linear input modules
         if d == 0:
             v = -63
