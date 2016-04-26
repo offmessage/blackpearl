@@ -1,4 +1,15 @@
+"""
+=======================================
+Black Pearl: For twisted little pirates
+=======================================
+
+hardware/base.py
+
+Communicate with the Flotilla hardware modules.
+"""
+
 import json
+
 
 class FlotillaModule:
     
@@ -46,6 +57,7 @@ class LinearInput(FlotillaInput):
         if value > 999:
             value = 1000
         return value
+
 
 class FlotillaOutput(FlotillaModule):
     """
