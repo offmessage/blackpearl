@@ -2,6 +2,11 @@
 ==============
 FlotillaClient
 ==============
+
+This is the core Python code for connecting to, processing input from, and
+sending messages to the Flotilla itself.
+
+Each individual component can be found in hardware/
 """
 
 import json # This is temporary while we're still processing messages in here
