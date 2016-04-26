@@ -1,111 +1,42 @@
+"""
+=======================================
+Black Pearl: For twisted little pirates
+=======================================
+
+modules/base.py
+
+Base classes for our modules.
+"""
+
+
 from collections import Counter
 
-from twisted.internet import reactor
-from twisted.internet.serialport import SerialPort
 
-from blackpearl.client import FlotillaClient
-
-class Recipe:
-    
-    def __init__(self):
-        # Do lots of things
-        # ...
-        #
-        flotilla = FlotillaClient()
-        SerialPort(flotilla, '/dev/ttyACM0', reactor, baudrate=115200)
-        reactor.run()
-        
-class BaseProject:
-    
-    def __init__(self, flotilla):
-        self.flotilla = flotilla
-        self._setModules()
-        self._checkRequirements()
-        
-    def _setModules(self):
-        """Create attributes on the instance for each connected module"""
-        modules = self.flotilla.modules
-        connected = {}
-        for channel in modules:
-            module = modules[channel]
-            if module is not None:
-                module_name = module.module
-                connected.setdefault(module_name, 0)
-                connected[module_name] += 1
-                name = '{}{}'.format(module_name, connected[module_name])
-                setattr(self, name, module)
-                
-    def _checkRequirements(self):
-        """Subclasses will define a requirements attribute for connected
-        modules. This is either a list: ['motor', 'motor', 'slider'], or a
-        dict: {0: 'motor', 1: 'motor', 2: 'slider'}"""
-        # XXX Check what numbering the channels are?
-        if not hasattr(self, 'requirements'):
-            # No requirements defined
-            return
-        
-        if isinstance(self.requirements, list):
-            reqs = Counter(self.requirements)
-            mods = Counter(self.flotilla.modules.values())
-            rem = mods - reqs
-            if sum(rem.values()) == (sum(mods.values()) - sum(reqs.values())):
-                # All our requirements are met
-                return True
-            print("Requirements not met")
-            print("Requirements are:")
-            for r in self.requirements:
-                print("   "+r)
-            print("Connected modules are:")
-            for m in self.flotilla.modules:
-                print("   {}: {}".format(m.channel, m.module))
-            return False
-        
-        if isinstance(self.requirements, dict):
-            for k in self.requirements:
-                if self.requirements[k] != self.flotilla.modules[k]:
-                    return
-            print("Requirements not met")
-            print("Requirements are:")
-            for r in self.requirements:
-                print("   {}: {}".format(r, self.requirements[r]))
-            print("Connected modules are:")
-            for m in self.flotilla.modules:
-                print("   {}: {}".format(m.channel, m.module))
-            return False
-        
-    def _addModule(self, channel, module):
-        self._checkRequirements()
-    
-    def _delModule(self, channel, module):
-        self._checkRequirements()
-    
-    def update(self, channel, module, data):
-        pass
-    
-    
-class TouchScroller(BaseProcessor):
-    
-    requirements = ['matrix', 'touch',]
-    
-    """when touch.button4 is pressed
-    matrix.pause()
-    when touch.button4 is released
-    do nothing
-    
-    when touch.button1 is pressed
-    add some text to the matrix
-    matrix.scroll()"""
-    
-class Input:
+class Module:
     
     module_name = None
     
-    def __init__(self, project, module):
+    def __init__(self, project, hardware=None):
         self.project = project
-        self.module
-        
+        self.hardware = hardware
+
+
+class SoftwareInput(Module):
+    """An input module that is not related to a hardware module. Like a sine
+    wave or a timer"""
+    
     def dispatch(self, data):
-        if self.module_name not in data:
+        self.data(data)
+        
+    def data(self, data):
+        pass
+    
+        
+class HardwareInput(Module):
+    """An input module. Creates Input to the system, like the touch or dial"""
+    
+    def dispatch(self, data):
+        if self.hardware.module not in data:
             return
         self.data(data)
         
@@ -113,11 +44,23 @@ class Input:
         pass
     
         
-class Colour(Input):
+class SoftwareOutput(Module):
+    """An output module. Takes input and reacts to it in some way, like 
+    printing to screen or calling a URL"""
     pass
 
 
-class Dial(Input):
+class HardwareOutput(Module):
+    """An output module. Takes input and reacts to it in some way, like the
+    motor or the number"""
+    pass
+
+
+class Colour(HardwareInput):
+    pass
+
+
+class Dial(HardwareInput):
     
     module_name = 'dial'
     value = None
@@ -132,15 +75,15 @@ class Dial(Input):
         pass
     
     
-class Joystick(Input):
+class Joystick(HardwareInput):
     pass
 
 
-class Motion(Input):
+class Motion(HardwareInput):
     pass
 
 
-class Slider(Input):
+class Slider(HardwareInput):
     
     module_name = 'slider'
     value = None
@@ -155,7 +98,7 @@ class Slider(Input):
         pass
     
 
-class Touch(Input):
+class Touch(HardwareInput):
     
     module_name = 'touch'
     buttons = {1: False,
@@ -204,7 +147,7 @@ class Touch(Input):
         pass
     
 
-class Weather(Input):
+class Weather(HardwareInput):
     
     module_name = 'weather'
     temperature = None
@@ -227,16 +170,7 @@ class Weather(Input):
         pass
     
     
-class Output:
-    
-    module_name = None
-    
-    def __init__(self, project, module):
-        self.project = project
-        self.module = module
-        self.channel = module.channel
-        
-class Matrix(Output):
+class Matrix(HardwareOutput):
     
     module_name = 'matrix'
     
@@ -270,7 +204,7 @@ class Matrix(Output):
         return self.module.pause()
     
     
-class Motor(Output):
+class Motor(HardwareOutput):
     
     module_name = 'motor'
     
@@ -302,7 +236,7 @@ class Motor(Output):
         self.set_speed(v)
 
     
-class Number(Output):
+class Number(HardwareOutput):
     
     module_name = 'number'
     
@@ -322,7 +256,7 @@ class Number(Output):
         return self.module.set_minutesseconds(minutes, seconds, pad)
 
     
-class Rainbow(Output):
+class Rainbow(HardwareOutput):
     
     module_name = 'rainbow'
     
@@ -334,3 +268,88 @@ class Rainbow(Output):
     
     def set_all(self, r, g, b):
         return self.module.set_all(r, g, b)
+
+
+
+    """
+    class BaseProject:
+        
+        def __init__(self, flotilla):
+            self.flotilla = flotilla
+            self._setModules()
+            self._checkRequirements()
+            
+        def _setModules(self):
+            \"""Create attributes on the instance for each connected module\"""
+            modules = self.flotilla.modules
+            connected = {}
+            for channel in modules:
+                module = modules[channel]
+                if module is not None:
+                    module_name = module.module
+                    connected.setdefault(module_name, 0)
+                    connected[module_name] += 1
+                    name = '{}{}'.format(module_name, connected[module_name])
+                    setattr(self, name, module)
+                    
+        def _checkRequirements(self):
+            \"""Subclasses will define a requirements attribute for connected
+            modules. This is either a list: ['motor', 'motor', 'slider'], or a
+            dict: {0: 'motor', 1: 'motor', 2: 'slider'}\"""
+            # XXX Check what numbering the channels are?
+            if not hasattr(self, 'requirements'):
+                # No requirements defined
+                return
+            
+            if isinstance(self.requirements, list):
+                reqs = Counter(self.requirements)
+                mods = Counter(self.flotilla.modules.values())
+                rem = mods - reqs
+                if sum(rem.values()) == (sum(mods.values()) - sum(reqs.values())):
+                    # All our requirements are met
+                    return True
+                print("Requirements not met")
+                print("Requirements are:")
+                for r in self.requirements:
+                    print("   "+r)
+                print("Connected modules are:")
+                for m in self.flotilla.modules:
+                    print("   {}: {}".format(m.channel, m.module))
+                return False
+            
+            if isinstance(self.requirements, dict):
+                for k in self.requirements:
+                    if self.requirements[k] != self.flotilla.modules[k]:
+                        return
+                print("Requirements not met")
+                print("Requirements are:")
+                for r in self.requirements:
+                    print("   {}: {}".format(r, self.requirements[r]))
+                print("Connected modules are:")
+                for m in self.flotilla.modules:
+                    print("   {}: {}".format(m.channel, m.module))
+                return False
+            
+        def _addModule(self, channel, module):
+            self._checkRequirements()
+        
+        def _delModule(self, channel, module):
+            self._checkRequirements()
+        
+        def update(self, channel, module, data):
+            pass
+        
+        
+    class TouchScroller(BaseProcessor):
+        
+        requirements = ['matrix', 'touch',]
+        
+        \"""when touch.button4 is pressed
+        matrix.pause()
+        when touch.button4 is released
+        do nothing
+        
+        when touch.button1 is pressed
+        add some text to the matrix
+        matrix.scroll()\"""
+    """
