@@ -6,19 +6,19 @@ class Motor(HardwareOutput):
     module_name = 'motor'
     
     def stop(self):
-        return self.module.stop()
+        return self.hardware.stop()
         
     def reset(self):
-        return self.module.reset()
+        return self.hardware.reset()
     
     def reverse(self):
-        return self.module.reverse()
+        return self.hardware.reverse()
         
     def set_direction(self, direction):
-        return self.module.set_direction(direction)
+        return self.hardware.set_direction(direction)
         
     def set_speed(self, v):
-        return self.module.set_speed(v)
+        return self.hardware.set_speed(v)
         
     def linearinput(self, d):
         # XXX TODO Should this be factored into a special recipe, not here?

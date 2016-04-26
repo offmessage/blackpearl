@@ -6,21 +6,21 @@ class Matrix(HardwareOutput):
     module_name = 'matrix'
     
     def reset(self):
-        return self.module.reset()
+        return self.hardware.reset()
     
     def addText(self, text):
-        return self.module.addText(text)
+        return self.hardware.addText(text)
             
     def addColumn(self, column):
         """Bottom is 1, top is 128, we expect it bottom to top"""
-        return self.module.addColumn(column)
+        return self.hardware.addColumn(column)
         
     def addFrame(self, frame):
         """left to right"""
-        return self.module.addFrame(frame)
+        return self.hardware.addFrame(frame)
         
     def next_frame(self):
-        return self.module.next_frame()
+        return self.hardware.next_frame()
         
     def frames(self):
         return self.scroller(steps=8)
@@ -29,9 +29,9 @@ class Matrix(HardwareOutput):
         return self.scroller(steps=1)
         
     def scroller(self, steps=1):
-        return self.module.scroller(steps)
+        return self.hardware.scroller(steps)
     
     def pause(self):
-        return self.module.pause()
+        return self.hardware.pause()
     
     
