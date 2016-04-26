@@ -9,18 +9,18 @@ import time
 
 from twisted.protocols.basic import LineReceiver
 
-from .modules import ColourInput
-from .modules import DialInput
-from .modules import JoystickInput
-from .modules import LightInput
-from .modules import MatrixOutput
-from .modules import MotionInput
-from .modules import MotorOutput
-from .modules import NumberOutput
-from .modules import RainbowOutput
-from .modules import SliderInput
-from .modules import TouchInput
-from .modules import WeatherInput
+from .hardware import ColourInput
+from .hardware import DialInput
+from .hardware import JoystickInput
+from .hardware import LightInput
+from .hardware import MatrixOutput
+from .hardware import MotionInput
+from .hardware import MotorOutput
+from .hardware import NumberOutput
+from .hardware import RainbowOutput
+from .hardware import SliderInput
+from .hardware import TouchInput
+from .hardware import WeatherInput
 
 
 class FlotillaClient(LineReceiver):

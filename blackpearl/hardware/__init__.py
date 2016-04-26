@@ -3,9 +3,10 @@
 Black Pearl: For twisted little pirates
 =======================================
 
-modules/
+hardware/
 
-Contains all the information about how to communicate with modules
+Contains all the information about how to communicate with Flotilla hardware
+modules
 """
 
 from .colour import ColourInput
