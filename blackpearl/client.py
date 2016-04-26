@@ -47,6 +47,9 @@ class FlotillaClient(LineReceiver):
     def _resetModules(self):
         self.modules = { x: None for x in range(1, 9) }
         
+    def run(self, flotilla_port, reactor, baudrate):
+        SerialPort(self, flotilla_port, reactor, baudrate)
+        
     def connectionLost(self, reason):
         self._resetModules()
         self.subscribers = []
