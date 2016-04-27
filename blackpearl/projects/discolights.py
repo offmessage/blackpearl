@@ -3,24 +3,13 @@ from blackpearl.projects import BaseProject
 
 
 class DiscoLights(BaseModule):
-    listening_for = ['dial', 'slider',]
-    hardware_required = ['dial', 'slider', 'rainbow']
-    
-    slider_value = 0
-    dial_value = 0
+    listening_for = ['slider',]
+    hardware_required = ['slider', 'rainbow',]
     
     def data(self, data):
-        if 'slider' in data:
-            value1 = (data['slider']['value'])/1000.0
-            value2 = self.dial_value
-            self.slider_value = value1
-        elif 'dial' in data:
-            value1 = self.slider_value
-            value2 = (data['dial']['value'])/1000.0
-            self.dial_value = value2
-        value = (value1 + value2)/2.0
-        hue = self.rainbow.hue(value)
-        self.rainbow.set_all(*hue)
+        value = (data['slider']['value'])/1000.0
+        red, green, blue = self.rainbow.hue(value)
+        self.rainbow.set_all(red, green, blue)
         self.rainbow.update()
 
 

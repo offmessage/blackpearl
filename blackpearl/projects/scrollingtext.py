@@ -9,7 +9,7 @@ class Scroller(Touch):
     
     def button1_pressed(self):
         self.matrix.reset()
-        self.matrix.addText("This is a great example!")
+        self.matrix.addText("This is a great example! ")
         self.matrix.scrollspeed = 0.1
         self.matrix.loop = True
         self.matrix.scroll()
