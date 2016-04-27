@@ -55,7 +55,6 @@ class FlotillaClient(LineReceiver):
         SerialPort(self, flotilla_port, reactor, baudrate)
         
     def connectionLost(self, reason):
-        # XXX factor out .subscribers
         self._resetModules()
         print('Flotilla is disconnected.')
         
