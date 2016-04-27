@@ -73,9 +73,9 @@ class FlotillaClient(LineReceiver):
         print("Found a {} on channel {}".format(module, channel))
         new_module = self.MODULES[module](self, channel)
         self.modules[channel] = new_module
+        # XXX This is shonky - needs to handle the race between module
+        # XXX instantiation and the Flotilla waking up much better
         self.project.connect()
-        # XXX we should send a message to the project that a new module
-        # has been added
             
     def handle_D(self, channel, module):
         self.modules[channel] = None
@@ -90,91 +90,11 @@ class FlotillaClient(LineReceiver):
             # We should probably emit an 'e' at this point?
             return
         j = self.modules[channel].change(data)
-        if j is None:
-            return
-        d = json.loads(j)
-        self.message(d)
         
     def message(self, data):
         d = json.loads(data)
         self.project.message(d)
         
-        #if 'touch' in d:
-            ## It's a touch
-            #matrix = self.firstOf('matrix')
-            #rainbow = self.firstOf('rainbow')
-            #motor = self.firstOf('motor')
-            #number = self.firstOf('number')
-            #if d['touch']['buttons']['1'] and matrix is not None:
-                #if rainbow is not None:
-                    #rainbow.reset()
-                    #rainbow.set_all(255,255,255)
-                    #rainbow.update()
-                #if matrix is not None:
-                    #matrix.reset()
-                    #matrix.addColumn(127)
-                    #matrix.addColumn(1)
-                    #matrix.addColumn(3)
-                    #matrix.addColumn(7)
-                    #matrix.addColumn(15)
-                    #matrix.addColumn(31)
-                    #matrix.addColumn(63)
-                    #matrix.addColumn(127)
-                    #matrix.addFrame([255,255,255,255,255,255,255,255])
-                    #matrix.addText("1234567890")
-                    #matrix.scrollspeed = 2
-                    #matrix.loop = True
-                    #matrix.frames()
-            #if d['touch']['buttons']['2']:
-                #if rainbow is not None:
-                    #rainbow.reset()
-                #if matrix is not None:
-                    #matrix.reset()
-                #if motor is not None:
-                    #motor.stop()
-                #if number is not None:
-                    #number.reset()
-            #if d['touch']['buttons']['3']:
-                #if rainbow is not None:
-                    #rainbow.set_all(255, 0, 0)
-                    #rainbow.update()
-                #if number is not None:
-                    #number.set_number(1223.2345)
-                    #number.update()
-            #if d['touch']['buttons']['4']:
-                #if matrix is not None:
-                    #matrix.pause()
-        #if 'slider' in d:
-            #value = d['slider']['value']
-            #rainbow = self.firstOf('rainbow')
-            #if rainbow is not None:
-                #color = rainbow.hue(value/1000.0)
-                #rainbow.set_all(*color)
-                #rainbow.update()
-            #motor = self.firstOf('motor')
-            #if motor is not None:
-                #motor.linearinput(value)
-            #number = self.firstOf('number')
-            #if number is not None:
-                #number.set_number(value, pad="0")
-                #number.update()
-        #if 'dial' in d:
-            #matrix = self.firstOf('matrix')
-            #if matrix is not None:
-                #value = d['dial']['value']
-                #if 0 <= value < 200:
-                    #speed = 0.3
-                #elif 200 <= value < 400:
-                    #speed = 0.2
-                #elif 400 <= value < 600:
-                    #speed = 0.1
-                #elif 600 <= value < 800:
-                    #speed = 0.07
-                #else:
-                    #speed = 0.03
-                #matrix.scrollspeed = speed
-            
-                
     def connectedModules(self, type_=None):
         if type_ is None:
             return self.modules.values()
@@ -189,8 +109,7 @@ class FlotillaClient(LineReceiver):
         return l[0][1]
         
     def lineReceived(self, line):
-        # TODO:
-        # Better error handling
+        # XXX: Needs better error handling
         parts = line.split(b" ")
         cmd = parts[0]
         if cmd == b'#':
