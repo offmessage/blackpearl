@@ -11,6 +11,7 @@ for their projects.
 """
 
 from .base import BaseModule
+from .colour import Colour
 from .dial import Dial
 from .joystick import Joystick
 from .motion import Motion
