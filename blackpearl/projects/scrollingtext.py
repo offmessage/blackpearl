@@ -43,6 +43,7 @@ class SpeedChanger(BaseModule):
             spd = 0.05
         self.matrix.scrollspeed = spd
         
+        
 class Listener(BaseModule):
     listening_for = ['matrix',]
     hardware_required = ['matrix', 'rainbow',]
