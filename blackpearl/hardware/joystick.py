@@ -30,7 +30,6 @@ class JoystickInput(FlotillaInput):
     BUTTON = False
     
     def change(self, data):
-        print(data)
         button, x, y = data.split(b',')
         coordinates = {x: int(x),
                        y: int(y),

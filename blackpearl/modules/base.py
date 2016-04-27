@@ -36,7 +36,6 @@ class BaseModule:
         # Using the example ['motor', 'motor', 'slider'] we would end up
         # with .motor1, .motor2, and .slider
         
-        print(self.project.flotilla.modules)
         connected = [ m for m in self.project.flotilla.modules.values() if m is not None ]
         names = [ m.module for m in connected ]
 
@@ -60,7 +59,7 @@ class BaseModule:
                     continue
                 for i in range(1, v+1):
                     namedict[k].append('{}{}'.format(k, i))
-            print(namedict)
+                    
             for m in connected:
                 module = m
                 attrname = namedict[m.module].pop(0)
@@ -79,17 +78,13 @@ class BaseModule:
             if count[k] > v:
                 return
             
-        print(names)
-        print(working_list)
         for h in self.hardware_required:
-            #print(h)
             worknames = names.copy()
             if h in worknames:
                 index = names.index(h)
                 names.remove(h)
                 module, attrname = working_list.pop(index)
                 setattr(self, attrname, module)
-                #print(attrname + ": " + str(getattr(self, attrname)))
                 found.append(h)
             else:
                 missing.append(h)

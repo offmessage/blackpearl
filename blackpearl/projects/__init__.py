@@ -43,5 +43,6 @@ class BaseProject:
             module.dispatch(data)
             
     def log(self, level, message):
+        # XXX replace this with something prettier
         print(level, ":", message)
         

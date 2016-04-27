@@ -95,7 +95,6 @@ class FlotillaClient(LineReceiver):
             return
         d = json.loads(j)
         self.message(d)
-        print(d)
         
     def message(self, data):
         d = json.loads(data)

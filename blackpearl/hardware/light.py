@@ -22,7 +22,6 @@ class LightInput(FlotillaInput):
     VALUE = None
     
     def change(self, data):
-        print(data)
         value, dunno1, dunno2 = data.split(b',')
         value = int(value)
         if self.VALUE == value:
