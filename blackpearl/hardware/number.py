@@ -1,9 +1,5 @@
 from .base import FlotillaOutput
 
-try:
-    import blackpearl.wingdbstub
-except ImportError:
-    pass
 
 class NumberOutput(FlotillaOutput):
     """

@@ -3,7 +3,6 @@ from twisted.internet import reactor
 
 from .base import FlotillaOutput
 
-import blackpearl.wingdbstub
 
 class MatrixOutput(FlotillaOutput):
     """
