@@ -1,7 +1,7 @@
-from .base import HardwareInput
+from .base import Module
 
 
-class Colour(HardwareInput):
+class Colour(Module):
     pass
 
 

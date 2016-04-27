@@ -1,6 +1,6 @@
-from .base import HardwareInput
+from .base import Module
 
 
-class Motion(HardwareInput):
+class Motion(Module):
     pass
 

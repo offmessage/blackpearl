@@ -1,9 +1,11 @@
-from .base import HardwareOutput
+from .base import Module
 
 
-class Number(HardwareOutput):
+class Number(Module):
     
     module_name = 'number'
+    listening_for = ['number',]
+    hardware_required = ['number',]
     
     def reset(self):
         return self.hardware.reset()
@@ -20,4 +22,5 @@ class Number(HardwareOutput):
     def set_minutesseconds(self, minutes, seconds, pad=0):
         return self.hardware.set_minutesseconds(minutes, seconds, pad)
 
-    
+    def update(self):
+        return self.hardware.update()

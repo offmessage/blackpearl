@@ -1,7 +1,7 @@
-from .base import HardwareInput
+from .base import Module
 
 
-class Dial(HardwareInput):
+class Dial(Module):
     
     module_name = 'dial'
     value = None

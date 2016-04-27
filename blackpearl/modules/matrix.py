@@ -1,7 +1,7 @@
-from .base import HardwareOutput
+from .base import Module
 
 
-class Matrix(HardwareOutput):
+class Matrix(Module):
     
     module_name = 'matrix'
     

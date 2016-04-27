@@ -1,7 +1,7 @@
-from .base import HardwareInput
+from .base import Module
 
 
-class Joystick(HardwareInput):
+class Joystick(Module):
     pass
 
 

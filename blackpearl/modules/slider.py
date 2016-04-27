@@ -1,9 +1,10 @@
-from .base import HardwareInput
+from .base import Module
 
 
-class Slider(HardwareInput):
+class Slider(Module):
     
     module_name = 'slider'
+    listening_for = ['slider',]
     value = None
     
     def data(self, data):

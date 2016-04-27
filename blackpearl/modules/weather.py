@@ -1,7 +1,7 @@
-from .base import HardwareInput
+from .base import Module
 
 
-class Weather(HardwareInput):
+class Weather(Module):
     
     module_name = 'weather'
     temperature = None

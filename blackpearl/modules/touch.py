@@ -1,7 +1,7 @@
-from .base import HardwareInput
+from .base import Module
 
 
-class Touch(HardwareInput):
+class Touch(Module):
     
     module_name = 'touch'
     buttons = {1: False,

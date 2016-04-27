@@ -1,7 +1,7 @@
-from .base import HardwareOutput
+from .base import Module
 
 
-class Rainbow(HardwareOutput):
+class Rainbow(Module):
     
     module_name = 'rainbow'
     
@@ -13,6 +13,8 @@ class Rainbow(HardwareOutput):
     
     def set_all(self, r, g, b):
         return self.hardware.set_all(r, g, b)
-
+    
+    def hue(self, value):
+        return self.hardware.hue(value)
 
 

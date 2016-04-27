@@ -1,7 +1,7 @@
-from .base import HardwareOutput
+from .base import Module
 
 
-class Motor(HardwareOutput):
+class Motor(Module):
     
     module_name = 'motor'
     
