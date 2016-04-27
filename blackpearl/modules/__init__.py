@@ -16,5 +16,6 @@ from .dial import Dial
 from .joystick import Joystick
 from .motion import Motion
 from .slider import Slider
+from .timer import Timer
 from .touch import Touch
 from .weather import Weather

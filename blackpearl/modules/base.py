@@ -8,8 +8,8 @@ modules/base.py
 Base class for our modules.
 """
 
-
 from collections import Counter
+import json
 
 
 class BaseModule:
@@ -103,4 +103,9 @@ class BaseModule:
     def data(self, data):
         pass
 
-    
+    def emit(self, data):
+        if data is None:
+            return data
+        output = {self.module_name: data}
+        self.project.message(output)
+        
