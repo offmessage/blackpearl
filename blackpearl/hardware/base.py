@@ -17,6 +17,12 @@ class FlotillaModule:
         self.flotilla = flotilla
         self.channel = channel
         
+    def emit(self, data):
+        if data is None:
+            return data
+        output = {self.module: data}
+        return json.dumps(output)
+
 
 class FlotillaInput(FlotillaModule):
     """
@@ -26,21 +32,17 @@ class FlotillaInput(FlotillaModule):
     def change(self, data):
         """Called when the Flotilla identifies an update from this module"""
         # Process the data as you see fit
-        self.emit(data)
+        # Send it back to the flotilla class
+        # XXX this use of json - bollocks, isn't it?
+        return self.emit(data)
         
-    def emit(self, data):
-        if data is None:
-            return data
-        output = {self.module: data}
-        return json.dumps(output)
-
 
 class LinearInput(FlotillaInput):
     """
     Min value 0, Max value 1023. In reality it gets a bit fuzzy
     over 1018, and below 5, so we should probably cap out at those values
     """
-    VALUE = None
+    VALUE = None # XXX mixed use of capitalisation for this type of attribute
     
     def change(self, data):
         value = self.calculate(int(data))

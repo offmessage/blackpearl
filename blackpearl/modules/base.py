@@ -5,7 +5,7 @@ Black Pearl: For twisted little pirates
 
 modules/base.py
 
-Base classes for our modules.
+Base class for our modules.
 """
 
 
@@ -18,10 +18,17 @@ class Module:
     listening_for = []
     
     hardware_required = []
-
+    _all_connected = False
+    
     def __init__(self, project):
         self.project = project
+        self._checkRequirements()
+        self.setup()
         
+    def setup(self):
+        pass
+    
+    def _checkRequirements(self):
         if not self.hardware_required:
             return
 
@@ -70,6 +77,7 @@ class Module:
                 missing.append(h)
         if len(self.hardware_required) == len(found):
             self.project.log('INFO', 'All requirments met \o/')
+            self._all_connected = True
         else:
             self.project.log('ERROR', 'Requirements met: ' + ', '.join(found))
             self.project.log('ERROR', 'Missing modules: ' + ', '.join(missig))
