@@ -1,7 +1,7 @@
-from .base import Module
+from .base import BaseModule
 
 
-class Weather(Module):
+class Weather(BaseModule):
     
     module_name = 'weather'
     temperature = None

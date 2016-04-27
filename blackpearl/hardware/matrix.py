@@ -96,13 +96,15 @@ class MatrixOutput(FlotillaOutput):
                 reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
                 wfd = defer.waitForDeferred(d)
                 yield wfd
-                self.emit({'scroller': 'step'})
+                if self.status == 'RUNNING':
+                    self.emit({'scroller': 'step'})
             if not self.loop:
                 break
             if self.status == "RUNNING":
                 self.lastindex = 0
-            self.emit({'scroller': 'loop'})
-        self.emit({'scroller': 'finished'})
+                self.emit({'scroller': 'loop'})
+        if self.status == 'STOPPED':
+            self.emit({'scroller': 'finished'})
             
     def pause(self):
         if self.status == "RUNNING":

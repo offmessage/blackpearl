@@ -12,7 +12,7 @@ Base class for our modules.
 from collections import Counter
 
 
-class Module:
+class BaseModule:
     
     module_name = None
     listening_for = []
@@ -36,7 +36,8 @@ class Module:
         # Using the example ['motor', 'motor', 'slider'] we would end up
         # with .motor1, .motor2, and .slider
         
-        connected = [ m for m in self.project.flotilla.modules.values() ]
+        print(self.project.flotilla.modules)
+        connected = [ m for m in self.project.flotilla.modules.values() if m is not None ]
         names = [ m.module for m in connected ]
 
         # Test to see if we have more than one of the same module defined
@@ -52,13 +53,14 @@ class Module:
             # and motor2)
             working_list = []
             namedict = {}
-            for k, v in counter.items():
+            for k, v in count.items():
                 namedict[k] = []
                 if v == 1:
                     namedict[k] = [k,]
                     continue
                 for i in range(1, v+1):
                     namedict[k].append('{}{}'.format(k, i))
+            print(namedict)
             for m in connected:
                 module = m
                 attrname = namedict[m.module].pop(0)
@@ -67,11 +69,27 @@ class Module:
         found = []
         missing = []
         
+        # What we need to do is create a Counter out of self.hardware_required
+        # and then compare the keys of that counter to the keys of Counter(names)
+        # and bail until that is satisfied
+        check = Counter(self.hardware_required)
+        for k, v in check.items():
+            if k not in count:
+                return
+            if count[k] > v:
+                return
+            
+        print(names)
+        print(working_list)
         for h in self.hardware_required:
-            if h in names:
+            #print(h)
+            worknames = names.copy()
+            if h in worknames:
                 index = names.index(h)
+                names.remove(h)
                 module, attrname = working_list.pop(index)
-                setattr(self, module, attrname)
+                setattr(self, attrname, module)
+                #print(attrname + ": " + str(getattr(self, attrname)))
                 found.append(h)
             else:
                 missing.append(h)
@@ -80,7 +98,7 @@ class Module:
             self._all_connected = True
         else:
             self.project.log('ERROR', 'Requirements met: ' + ', '.join(found))
-            self.project.log('ERROR', 'Missing modules: ' + ', '.join(missig))
+            self.project.log('ERROR', 'Missing modules: ' + ', '.join(missing))
 
     def dispatch(self, data):
         for l in self.listening_for:

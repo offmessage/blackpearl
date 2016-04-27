@@ -23,16 +23,19 @@ class BaseProject:
         self.modules = []
         self._flotilla_port = flotilla_port
         self._baudrate = baudrate
+        self.flotilla = FlotillaClient()
+        self.flotilla.run(self, reactor)
         self.connectModules()
         reactor.run()
     
     def connectModules(self):
         project = self
-        if any([ bool(k.hardware_required) for k in self.required_modules ]):
-            self.flotilla = FlotillaClient()
-            self.flotilla.run(project, reactor)
         self.modules = [ k(project) for k in self.required_modules ]
     
+    def connect(self):
+        for m in self.modules:
+            m._checkRequirements()
+            
     def message(self, data):
         if data is None:
             return

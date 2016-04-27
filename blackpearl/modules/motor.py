@@ -1,7 +1,7 @@
-from .base import Module
+from .base import BaseModule
 
 
-class Motor(Module):
+class Motor(BaseModule):
     
     module_name = 'motor'
     

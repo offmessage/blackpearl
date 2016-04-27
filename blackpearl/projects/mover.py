@@ -1,7 +1,8 @@
+from blackpearl.modules import BaseModule
 from blackpearl.projects import BaseProject
 
 
-class Mover:
+class Mover(BaseModule):
     listening_for = ['slider',]
     hardware_required = ['slider', 'motor', 'motor',]
     
@@ -19,7 +20,7 @@ class Mover:
 
 
 class Project(BaseProject):
-    required_modules = [Mover, ]
+    required_modules = [Mover,]
     
 
 if __name__ == '__main__':

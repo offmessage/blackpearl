@@ -12,6 +12,7 @@ Each individual component can be found in hardware/
 import json # This is temporary while we're still processing messages in here
 import time
 
+from twisted.internet.serialport import SerialPort
 from twisted.protocols.basic import LineReceiver
 
 from .hardware import ColourInput
@@ -73,6 +74,7 @@ class FlotillaClient(LineReceiver):
         print("Found a {} on channel {}".format(module, channel))
         new_module = self.MODULES[module](self, channel)
         self.modules[channel] = new_module
+        self.project.connect()
         # XXX we should send a message to the project that a new module
         # has been added
             
@@ -96,7 +98,8 @@ class FlotillaClient(LineReceiver):
         print(d)
         
     def message(self, data):
-        self.project.message(data)
+        d = json.loads(data)
+        self.project.message(d)
         
         #if 'touch' in d:
             ## It's a touch

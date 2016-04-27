@@ -1,17 +1,17 @@
-from .base import Module
+from .base import BaseModule
 
 
-class Touch(Module):
+class Touch(BaseModule):
     
     module_name = 'touch'
-    buttons = {1: False,
-                2: False,
-                3: False,
-                4: False,
-                }
+    buttons = {'1': False,
+               '2': False,
+               '3': False,
+               '4': False,
+               }
 
     def data(self, data):
-        buttons = data['buttons']
+        buttons = data['touch']['buttons']
         for k in buttons:
             method_name = None
             if not self.buttons[k] and buttons[k]:

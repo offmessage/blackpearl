@@ -1,7 +1,7 @@
-from .base import Module
+from .base import BaseModule
 
 
-class Rainbow(Module):
+class Rainbow(BaseModule):
     
     module_name = 'rainbow'
     

@@ -1,7 +1,7 @@
-from .base import Module
+from .base import BaseModule
 
 
-class Number(Module):
+class Number(BaseModule):
     
     module_name = 'number'
     listening_for = ['number',]

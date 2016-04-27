@@ -1,7 +1,7 @@
-from .base import Module
+from .base import BaseModule
 
 
-class Matrix(Module):
+class Matrix(BaseModule):
     
     module_name = 'matrix'
     

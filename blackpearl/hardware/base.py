@@ -21,7 +21,8 @@ class FlotillaModule:
         if data is None:
             return data
         output = {self.module: data}
-        return json.dumps(output)
+        self.flotilla.message(json.dumps(output))
+        #return json.dumps(output)
 
 
 class FlotillaInput(FlotillaModule):
