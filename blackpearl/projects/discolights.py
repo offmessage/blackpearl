@@ -1,4 +1,4 @@
-from blackpearl.modules.base import BaseModule
+from blackpearl.modules import BaseModule
 from blackpearl.projects import BaseProject
 
 
