@@ -9,7 +9,6 @@ Base class for our modules.
 """
 
 from collections import Counter
-import json
 
 
 class BaseModule:

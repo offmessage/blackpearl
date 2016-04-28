@@ -9,7 +9,6 @@ sending messages to the Flotilla itself.
 Each individual component can be found in hardware/
 """
 
-import json # This is temporary while we're still processing messages in here
 import time
 
 from twisted.internet.serialport import SerialPort
@@ -92,8 +91,7 @@ class FlotillaClient(LineReceiver):
         j = self.modules[channel].change(data)
         
     def message(self, data):
-        d = json.loads(data)
-        self.project.message(d)
+        self.project.message(data)
         
     def connectedModules(self, type_=None):
         if type_ is None:

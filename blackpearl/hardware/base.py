@@ -8,8 +8,6 @@ hardware/base.py
 Communicate with the Flotilla hardware modules.
 """
 
-import json
-
 
 class FlotillaModule:
     
@@ -21,8 +19,7 @@ class FlotillaModule:
         if data is None:
             return data
         output = {self.module: data}
-        self.flotilla.message(json.dumps(output))
-        #return json.dumps(output)
+        self.flotilla.message(output)
 
 
 class FlotillaInput(FlotillaModule):
@@ -34,7 +31,6 @@ class FlotillaInput(FlotillaModule):
         """Called when the Flotilla identifies an update from this module"""
         # Process the data as you see fit
         # Send it back to the flotilla class
-        # XXX this use of json - bollocks, isn't it?
         return self.emit(data)
         
 
