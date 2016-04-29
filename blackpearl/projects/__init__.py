@@ -11,7 +11,7 @@ The base for our own projects.
 
 from twisted.internet import reactor
 
-from blackpearl.client import FlotillaClient
+from blackpearl.hardware import FlotillaClient
 
 
 class BaseProject:

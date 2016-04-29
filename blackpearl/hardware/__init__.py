@@ -9,6 +9,8 @@ Contains all the information about how to communicate with Flotilla hardware
 modules
 """
 
+
+from .client import FlotillaClient
 from .colour import ColourInput
 from .dial import DialInput
 from .joystick import JoystickInput

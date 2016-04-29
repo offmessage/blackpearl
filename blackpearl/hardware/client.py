@@ -14,18 +14,18 @@ import time
 from twisted.internet.serialport import SerialPort
 from twisted.protocols.basic import LineReceiver
 
-from .hardware import ColourInput
-from .hardware import DialInput
-from .hardware import JoystickInput
-from .hardware import LightInput
-from .hardware import MatrixOutput
-from .hardware import MotionInput
-from .hardware import MotorOutput
-from .hardware import NumberOutput
-from .hardware import RainbowOutput
-from .hardware import SliderInput
-from .hardware import TouchInput
-from .hardware import WeatherInput
+from .colour import ColourInput
+from .dial import DialInput
+from .joystick import JoystickInput
+from .light import LightInput
+from .matrix import MatrixOutput
+from .motion import MotionInput
+from .motor import MotorOutput
+from .number import NumberOutput
+from .rainbow import RainbowOutput
+from .slider import SliderInput
+from .touch import TouchInput
+from .weather import WeatherInput
 
 
 class FlotillaClient(LineReceiver):
