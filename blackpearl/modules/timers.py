@@ -99,7 +99,6 @@ class Clock(Timer):
         self.tick_count += 1
         tm = time.localtime(time.time())
         colon = bool(self.tick_count%2)
-        print(self.tick_count, self.tick_count%2)
         if colon:
             fmt = "{:02d}:{:02d}"
         else:
