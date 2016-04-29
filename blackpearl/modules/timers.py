@@ -74,37 +74,27 @@ class Timer(BaseModule):
         pass
     
     
-class SecondTime(Timer):
-    
-    module_name = 'secondtimer'
-    tick = 1
-    precision = '1.'
-    
-    def setup(self):
-        self.start()
-    
-    
 class Clock(Timer):
     
     module_name = 'clock'
     tick = 0.5
-    fmt = 'hh:mm'
-    start_time = None
+    colon = True
     
     def setup(self):
         self.start_time = time.time()
         self.start()
         
     def update(self):
-        self.tick_count += 1
         tm = time.localtime(time.time())
-        colon = bool(self.tick_count%2)
-        if colon:
+        if self.colon:
             fmt = "{:02d}:{:02d}"
         else:
             fmt = "{:02d} {:02d}"
+        self.colon = not self.colon
         data = {'hours': "{:02d}".format(tm.tm_hour),
                 'mins': "{:02d}".format(tm.tm_min),
+                'seconds': "{:02d}".format(tm.tm_sec),
                 'as_string': fmt.format(tm.tm_hour, tm.tm_min),
                 }
         self.emit(data)
+        
