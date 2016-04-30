@@ -9,7 +9,6 @@ sending messages to the Flotilla itself.
 Each individual component can be found in hardware/
 """
 
-import time
 
 from twisted.internet.serialport import SerialPort
 from twisted.protocols.basic import LineReceiver
