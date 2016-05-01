@@ -11,6 +11,9 @@ Each individual component can be found in hardware/
 
 import time
 
+from serial import SerialException
+
+from twisted.internet import defer
 from twisted.internet.serialport import SerialPort
 from twisted.protocols.basic import LineReceiver
 
@@ -49,25 +52,79 @@ class FlotillaClient(LineReceiver):
         
     def run(self, project, reactor):
         self.project = project
+        self.reactor = reactor
+        self._ready = False
+        self._connected = False
         flotilla_port = self.project._flotilla_port
         baudrate = self.project._baudrate
-        SerialPort(self, flotilla_port, reactor, baudrate)
+        try:
+            SerialPort(self, flotilla_port, reactor, baudrate)
+        except SerialException as e:
+            if not hasattr(self, '_count'):
+                self._count = 0
+            print("Trying to connect to Flotilla. This may take up to 30 seconds")
+            self._count += 1
+            if self._count <= 30:
+                d = defer.Deferred()
+                def foo(arg):
+                    self.run(project, reactor)
+                reactor.callLater(1, foo, None)
+                return defer.waitForDeferred(d)
+            else:
+                raise e
         
     def connectionLost(self, reason):
         self._resetModules()
         print('Flotilla is disconnected.')
         
+    @defer.deferredGenerator
     def connectionMade(self):
         # XXX This needs far better error handling!
         self._resetModules()
         print('Flotilla is connected.')
-        self.flotillaCommand(b'e')
+        self.flotillaCommand(b'v')
+        def check(arg):
+            self.flotillaCommand(b'v')
+        while not self._ready:
+            d = defer.Deferred()
+            d.addCallback(check)
+            self.reactor.callLater(1, d.callback, None)
+            wfd = defer.waitForDeferred(d)
+            yield wfd
         
     def flotillaCommand(self, cmd):
         self.delimiter = b'\r'
         self.sendLine(cmd)
         self.delimiter = b'\r\n'
         
+    def handle_hash(self, line):
+        print(line)
+        if self._ready:
+            return
+        if not hasattr(self, '_lines'):
+            self._lines = []
+        self._lines.append(line)
+        if len(self._lines) == 5 and not self._connected:
+            ready = [False, False, False, False, False,]
+            starts = [b'# Flotilla', b'# Version', b'# Serial', b'# User', b'# Dock',]
+            for i in range(5):
+                ready[i] = self._lines[i].startswith(starts[i])
+            if all(ready):
+                self._connected = True
+                self._lines = []
+                self.flotillaCommand(b'd')
+        if len(self._lines) == 11 and not self._ready:
+            ready = [False,] * 11
+            starts = [b'# SRAM', b'# Loop', b'# Channels', b'# - 0', b'# - 1',
+                      b'# - 2', b'# - 3', b'# - 4', b'# - 5', b'# - 6', b'# - 7',]
+            for i in range(11):
+                ready[i] = self._lines[i].startswith(starts[i])
+            if all(ready):
+                self._ready = True
+                self._lines = []
+                self.project.connectModules()
+                self.flotillaCommand(b'e')
+
     def handle_C(self, channel, module):
         print("Found a {} on channel {}".format(module, channel))
         new_module = self.MODULES[module](self, channel)
@@ -111,7 +168,7 @@ class FlotillaClient(LineReceiver):
         parts = line.split(b" ")
         cmd = parts[0]
         if cmd == b'#':
-            print(line)
+            self.handle_hash(line)
             return
         channel, module = parts[1].decode('ascii').split('/')
         channel = int(channel)

@@ -25,7 +25,6 @@ class BaseProject:
         self._baudrate = baudrate
         self.flotilla = FlotillaClient()
         self.flotilla.run(self, reactor)
-        self.connectModules()
         reactor.run()
     
     def connectModules(self):
