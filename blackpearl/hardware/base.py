@@ -39,14 +39,14 @@ class LinearInput(FlotillaInput):
     Min value 0, Max value 1023. In reality it gets a bit fuzzy
     over 1018, and below 5, so we should probably cap out at those values
     """
-    VALUE = None # XXX mixed use of capitalisation for this type of attribute
+    value = None
     
     def change(self, data):
         value = self.calculate(int(data))
-        if self.VALUE == value:
+        if self.value == value:
             # This might happen at the the upper and lower bounds
             return None
-        self.VALUE = value
+        self.value = value
         return self.emit({'value': value,})
     
     def calculate(self, value):
