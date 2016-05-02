@@ -13,7 +13,6 @@ class RainbowOutput(FlotillaOutput):
     """
     module = "rainbow"
     
-    #brightness = 150 # defined in the python API, but never sent
     pixels = [(0, 0, 0,),
               (0, 0, 0,),
               (0, 0, 0,),
@@ -22,7 +21,6 @@ class RainbowOutput(FlotillaOutput):
               ]
     
     def reset(self):
-        #self.brightness = 150 # defined in the python API, but never sent
         self.set_all(0, 0, 0)
         self.update()
     
@@ -49,11 +47,12 @@ class RainbowOutput(FlotillaOutput):
             
     @staticmethod
     def hue(value):
-        # XXX do some sense checking on input - we are everywhere else
         """
         This is wholesale lifted from the rockpool Javascript :)
         Takes a value between 0 and 1 and returns an RGB value
         """
+        if not (0 <= value <= 1):
+            raise ValueError("value must be between 0 and 1")
         h = value
         s = 1.0
         v = 1.0
