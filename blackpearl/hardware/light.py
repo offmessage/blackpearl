@@ -5,24 +5,33 @@ class LightInput(FlotillaInput):
     Light sensor
     ============
     
-    NB: This returns 3 values, and no code I've found can tell me what the
-    second and third are! I currently ignore them.
+    
+    NB: Like the motion this is hypersensitive. Expect a lot of noise.
     
     Outputs
     -------
-    Emits a single integer. Upper bound is very high. Normal room light levels
-    are generally less than 1,000, but held close to a bright source the return
-    value can be in the tens of thousands.
+    Output is converted into Celsius and kPa (kilopascals) for more human
+    readability. It broadcasts three integers - ``visible``, ``infrared`` and
+    ``lux``. ``lux`` is probably the most useful. ``lux`` is constrained
+    between 0 and 65536.
     
-    Example:
+    https://gadgetoid.gitbooks.io/flotilla-protocol/content/light.html
     
-    ``{'light': {'level': 672}}``
+    Example::
+    
+      {'light': {'visible': 136,
+                 'infrared': 421,
+                 'lux': 723,
+                 }
+       }
     """
     module = "light"
-    VALUE = None
+    visible = None
+    infrared = None
+    lux = None
     
     def change(self, data):
-        value, dunno1, dunno2 = data.split(b',')
+        visible, infrared, lux = data.split(b',')
         value = int(value)
         if self.VALUE == value:
             # This might happen due to dunno1 and dunno2 potentially changing
