@@ -7,38 +7,51 @@ class MotionInput(FlotillaInput):
     
     NB: This is hyper sensitive. Look at the recipes to see how to ignore some
     of the noise this generates.
-    NB: The sensor returns 6 numbers, the Pimoroni Python API ignores the last
-    3, so I do too...
+    
+    https://gadgetoid.gitbooks.io/flotilla-protocol/content/motion.html
     
     Outputs
     -------
     
-    Returns a dictionary of coordinates x, y and z
+    Returns a dictionary of coordinates x, y and z for both the accelerometer
+    and the magnetometer.
     
     Example::
     
-      {'motion': {'coordinates': {'x': 145,
-                                  'y': 196,
-                                  'z': 200,
-                                  }
+      {'motion': {'accelerometer': {'x': 145,
+                                    'y': 196,
+                                    'z': 200,
+                                    },
+                  'magnetometer': {'x': ,
+                                   'y': ,
+                                   'z': ,
+                                   },
                   }
        }
     """
-    # XXX TODO understand the bounds of how this one works
     module = "motion"
-    COORDINATES = [0,0,0,]
+    accelerometer = [0,0,0,]
+    magnetometer = [0,0,0,]
     
     def change(self, data):
         x, y, z, i, j, k = data.split(b',')
-        coordinates = [int(x), int(y), int(z),]
-        if coordinates == self.COORDINATES:
-            # This will happen frequently, as i, j and k change
+        accelerometer = [int(x), int(y), int(z),]
+        magnetometer = [int(i), int(j), int(k),]
+        
+        if accelerometer == self.accelerometer and magnetometer = self.magnetometer:
+            # This shouldn't happen
             return None
-        self.COORDINATES = coordinates
-        output = {'x': coordinates[0],
-                  'y': coordinates[1],
-                  'z': coordinates[2],
+        self.accelerometer = accelerometer
+        self.magnetometer = magnetometer
+        output = {'accelerometer': {'x': accelerometer[0],
+                                    'y': accelerometer[1],
+                                    'z': accelerometer[2],
+                                    },
+                  'magnetometer': {'x': magnetometer[0],
+                                   'y': magnetometer[1],
+                                   'z': magnetometer[2],
+                                   },
                   }
-        return self.broadcast({'coordinates': output})
+        return self.broadcast(output)
     
 
