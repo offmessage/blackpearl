@@ -45,7 +45,7 @@ class Timer(BaseModule):
                 self.precision = str(self.tick)
         newtime = float(Decimal(newtime).quantize(Decimal(self.precision)))
         data = {'time': newtime}
-        self.emit(data)
+        self.broadcast(data)
         
     @defer.deferredGenerator
     def start(self):
@@ -96,5 +96,5 @@ class Clock(Timer):
                 'seconds': "{:02d}".format(tm.tm_sec),
                 'as_string': fmt.format(tm.tm_hour, tm.tm_min),
                 }
-        self.emit(data)
+        self.broadcast(data)
         

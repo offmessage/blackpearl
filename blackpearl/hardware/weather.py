@@ -10,7 +10,7 @@ class WeatherInput(FlotillaInput):
     Outputs
     -------
     Output is converted into Celsius and kPa (kilopascals) for more human
-    readability. It emits two floats - ``temperature`` and ``pressure``.
+    readability. It broadcasts two floats - ``temperature`` and ``pressure``.
     
     Example::
     
@@ -35,4 +35,4 @@ class WeatherInput(FlotillaInput):
         output = {'temperature': temp,
                   'pressure': pressure,
                   }
-        return self.emit(output)
+        return self.broadcast(output)

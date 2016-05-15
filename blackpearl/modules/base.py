@@ -102,7 +102,7 @@ class BaseModule:
     def data(self, data):
         pass
 
-    def emit(self, data):
+    def broadcast(self, data):
         if data is None:
             return data
         output = {self.module_name: data}

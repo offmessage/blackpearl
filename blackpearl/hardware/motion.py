@@ -39,6 +39,6 @@ class MotionInput(FlotillaInput):
                   'y': coordinates[1],
                   'z': coordinates[2],
                   }
-        return self.emit({'coordinates': output})
+        return self.broadcast({'coordinates': output})
     
 

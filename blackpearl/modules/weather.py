@@ -40,7 +40,7 @@ class WeatherRecorder(Weather):
         data = {'temperature': self.temperature,
                 'pressure': self.pressure,
                 }
-        self.emit(data)
+        self.broadcast(data)
         
     @defer.deferredGenerator
     def start(self):
@@ -69,7 +69,7 @@ class TemperatureAlert(Weather):
                 data = {'status': self.status,
                         'temperature': self.temperature,
                         }
-                self.emit(data)
+                self.broadcast(data)
                 return
         if self.above is not None:
             if temp > self.above and self.status != 'ok':
@@ -77,26 +77,26 @@ class TemperatureAlert(Weather):
                 data = {'status': self.status,
                         'temperature': self.temperature,
                         }
-                self.emit(data)
+                self.broadcast(data)
             elif temp <= self.above and self.status == 'above':
                 self.status = 'ok'
                 data = {'status': self.status,
                         'temperature': self.temperature,
                         }
-                self.emit(data)
+                self.broadcast(data)
         if self.below is not None:
             if temp < self.below and self.status != 'ok':
                 self.status = 'below'
                 data = {'status': self.status,
                         'temperature': self.temperature,
                         }
-                self.emit(data)
+                self.broadcast(data)
             elif temp >= self.below and self.status == 'below':
                 self.status = 'ok'
                 data = {'status': self.status,
                         'temperature': self.temperature,
                         }
-                self.emit(data)
+                self.broadcast(data)
                 
 
 class PressureAlert(Weather):
@@ -118,7 +118,7 @@ class PressureAlert(Weather):
                 data = {'status': self.status,
                         'pressure': self.pressure,
                         }
-                self.emit(data)
+                self.broadcast(data)
                 return
         if self.above is not None:
             if pressure > self.above and self.status != 'ok':
@@ -126,25 +126,25 @@ class PressureAlert(Weather):
                 data = {'status': self.status,
                         'pressure': self.pressure,
                         }
-                self.emit(data)
+                self.broadcast(data)
             elif pressure <= self.above and self.status == 'above':
                 self.status = 'ok'
                 data = {'status': self.status,
                         'pressure': self.pressure,
                         }
-                self.emit(data)
+                self.broadcast(data)
         if self.below is not None:
             if pressure < self.below and self.status != 'ok':
                 self.status = 'below'
                 data = {'status': self.status,
                         'pressure': self.pressure,
                         }
-                self.emit(data)
+                self.broadcast(data)
             elif pressure >= self.below and self.status == 'below':
                 self.status = 'ok'
                 data = {'status': self.status,
                         'pressure': self.pressure,
                         }
-                self.emit(data)
+                self.broadcast(data)
                 
             

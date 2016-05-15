@@ -28,6 +28,6 @@ class LightInput(FlotillaInput):
             # This might happen due to dunno1 and dunno2 potentially changing
             return None
         self.VALUE = value
-        return self.emit({'level': value,})
+        return self.broadcast({'level': value,})
 
 

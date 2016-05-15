@@ -26,6 +26,6 @@ class ColourInput(FlotillaInput):
             # This could happen, due to 'c' changing
             return None
         self.RGB = rgb
-        return self.emit({'rgb': rgb})
+        return self.broadcast({'rgb': rgb})
     
     
