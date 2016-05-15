@@ -38,7 +38,7 @@ class MotionInput(FlotillaInput):
         accelerometer = [int(x), int(y), int(z),]
         magnetometer = [int(i), int(j), int(k),]
         
-        if accelerometer == self.accelerometer and magnetometer = self.magnetometer:
+        if accelerometer == self.accelerometer and magnetometer == self.magnetometer:
             # This shouldn't happen
             return None
         self.accelerometer = accelerometer
