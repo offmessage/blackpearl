@@ -97,9 +97,9 @@ class BaseModule:
     def dispatch(self, data):
         for l in self.listening_for:
             if l in data:
-                self.data(data)
+                self.receive(data)
         
-    def data(self, data):
+    def receive(self, data):
         pass
 
     def broadcast(self, data):

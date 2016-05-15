@@ -11,7 +11,7 @@ class Weather(BaseModule):
     listening_for = ['weather']
     hardware_required = ['weather']
     
-    def data(self, data):
+    def receive(self, data):
         temp = data['temperature']
         if temp != self.temperature:
             self.temperature = temp

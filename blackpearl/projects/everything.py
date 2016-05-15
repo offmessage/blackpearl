@@ -30,7 +30,7 @@ class SpeedChanger(BaseModule):
     listening_for = ['dial',]
     hardware_required = ['dial', 'matrix']
     
-    def data(self, data):
+    def receive(self, data):
         value = data['dial']['value']
         if value < 200:
             spd = 0.25
@@ -48,7 +48,7 @@ class RainbowSetter(BaseModule):
     listening_for = ['matrix',]
     hardware_required = ['matrix', 'rainbow',]
     
-    def data(self, data):
+    def receive(self, data):
         if 'scroller' in data['matrix']:
             status = data['matrix']['scroller']
             if status in ['running', 'step', 'loop']:
@@ -65,14 +65,14 @@ class MyTimer(Timer):
         
 class Listener(BaseModule):
     listening_for = ['timer']
-    def data(self, data):
+    def receive(self, data):
         print(data['timer']['time'])
         
 class DiscoLights(BaseModule):
     listening_for = ['slider',]
     hardware_required = ['slider', 'rainbow',]
     
-    def data(self, data):
+    def receive(self, data):
         value = (data['slider']['value'])/1000.0
         red, green, blue = self.rainbow.hue(value)
         self.rainbow.set_all(red, green, blue)
@@ -82,7 +82,7 @@ class Mover(BaseModule):
     listening_for = ['slider',]
     hardware_required = ['slider', 'motor', 'motor',]
     
-    def data(self, data):
+    def receive(self, data):
         value = data['slider']['value']
         if value == 0:
             v = -63
@@ -97,7 +97,7 @@ class Mover(BaseModule):
 class ClockDisplay(BaseModule):
     listening_for = ['clock',]
     hardware_required = ['number',]
-    def data(self, data):
+    def receive(self, data):
         tm = data['clock']['as_string']
         self.number.set_digit(0, tm[0])
         self.number.set_digit(1, tm[1])

@@ -10,7 +10,7 @@ class Touch(BaseModule):
                '4': False,
                }
 
-    def data(self, data):
+    def receive(self, data):
         buttons = data['touch']['buttons']
         for k in buttons:
             method_name = None

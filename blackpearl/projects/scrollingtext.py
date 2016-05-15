@@ -29,7 +29,7 @@ class SpeedChanger(BaseModule):
     listening_for = ['dial',]
     hardware_required = ['dial', 'matrix']
     
-    def data(self, data):
+    def receive(self, data):
         value = data['dial']['value']
         if value < 200:
             spd = 0.25
@@ -48,7 +48,7 @@ class Listener(BaseModule):
     listening_for = ['matrix',]
     hardware_required = ['matrix', 'rainbow',]
     
-    def data(self, data):
+    def receive(self, data):
         if 'scroller' in data['matrix']:
             status = data['matrix']['scroller']
             if status in ['running', 'step', 'loop']:

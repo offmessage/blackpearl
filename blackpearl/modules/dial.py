@@ -6,7 +6,7 @@ class Dial(BaseModule):
     module_name = 'dial'
     value = None
     
-    def data(self, data):
+    def receive(self, data):
         value = data['value']
         if value != self.value:
             self.value_changed(value)

@@ -7,7 +7,7 @@ class Slider(BaseModule):
     listening_for = ['slider',]
     value = None
     
-    def data(self, data):
+    def receive(self, data):
         value = data['value']
         if value != self.value:
             self.value_changed(value)
