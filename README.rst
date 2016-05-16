@@ -63,4 +63,4 @@ And then::
   python everything.py
 
 Further examples are in the ``projects/`` directory. More documentation will be
-forthcoming at `https://offmessage.github.io/blackpearl`_
+forthcoming at <https://offmessage.github.io/blackpearl> at some point soon.
