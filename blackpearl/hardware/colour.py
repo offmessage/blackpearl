@@ -1,6 +1,7 @@
 from .base import FlotillaInput
 
-class ColourInput(FlotillaInput):
+
+class Colour(FlotillaInput):
     """
     Colour
     ======

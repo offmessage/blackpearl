@@ -1,6 +1,7 @@
 from .base import LinearInput
 
-class SliderInput(LinearInput):
+
+class Slider(LinearInput):
     """
     Slider
     ======

@@ -1,6 +1,7 @@
 from .base import LinearInput
 
-class DialInput(LinearInput):
+
+class Dial(LinearInput):
     """
     Dial
     ====

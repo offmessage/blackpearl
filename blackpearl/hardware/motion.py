@@ -1,6 +1,7 @@
 from .base import FlotillaInput
 
-class MotionInput(FlotillaInput):
+
+class Motion(FlotillaInput):
     """
     Motion sensor
     =============

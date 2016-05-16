@@ -1,6 +1,7 @@
 from .base import FlotillaInput
 
-class TouchInput(FlotillaInput):
+
+class Touch(FlotillaInput):
     """
     Touch
     =====

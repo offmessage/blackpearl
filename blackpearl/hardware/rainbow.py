@@ -2,12 +2,8 @@ from itertools import chain
 
 from .base import FlotillaOutput
 
-try:
-    import blackpearl.wingdbstub
-except ImportError:
-    pass
 
-class RainbowOutput(FlotillaOutput):
+class Rainbow(FlotillaOutput):
     """
     Rainbow
     """

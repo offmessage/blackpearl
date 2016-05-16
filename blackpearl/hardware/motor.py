@@ -1,7 +1,7 @@
 from .base import FlotillaOutput
 
 
-class MotorOutput(FlotillaOutput):
+class Motor(FlotillaOutput):
     """
     Motor
     Takes a speed between -63 and +63

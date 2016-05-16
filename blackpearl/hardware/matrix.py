@@ -4,7 +4,7 @@ from twisted.internet import reactor
 from .base import FlotillaOutput
 
 
-class MatrixOutput(FlotillaOutput):
+class Matrix(FlotillaOutput):
     """
     Matrix
     There is much to do. Particularly look at .frames()

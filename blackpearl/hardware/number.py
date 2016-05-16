@@ -1,7 +1,7 @@
 from .base import FlotillaOutput
 
 
-class NumberOutput(FlotillaOutput):
+class Number(FlotillaOutput):
     """
     Number
     """

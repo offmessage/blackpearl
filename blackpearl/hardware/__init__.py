@@ -11,16 +11,16 @@ modules
 
 
 from .client import FlotillaClient
-from .colour import ColourInput
-from .dial import DialInput
-from .joystick import JoystickInput
-from .light import LightInput
-from .matrix import MatrixOutput
-from .motion import MotionInput
-from .motor import MotorOutput
-from .number import NumberOutput
-from .rainbow import RainbowOutput
-from .slider import SliderInput
-from .touch import TouchInput
-from .weather import WeatherInput
+from .colour import Colour
+from .dial import Dial
+from .joystick import Joystick
+from .light import Light
+from .matrix import Matrix
+from .motion import Motion
+from .motor import Motor
+from .number import Number
+from .rainbow import Rainbow
+from .slider import Slider
+from .touch import Touch
+from .weather import Weather
 

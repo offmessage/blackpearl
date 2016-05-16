@@ -1,6 +1,7 @@
 from .base import FlotillaInput
 
-class WeatherInput(FlotillaInput):
+
+class Weather(FlotillaInput):
     """
     Weather
     =======

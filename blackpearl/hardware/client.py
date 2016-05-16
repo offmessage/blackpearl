@@ -15,34 +15,34 @@ from twisted.internet import defer
 from twisted.internet.serialport import SerialPort
 from twisted.protocols.basic import LineReceiver
 
-from .colour import ColourInput
-from .dial import DialInput
-from .joystick import JoystickInput
-from .light import LightInput
-from .matrix import MatrixOutput
-from .motion import MotionInput
-from .motor import MotorOutput
-from .number import NumberOutput
-from .rainbow import RainbowOutput
-from .slider import SliderInput
-from .touch import TouchInput
-from .weather import WeatherInput
+from .colour import Colour
+from .dial import Dial
+from .joystick import Joystick
+from .light import Light
+from .matrix import Matrix
+from .motion import Motion
+from .motor import Motor
+from .number import Number
+from .rainbow import Rainbow
+from .slider import Slider
+from .touch import Touch
+from .weather import Weather
 
 
 class FlotillaClient(LineReceiver):
     
-    MODULES = {'matrix': MatrixOutput,
-               'number': NumberOutput,
-               'rainbow': RainbowOutput,
-               'motor': MotorOutput,
-               'touch': TouchInput,
-               'dial': DialInput,
-               'slider': SliderInput,
-               'joystick': JoystickInput,
-               'motion': MotionInput,
-               'light': LightInput,
-               'colour': ColourInput,
-               'weather': WeatherInput,
+    MODULES = {'matrix': Matrix,
+               'number': Number,
+               'rainbow': Rainbow,
+               'motor': Motor,
+               'touch': Touch,
+               'dial': Dial,
+               'slider': Slider,
+               'joystick': Joystick,
+               'motion': Motion,
+               'light': Light,
+               'colour': Colour,
+               'weather': Weather,
                }
     
     def _resetModules(self):

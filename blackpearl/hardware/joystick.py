@@ -1,6 +1,7 @@
 from .base import FlotillaInput
 
-class JoystickInput(FlotillaInput):
+
+class Joystick(FlotillaInput):
     """
     Joystick
     ========

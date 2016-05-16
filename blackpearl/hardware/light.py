@@ -1,6 +1,7 @@
 from .base import FlotillaInput
 
-class LightInput(FlotillaInput):
+
+class Light(FlotillaInput):
     """
     Light sensor
     ============
