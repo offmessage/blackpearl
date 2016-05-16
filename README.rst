@@ -35,10 +35,32 @@ Installation
 Right now (0.0.1.dev0) you really need to know what you're doing, Python-wise,
 so I'm deliberately making the instructions very high level. If the following
 don't make sense you should probably hang on for a bit. Version 1.0.0 is just
-around the corner and will be well documented:
+around the corner and will be well documented::
 
-- Create a python3 virtual environment
-- Clone this repository into it
-- ``pip install -e .``
+  cd ~/projects
+  git clone https://github.com/offmessage/blackpearl
+  cd blackpearl
+  virtualenv -p python3 venv
+  source venv/bin/activate
+  pip install -e .
+  
+To see what it's capable of, connect all of the following to your Flotilla (and
+connect your Flotilla to your Rpi2):
 
-Examples will be forthcoming.
+ * The matrix 
+ * The dial
+ * The slider
+ * 2 motors
+ * The rainbow
+ * The number
+ * The touch
+ 
+And then::
+
+  cd ~/projects/blackpearl
+  source venv/bin/activate
+  cd blackpearl/projects
+  python everything.py
+
+Further examples are in the ``projects/`` directory. More documentation will be
+forthcoming at `https://offmessage.github.io/blackpearl`_
