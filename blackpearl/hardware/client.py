@@ -6,7 +6,6 @@ FlotillaClient
 This is the core Python code for connecting to, processing input from, and
 sending messages to the Flotilla itself.
 
-Each individual component can be found in hardware/
 """
 
 
@@ -64,12 +63,16 @@ class FlotillaClient(LineReceiver):
             print("Trying to connect to Flotilla. This may take up to 30 seconds")
             self._count += 1
             if self._count <= 30:
-                d = defer.Deferred()
+                if self._count % 5 == 0:
+                    print("Trying... {} seconds".format(self._count))
                 def runner(arg):
                     self.run(project, reactor)
-                reactor.callLater(1, runner, None)
+                d = defer.Deferred()
+                d.addCallback(runner)
+                reactor.callLater(1, d.callback, None)
                 return defer.waitForDeferred(d)
             else:
+                # It took more than 30 seconds (I've never seen this)
                 raise e
         
     def connectionLost(self, reason):
@@ -78,7 +81,6 @@ class FlotillaClient(LineReceiver):
         
     @defer.deferredGenerator
     def connectionMade(self):
-        # XXX This needs far better error handling!
         self._resetModules()
         print('Flotilla is connected.')
         self.flotillaCommand(b'v')
@@ -128,21 +130,19 @@ class FlotillaClient(LineReceiver):
         print("Found a {} on channel {}".format(module, channel))
         new_module = self.MODULES[module](self, channel)
         self.modules[channel] = new_module
-        # XXX This is shonky - needs to handle the race between module
-        # XXX instantiation and the Flotilla waking up much better
         self.project.connect()
             
     def handle_D(self, channel, module):
         self.modules[channel] = None
-        # XXX we should send a message to the project that a new module
+        # TODO we should send a message to the project that a new module
         # has been deleted
         
     def handle_U(self, channel, module, data):
         if self.modules[channel] is None:
-            # We appear to have a problem with the Flotilla here, where modules
-            # are reporting data so quickly and frequently that the Flotilla
-            # can't respond to a request to enumerate the connected modules.
-            # We should probably send an 'e' at this point?
+            # It's possible to get input from a hardware module before
+            # everything is connected up. Ignore it until we're ready
+            # Rather than using ``self._ready`` we check for ``None`` to avoid
+            # any unhandled exceptions.
             return
         j = self.modules[channel].change(data)
         
@@ -169,7 +169,13 @@ class FlotillaClient(LineReceiver):
         if cmd == b'#':
             self.handle_hash(line)
             return
-        channel, module = parts[1].decode('ascii').split('/')
+        try:
+            channel, module = parts[1].decode('ascii').split('/')
+        except IndexError as e:
+            # Sometimes, if the Flotilla is particularly overloaded, we get
+            # malformed lines. Ignore them.
+            print(line)
+            return
         channel = int(channel)
         if cmd == b'c':
             self.handle_C(channel, module)
