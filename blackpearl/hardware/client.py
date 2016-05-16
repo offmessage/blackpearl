@@ -65,9 +65,9 @@ class FlotillaClient(LineReceiver):
             self._count += 1
             if self._count <= 30:
                 d = defer.Deferred()
-                def foo(arg):
+                def runner(arg):
                     self.run(project, reactor)
-                reactor.callLater(1, foo, None)
+                reactor.callLater(1, runner, None)
                 return defer.waitForDeferred(d)
             else:
                 raise e
