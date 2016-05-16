@@ -6,7 +6,7 @@ from blackpearl.projects import BaseProject
 class Listener(BaseModule):
     listening_for = ['clock',]
     hardware_required = ['number',]
-    def data(self, data):
+    def receive(self, data):
         tm = data['clock']['as_string']
         self.number.set_digit(0, tm[0])
         self.number.set_digit(1, tm[1])

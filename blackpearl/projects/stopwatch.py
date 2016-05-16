@@ -11,7 +11,7 @@ class Stopwatch(Timer):
     hardware_required = ['number', 'touch']
     listening_for = ['timer', 'touch']
     
-    def data(self, data):
+    def receive(self, data):
         if 'timer' in data:
             tm = data['timer']['time']
             self.number.set_number(tm)

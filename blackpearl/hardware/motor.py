@@ -8,7 +8,6 @@ class MotorOutput(FlotillaOutput):
     """
     module = "motor"
     
-    #direction = 1
     speed = 0
     
     def stop(self):
@@ -17,16 +16,6 @@ class MotorOutput(FlotillaOutput):
     def reset(self):
         self.set_speed(0)
     
-    #def reverse(self):
-        #self.direction = self.direction * -1
-        #self.set_speed(self.speed * -1)
-        
-    #def set_direction(self, direction):
-        #if direction in ["forwards", 1]:
-            #self.direction = 1
-        #elif direction in ["backwards", -1]:
-            #self.direction = -1
-        
     def update(self, data):
         data = [data,]
         self.send(data)
@@ -40,16 +29,4 @@ class MotorOutput(FlotillaOutput):
         speed = int(v)
         self.update(speed)
         self.speed = speed
-        
-    #def linearinput(self, d):
-        ## XXX TODO This should be factored into a recipe, not here
-        ## d is between 0 and 1000 from our linear input modules
-        #if d == 0:
-            #v = -63
-        #elif d == 1000:
-            #v = 63
-        #else:
-            #v = int((d - 500)/8)
-        #v = v * self.direction
-        #self.set_speed(v)
         

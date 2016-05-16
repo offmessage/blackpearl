@@ -43,6 +43,6 @@ class JoystickInput(FlotillaInput):
         output = {'coordinates': coordinates,
                   'button': button,
                   }
-        return self.emit(output)
+        return self.broadcast(output)
     
 

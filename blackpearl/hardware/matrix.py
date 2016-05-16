@@ -96,14 +96,14 @@ class MatrixOutput(FlotillaOutput):
                 wfd = defer.waitForDeferred(d)
                 yield wfd
                 if self.status == 'RUNNING':
-                    self.emit({'scroller': 'step'})
+                    self.broadcast({'scroller': 'step'})
             if not self.loop:
                 break
             if self.status == "RUNNING":
                 self.lastindex = 0
-                self.emit({'scroller': 'loop'})
+                self.broadcast({'scroller': 'loop'})
         if self.status == 'STOPPED':
-            self.emit({'scroller': 'finished'})
+            self.broadcast({'scroller': 'finished'})
             
     def pause(self):
         if self.status == "RUNNING":
@@ -111,7 +111,7 @@ class MatrixOutput(FlotillaOutput):
         elif self.status == "PAUSED":
             self.status = "RUNNING"
             self.scroller(self.steps)
-        self.emit({'scroller': self.status.lower()})
+        self.broadcast({'scroller': self.status.lower()})
             
             
 ascii_letters = [

@@ -38,6 +38,6 @@ class TouchInput(FlotillaInput):
                               '4': buttons[3],
                               }
                   }
-        return self.emit(output)
+        return self.broadcast(output)
         
 
