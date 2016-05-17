@@ -1,0 +1,17 @@
+.. flotilla:
+
+The Flotilla itself
+===================
+
+I have nothing to write here yet...
+
+.. function:: testfunction()
+   
+   This is my test function. Let's see how it renders, shall we? This is some
+   generic text::
+     
+     # This is code, is it?
+     foo = bar()
+     
+   Monkey balls
+   
