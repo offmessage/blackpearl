@@ -13,5 +13,7 @@ I have nothing to write here yet...
      # This is code, is it?
      foo = bar()
      
-   Monkey balls
+   Monkey's love *bananas*, but they don't like **shoes**. Here is an ``inline
+   variable``
+   
    
