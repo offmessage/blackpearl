@@ -37,17 +37,13 @@ class Colour(FlotillaInput):
         blue = int(blue)
         clear = int(clear)
         def convert(v):
-            # The fact that we have to put this min() in there is a bit
-            # worrying - I think my personal colour sensor may be over reporting
-            # the levels of blue, as it's often *greater* than the value
-            # reported from the unfiltered light sensor
-            
             ratio = v/clear
+            if ratio > 1:
+                ratio = 1
+                msg = ("Something went awry - was given a filtered light level"
+                       "greater than the unfiltered light level.")
+                self.flotilla.project.log("WARNING", msg)
             value = int(ratio * 255)
-            if value > 255:
-                print("Something went awry - was given a filtered light level"
-                      "greater than the unfiltered light level")
-                return 255
             return value
         rgb = [convert(red), convert(green), convert(blue),]
         
