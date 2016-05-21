@@ -1,6 +1,6 @@
 from blackpearl.modules import BaseModule
 from blackpearl.modules import Clock
-from blackpearl.projects import BaseProject
+from blackpearl.projects import Project
 
 
 class Listener(BaseModule):
@@ -19,9 +19,9 @@ class Listener(BaseModule):
         self.number.update()
         
         
-class Project(BaseProject):
+class MyProject(Project):
     required_modules = [Clock, Listener,]
     
 
 if __name__ == '__main__':
-    Project()
+    MyProject()

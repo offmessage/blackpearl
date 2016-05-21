@@ -2,7 +2,7 @@ from blackpearl.modules import BaseModule
 from blackpearl.modules import Clock
 from blackpearl.modules import Timer
 from blackpearl.modules import Touch
-from blackpearl.projects import BaseProject
+from blackpearl.projects import Project
 
 
 class Scroller(Touch):
@@ -110,11 +110,11 @@ class ClockDisplay(BaseModule):
         self.number.update()
         
 
-class Project(BaseProject):
+class MyProject(Project):
     required_modules = [Scroller, SpeedChanger, RainbowSetter, 
                         MyTimer, Listener, DiscoLights, Mover, Clock, 
                         ClockDisplay, ]
     
 
 if __name__ == '__main__':
-    Project()
+    MyProject()

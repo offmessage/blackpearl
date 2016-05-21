@@ -1,6 +1,6 @@
 from blackpearl.modules import BaseModule
 from blackpearl.modules import Touch
-from blackpearl.projects import BaseProject
+from blackpearl.projects import Project
 
 
 class Scroller(Touch):
@@ -59,9 +59,9 @@ class Listener(BaseModule):
                 self.rainbow.update()
             
 
-class Project(BaseProject):
+class MyProject(Project):
     required_modules = [Scroller, SpeedChanger, Listener, ]
     
 
 if __name__ == '__main__':
-    Project()
+    MyProject()

@@ -1,4 +1,4 @@
-from blackpearl.projects import BaseProject
+from blackpearl.projects import Project
 
 from blackpearl.modules import BaseModule
 from blackpearl.modules import Timer
@@ -29,9 +29,9 @@ class Stopwatch(Timer):
                 self.number.update()
         
         
-class Project(BaseProject):
+class MyProject(Project):
     required_modules = [Stopwatch, ]
     
 
 if __name__ == '__main__':
-    Project()
+    MyProject()

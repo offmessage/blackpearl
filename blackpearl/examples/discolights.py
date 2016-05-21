@@ -1,5 +1,5 @@
 from blackpearl.modules import BaseModule
-from blackpearl.projects import BaseProject
+from blackpearl.projects import Project
 
 
 class DiscoLights(BaseModule):
@@ -19,9 +19,9 @@ class DiscoLights(BaseModule):
         self.rainbow.update()
 
 
-class Project(BaseProject):
+class MyProject(Project):
     required_modules = [DiscoLights, ]
     
 
 if __name__ == '__main__':
-    Project()
+    MyProject()

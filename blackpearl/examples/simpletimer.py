@@ -1,6 +1,6 @@
 from blackpearl.modules import BaseModule
 from blackpearl.modules import Timer
-from blackpearl.projects import BaseProject
+from blackpearl.projects import Project
 
 
 class MyTimer(Timer):
@@ -13,9 +13,9 @@ class Listener(BaseModule):
     def receive(self, data):
         print(data['timer']['time'])
         
-class Project(BaseProject):
+class MyProject(Project):
     required_modules = [MyTimer, Listener,]
     
 
 if __name__ == '__main__':
-    Project()
+    MyProject()

@@ -1,5 +1,5 @@
 from blackpearl.modules import BaseModule
-from blackpearl.projects import BaseProject
+from blackpearl.projects import Project
 
 
 class Mover(BaseModule):
@@ -25,9 +25,9 @@ class Mover(BaseModule):
         self.motor2.set_speed(v * -1)
 
 
-class Project(BaseProject):
+class MyProject(Project):
     required_modules = [Mover,]
     
 
 if __name__ == '__main__':
-    Project()
+    MyProject()

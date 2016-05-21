@@ -1,5 +1,5 @@
 from blackpearl.modules import BaseModule
-from blackpearl.projects import BaseProject
+from blackpearl.projects import Project
 
 
 class Colour(BaseModule):
@@ -13,9 +13,9 @@ class Colour(BaseModule):
         self.rainbow.update()
         
 
-class Project(BaseProject):
+class MyProject(Project):
     required_modules = [Colour, ]
     
 
 if __name__ == '__main__':
-    Project()
+    MyProject()

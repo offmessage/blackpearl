@@ -3,7 +3,7 @@
 Black Pearl: For twisted little pirates
 =======================================
 
-projects/
+projects/base.py
 
 The base for our own projects.
 """
@@ -24,11 +24,14 @@ class BaseProject:
         self._listened_for = []
         self._flotilla_port = flotilla_port
         self._baudrate = baudrate
+        
+    def run(self):
         self.flotilla = FlotillaClient()
         self.flotilla.run(self, reactor)
         reactor.run()
     
     def connectModules(self):
+        # This is called by the flotilla once the hardware is all available
         project = self
         self.modules = [ k(project) for k in self.required_modules ]
         listened_for = []
@@ -37,6 +40,7 @@ class BaseProject:
         self._listened_for = list(set(listened_for))
     
     def connect(self):
+        # Called if a new piece of hardware is connected to the Flotilla
         for m in self.modules:
             m._checkRequirements()
             
@@ -55,4 +59,12 @@ class BaseProject:
             self.message(data)
         else:
             print(level, ":", message)
+
         
+class Project(BaseProject):
+    
+    def __init__(self, flotilla_port="/dev/ttyACM0", baudrate=115200):
+        super().__init__(flotilla_port, baudrate)
+        self.run()
+        
+    
