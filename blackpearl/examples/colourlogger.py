@@ -9,11 +9,12 @@ class Colour(BaseModule):
     def receive(self, data):
         r, g, b = data['colour']['rgb']
         print(r, g, b)
-        #self.rainbow.set_all(r, g, b)
-        #self.rainbow.update()
+        self.rainbow.set_all(r, g, b)
+        self.rainbow.update()
         
+
 class Project(BaseProject):
-    required_modules = [Colour,]
+    required_modules = [Colour, ]
     
 
 if __name__ == '__main__':
