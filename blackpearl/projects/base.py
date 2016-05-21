@@ -24,12 +24,20 @@ class BaseProject:
         self._listened_for = []
         self._flotilla_port = flotilla_port
         self._baudrate = baudrate
+        self._running = False
         
     def run(self):
         self.flotilla = FlotillaClient()
         self.flotilla.run(self, reactor)
         reactor.run()
+        self._running = True
     
+    def add_module(self, klass):
+        if self._running:
+            self.log("ERROR", "Cannot add new modules to an already running project")
+            return
+        self.required_modules.append(klass)
+        
     def connectModules(self):
         # This is called by the flotilla once the hardware is all available
         project = self
