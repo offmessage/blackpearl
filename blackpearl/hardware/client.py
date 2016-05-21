@@ -100,13 +100,22 @@ class FlotillaClient(LineReceiver):
         self.delimiter = b'\r\n'
         
     def handle_hash(self, line):
-        print(line)
+        
+        self.project.log("INFO", line)
+        
         if self._ready:
+            # We are all good. No action required.
             return
-        if not hasattr(self, '_lines'):
+        
+        if line.startswith(b'# Flotilla'):
+            # Occasional case where the first line gets missed off the first
+            # time, so reset.
             self._lines = []
+            
         self._lines.append(line)
+        
         if len(self._lines) == 5 and not self._connected:
+            # We have issued our first b'v'
             ready = [False, False, False, False, False,]
             starts = [b'# Flotilla', b'# Version', b'# Serial', b'# User', b'# Dock',]
             for i in range(5):
@@ -115,7 +124,9 @@ class FlotillaClient(LineReceiver):
                 self._connected = True
                 self._lines = []
                 self.flotillaCommand(b'd')
+        
         if len(self._lines) == 11 and not self._ready:
+            # We're connected, and have issued a b'd'
             ready = [False,] * 11
             starts = [b'# SRAM', b'# Loop', b'# Channels', b'# - 0', b'# - 1',
                       b'# - 2', b'# - 3', b'# - 4', b'# - 5', b'# - 6', b'# - 7',]
@@ -164,7 +175,6 @@ class FlotillaClient(LineReceiver):
         return l[0][1]
         
     def lineReceived(self, line):
-        # XXX: Needs better error handling
         parts = line.split(b" ")
         cmd = parts[0]
         if cmd == b'#':
