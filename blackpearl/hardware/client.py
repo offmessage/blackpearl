@@ -82,6 +82,7 @@ class FlotillaClient(LineReceiver):
     @defer.deferredGenerator
     def connectionMade(self):
         self._resetModules()
+        self._lines = []
         print('Flotilla is connected.')
         self.flotillaCommand(b'v')
         def check(arg):
