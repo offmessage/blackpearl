@@ -3,10 +3,10 @@
 Black Pearl: For twisted little pirates
 =======================================
 
-hardware/
+things/
 
 Contains all the information about how to communicate with Flotilla hardware
-modules
+modules and our software components.
 """
 
 

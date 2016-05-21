@@ -3,7 +3,7 @@
 Black Pearl: For twisted little pirates
 =======================================
 
-hardware/base.py
+things/base.py
 
 Communicate with the Flotilla hardware modules.
 """
