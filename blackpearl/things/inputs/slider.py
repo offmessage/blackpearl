@@ -1,4 +1,4 @@
-from .base import LinearInput
+from ..base import LinearInput
 
 
 class Slider(LinearInput):
