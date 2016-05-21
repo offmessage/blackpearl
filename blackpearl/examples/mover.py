@@ -1,8 +1,8 @@
-from blackpearl.modules import BaseModule
+from blackpearl.modules import Module
 from blackpearl.projects import Project
 
 
-class Mover(BaseModule):
+class Mover(Module):
     listening_for = ['slider',]
     hardware_required = ['slider', 'motor', 'motor',]
     

@@ -1,6 +1,6 @@
 from blackpearl.projects import Project
 
-from blackpearl.modules import BaseModule
+from blackpearl.modules import Module
 from blackpearl.modules import Timer
 from blackpearl.modules import Touch
 

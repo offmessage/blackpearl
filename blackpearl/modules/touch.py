@@ -1,7 +1,7 @@
-from .base import BaseModule
+from .base import Module
 
 
-class Touch(BaseModule):
+class Touch(Module):
     
     module_name = 'touch'
     buttons = {'1': False,

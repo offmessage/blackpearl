@@ -11,7 +11,7 @@ Base class for our modules.
 from collections import Counter
 
 
-class BaseModule:
+class Module:
     
     module_name = None
     listening_for = []

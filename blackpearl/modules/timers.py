@@ -4,12 +4,12 @@ import time
 from twisted.internet import defer
 from twisted.internet import reactor
 
-from .base import BaseModule
+from .base import Module
 
 # XXX Arguably to give this same API (module.timer.stop() etc) this
 # needs changing, with a secondary class having all the controls
 
-class Timer(BaseModule):
+class Timer(Module):
     
     module_name = 'timer'
     status = 'STOPPED'

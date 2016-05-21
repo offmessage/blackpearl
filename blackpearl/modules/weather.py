@@ -1,9 +1,9 @@
 from twisted.internet import defer
 
-from .base import BaseModule
+from .base import Module
 
 
-class Weather(BaseModule):
+class Weather(Module):
     
     module_name = 'weather'
     temperature = None

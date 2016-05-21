@@ -10,7 +10,7 @@ input and create output. These are the things that users should be subclassing
 for their projects.
 """
 
-from .base import BaseModule
+from .base import Module
 from .timers import Clock
 from .colour import Colour
 from .dial import Dial

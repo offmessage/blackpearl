@@ -1,4 +1,4 @@
-from blackpearl.modules import BaseModule
+from blackpearl.modules import Module
 from blackpearl.modules import Clock
 from blackpearl.modules import Timer
 from blackpearl.modules import Touch
@@ -26,7 +26,7 @@ class Scroller(Touch):
     def button4_pressed(self):
         self.matrix.pause()
         
-class SpeedChanger(BaseModule):
+class SpeedChanger(Module):
     listening_for = ['dial',]
     hardware_required = ['dial', 'matrix']
     
@@ -44,7 +44,7 @@ class SpeedChanger(BaseModule):
             spd = 0.05
         self.matrix.scrollspeed = spd
         
-class RainbowSetter(BaseModule):
+class RainbowSetter(Module):
     listening_for = ['matrix',]
     hardware_required = ['matrix', 'rainbow',]
     
@@ -63,12 +63,12 @@ class MyTimer(Timer):
     def setup(self):
         self.start()
         
-class Listener(BaseModule):
+class Listener(Module):
     listening_for = ['timer']
     def receive(self, data):
         print(data['timer']['time'])
         
-class DiscoLights(BaseModule):
+class DiscoLights(Module):
     listening_for = ['slider',]
     hardware_required = ['slider', 'rainbow',]
     
@@ -78,7 +78,7 @@ class DiscoLights(BaseModule):
         self.rainbow.set_all(red, green, blue)
         self.rainbow.update()
 
-class Mover(BaseModule):
+class Mover(Module):
     listening_for = ['slider',]
     hardware_required = ['slider', 'motor', 'motor',]
     
@@ -94,7 +94,7 @@ class Mover(BaseModule):
         self.motor1.set_speed(v)
         self.motor2.set_speed(v * -1)
 
-class ClockDisplay(BaseModule):
+class ClockDisplay(Module):
     listening_for = ['clock',]
     hardware_required = ['number',]
     def receive(self, data):

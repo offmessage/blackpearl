@@ -1,7 +1,7 @@
-from .base import BaseModule
+from .base import Module
 
 
-class Colour(BaseModule):
+class Colour(Module):
     pass
 
 

@@ -1,9 +1,9 @@
-from blackpearl.modules import BaseModule
+from blackpearl.modules import Module
 from blackpearl.modules import Clock
 from blackpearl.projects import Project
 
 
-class Listener(BaseModule):
+class Listener(Module):
     listening_for = ['clock',]
     hardware_required = ['number',]
     def receive(self, data):

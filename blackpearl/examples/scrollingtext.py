@@ -1,4 +1,4 @@
-from blackpearl.modules import BaseModule
+from blackpearl.modules import Module
 from blackpearl.modules import Touch
 from blackpearl.projects import Project
 
@@ -25,7 +25,7 @@ class Scroller(Touch):
         self.matrix.pause()
         
 
-class SpeedChanger(BaseModule):
+class SpeedChanger(Module):
     listening_for = ['dial',]
     hardware_required = ['dial', 'matrix']
     
@@ -44,7 +44,7 @@ class SpeedChanger(BaseModule):
         self.matrix.scrollspeed = spd
         
         
-class Listener(BaseModule):
+class Listener(Module):
     listening_for = ['matrix',]
     hardware_required = ['matrix', 'rainbow',]
     

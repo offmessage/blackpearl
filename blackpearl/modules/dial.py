@@ -1,7 +1,7 @@
-from .base import BaseModule
+from .base import Module
 
 
-class Dial(BaseModule):
+class Dial(Module):
     
     module_name = 'dial'
     value = None

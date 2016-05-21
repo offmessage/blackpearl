@@ -1,8 +1,8 @@
-from blackpearl.modules import BaseModule
+from blackpearl.modules import Module
 from blackpearl.projects import Project
 
 
-class Colour(BaseModule):
+class Colour(Module):
     hardware_required = ['colour', 'rainbow',]
     listening_for = ['colour']
     

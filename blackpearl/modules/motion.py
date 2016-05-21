@@ -1,6 +1,6 @@
-from .base import BaseModule
+from .base import Module
 
 
-class Motion(BaseModule):
+class Motion(Module):
     pass
 

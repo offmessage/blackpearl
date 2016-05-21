@@ -1,7 +1,7 @@
-from .base import BaseModule
+from .base import Module
 
 
-class Slider(BaseModule):
+class Slider(Module):
     
     module_name = 'slider'
     listening_for = ['slider',]
