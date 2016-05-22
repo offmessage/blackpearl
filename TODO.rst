@@ -6,7 +6,7 @@ Joystick - lots of maths
 Light - simple, like weather (I think!)
 Motion - simple, like weather
  - six axes?
-Waves
+ 
 URL fetchers
 Minecraft
 
