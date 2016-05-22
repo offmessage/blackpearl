@@ -24,7 +24,7 @@ from .hardware import Slider
 from .hardware import Touch
 from .hardware import Weather
 
-from .software import Saw
+from .software import Sawtooth
 from .software import Sine
 from .software import Square
 from .software import Triangle
