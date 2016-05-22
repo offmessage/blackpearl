@@ -1,4 +1,4 @@
-from ..base import FlotillaInput
+from .base import FlotillaInput
 
 
 class Joystick(FlotillaInput):

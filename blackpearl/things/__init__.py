@@ -10,17 +10,17 @@ modules and our software components.
 """
 
 
-from .client import FlotillaClient
-from .inputs import Colour
-from .inputs import Dial
-from .inputs import Joystick
-from .inputs import Light
-from .matrix import Matrix
-from .inputs import Motion
-from .motor import Motor
-from .number import Number
-from .rainbow import Rainbow
-from .inputs import Slider
-from .inputs import Touch
-from .inputs import Weather
+from .flotilla import FlotillaClient
+from .hardware import Colour
+from .hardware import Dial
+from .hardware import Joystick
+from .hardware import Light
+from .hardware import Matrix
+from .hardware import Motion
+from .hardware import Motor
+from .hardware import Number
+from .hardware import Rainbow
+from .hardware import Slider
+from .hardware import Touch
+from .hardware import Weather
 

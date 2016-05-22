@@ -3,23 +3,12 @@
 Black Pearl: For twisted little pirates
 =======================================
 
-things/base.py
+things/inputs/base.py
 
-Communicate with the Flotilla hardware modules.
+Communicate with the Flotilla hardware input modules.
 """
 
-
-class FlotillaModule:
-    
-    def __init__(self, flotilla, channel):
-        self.flotilla = flotilla
-        self.channel = channel
-        
-    def broadcast(self, data):
-        if data is None:
-            return data
-        output = {self.module: data}
-        self.flotilla.message(output)
+from ..base import FlotillaModule
 
 
 class FlotillaInput(FlotillaModule):
@@ -58,15 +47,3 @@ class LinearInput(FlotillaInput):
         return value
 
 
-class FlotillaOutput(FlotillaModule):
-    """
-    Base class for output modules
-    """
-    
-    def send(self, data):
-        datastring = ','.join([ str(d) for d in data ])
-        cmd = "s {} {}".format(self.channel, datastring).encode()
-        self.flotilla.flotillaCommand(cmd)
-
-
-    
