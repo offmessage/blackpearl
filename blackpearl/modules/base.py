@@ -17,11 +17,14 @@ class Module:
     listening_for = []
     
     hardware_required = []
+    software_required = []
     _all_connected = False
+    _ticks = {}
     
     def __init__(self, project):
         self.project = project
         self._checkRequirements()
+        self._setupSoftware()
         self.setup()
         
     def setup(self):
@@ -94,7 +97,29 @@ class Module:
         else:
             self.project.log('ERROR', 'Requirements met: ' + ', '.join(found))
             self.project.log('ERROR', 'Missing modules: ' + ', '.join(missing))
-
+            
+    def _setupSoftware(self):
+        # I'm working on the simple case that you'll only have one of each of
+        # these, so no complex naming conventions
+        module = self
+        for klass in self.software_required:
+            name = klass.module
+            if hasattr(self, name):
+                msg = ('Could not create "{}" software module, as hardware '
+                       'module with that name already exists.')
+                self.project.log('ERROR', msg.format(name))
+            obj = klass(module)
+            setattr(self, name, obj)
+            if getattr(obj, 'sync', False):
+                if klass.tick_rate not in self._ticks:
+                    self._ticks[klass.tick_rate] = [obj,]
+                else:
+                    self._ticks[klass.tick_rate].append(obj)
+            
+    def tick(self, tick_rate, tm):
+        for obj in self._ticks[tick_rate]:
+            obj.tick(tm)
+            
     def dispatch(self, data):
         for l in self.listening_for:
             if l in data:
