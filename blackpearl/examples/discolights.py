@@ -1,10 +1,12 @@
 from blackpearl.modules import Module
 from blackpearl.projects import Project
+from blackpearl.things import Rainbow
+from blackpearl.things import Slider
 
 
 class DiscoLights(Module):
     listening_for = ['slider',]
-    hardware_required = ['slider', 'rainbow',]
+    hardware_required = [Slider, Rainbow,]
     
     def receive(self, data):
         # We're listening for the slider, which gives us a value of between

@@ -70,14 +70,15 @@ class Module:
         # What we need to do is create a Counter out of self.hardware_required
         # and then compare the keys of that counter to the keys of Counter(names)
         # and bail until that is satisfied
-        check = Counter(self.hardware_required)
+        hardware = [ mod.module for mod in self.hardware_required ]
+        check = Counter(hardware)
         for k, v in check.items():
             if k not in count:
                 return
             if count[k] > v:
                 return
             
-        for h in self.hardware_required:
+        for h in hardware:
             worknames = names.copy()
             if h in worknames:
                 index = names.index(h)
@@ -87,7 +88,7 @@ class Module:
                 found.append(h)
             else:
                 missing.append(h)
-        if len(self.hardware_required) == len(found):
+        if len(hardware) == len(found):
             self.project.log('INFO', 'All requirments met \o/')
             self._all_connected = True
         else:

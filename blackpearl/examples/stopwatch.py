@@ -1,15 +1,16 @@
-from blackpearl.projects import Project
-
 from blackpearl.modules import Module
 from blackpearl.modules import Timer
 from blackpearl.modules import Touch
+from blackpearl.projects import Project
+from blackpearl.things import Number
+from blackpearl.things import Touch
 
 
 class Stopwatch(Timer):
     
     tick = 0.01
-    hardware_required = ['number', 'touch']
-    listening_for = ['timer', 'touch']
+    hardware_required = [Number, Touch,]
+    listening_for = ['timer', 'touch',]
     
     def receive(self, data):
         if 'timer' in data:

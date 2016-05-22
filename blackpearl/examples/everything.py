@@ -3,11 +3,19 @@ from blackpearl.modules import Clock
 from blackpearl.modules import Timer
 from blackpearl.modules import Touch
 from blackpearl.projects import Project
+from blackpearl.things import Dial
+from blackpearl.things import Matrix
+from blackpearl.things import Motor
+from blackpearl.things import Number
+from blackpearl.things import Rainbow
+from blackpearl.things import Slider
+from blackpearl.things import Touch
+
 
 
 class Scroller(Touch):
     listening_for = ['touch',]
-    hardware_required = ['touch', 'matrix', 'rainbow',]
+    hardware_required = [Touch, Matrix, Rainbow,]
     
     def button1_pressed(self):
         self.matrix.reset()
@@ -28,7 +36,7 @@ class Scroller(Touch):
         
 class SpeedChanger(Module):
     listening_for = ['dial',]
-    hardware_required = ['dial', 'matrix']
+    hardware_required = [Dial, Matrix]
     
     def receive(self, data):
         value = data['dial']['value']
@@ -46,7 +54,7 @@ class SpeedChanger(Module):
         
 class RainbowSetter(Module):
     listening_for = ['matrix',]
-    hardware_required = ['matrix', 'rainbow',]
+    hardware_required = [Matrix, Rainbow,]
     
     def receive(self, data):
         if 'scroller' in data['matrix']:
@@ -70,7 +78,7 @@ class Listener(Module):
         
 class DiscoLights(Module):
     listening_for = ['slider',]
-    hardware_required = ['slider', 'rainbow',]
+    hardware_required = [Slider, Rainbow,]
     
     def receive(self, data):
         value = (data['slider']['value'])/1000.0
@@ -80,7 +88,7 @@ class DiscoLights(Module):
 
 class Mover(Module):
     listening_for = ['slider',]
-    hardware_required = ['slider', 'motor', 'motor',]
+    hardware_required = [Slider, Motor, Motor,]
     
     def receive(self, data):
         value = data['slider']['value']
@@ -96,7 +104,7 @@ class Mover(Module):
 
 class ClockDisplay(Module):
     listening_for = ['clock',]
-    hardware_required = ['number',]
+    hardware_required = [Number,]
     def receive(self, data):
         tm = data['clock']['as_string']
         self.number.set_digit(0, tm[0])

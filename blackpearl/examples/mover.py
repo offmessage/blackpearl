@@ -1,10 +1,12 @@
 from blackpearl.modules import Module
 from blackpearl.projects import Project
+from blackpearl.things import Motor
+from blackpearl.things import Slider
 
 
 class Mover(Module):
     listening_for = ['slider',]
-    hardware_required = ['slider', 'motor', 'motor',]
+    hardware_required = [Slider, Motor, Motor,]
     
     def receive(self, data):
         value = data['slider']['value'] # This is between 0 and 1000

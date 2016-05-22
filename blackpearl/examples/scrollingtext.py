@@ -1,11 +1,15 @@
 from blackpearl.modules import Module
 from blackpearl.modules import Touch
 from blackpearl.projects import Project
+from blackpearl.things import Dial
+from blackpearl.things import Matrix
+from blackpearl.things import Rainbow
+from blackpearl.things import Touch
 
 
 class Scroller(Touch):
     listening_for = ['touch',]
-    hardware_required = ['touch', 'matrix', 'rainbow',]
+    hardware_required = [Touch, Matrix, Rainbow,]
     
     def button1_pressed(self):
         self.matrix.reset()
@@ -27,7 +31,7 @@ class Scroller(Touch):
 
 class SpeedChanger(Module):
     listening_for = ['dial',]
-    hardware_required = ['dial', 'matrix']
+    hardware_required = [Dial, Matrix,]
     
     def receive(self, data):
         value = data['dial']['value']
@@ -46,7 +50,7 @@ class SpeedChanger(Module):
         
 class Listener(Module):
     listening_for = ['matrix',]
-    hardware_required = ['matrix', 'rainbow',]
+    hardware_required = [Matrix, Rainbow,]
     
     def receive(self, data):
         if 'scroller' in data['matrix']:

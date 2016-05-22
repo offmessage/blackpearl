@@ -1,9 +1,11 @@
 from blackpearl.modules import Module
 from blackpearl.projects import Project
+from blackpearl.things import Colour
+from blackpearl.things import Rainbow
 
 
-class Colour(Module):
-    hardware_required = ['colour', 'rainbow',]
+class ColourMatcher(Module):
+    hardware_required = [Colour, Rainbow,]
     listening_for = ['colour']
     
     def receive(self, data):
@@ -14,7 +16,7 @@ class Colour(Module):
         
 
 class MyProject(Project):
-    required_modules = [Colour, ]
+    required_modules = [ColourMatcher, ]
     
 
 if __name__ == '__main__':

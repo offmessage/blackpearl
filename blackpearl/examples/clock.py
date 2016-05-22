@@ -1,11 +1,13 @@
 from blackpearl.modules import Module
 from blackpearl.modules import Clock
 from blackpearl.projects import Project
+from blackpearl.things import Number
 
 
 class Listener(Module):
     listening_for = ['clock',]
-    hardware_required = ['number',]
+    hardware_required = [Number,]
+    
     def receive(self, data):
         tm = data['clock']['as_string']
         self.number.set_digit(0, tm[0])
