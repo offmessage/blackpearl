@@ -51,6 +51,7 @@ class Number(FlotillaOutput):
         self.digits[posn] = value
         
     def set_number(self, number, pad=None):
+        # XXX TODO: allow left right pad too, so that we can have 54.70
         valid = [None, '-', '0',]
         if pad not in valid:
             raise ValueError("invalid pad character")
