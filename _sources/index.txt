@@ -11,8 +11,12 @@ Contents:
 .. toctree::
    :maxdepth: 2
    
-   hardware/flotilla.rst
-   harware/inputs/dial.rst
+   quickstart.rst
+   installation.rst
+   gettingstarted.rst
+   messages.rst
+   examples.rst
+   hardware/index.rst
 
 
 Indices and tables

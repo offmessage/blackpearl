@@ -31,7 +31,9 @@
 
   
     <link rel="top" title="Black Pearl 1.0 documentation" href="../index.html"/>
-        <link rel="prev" title="Welcome to Black Pearl’s documentation!" href="../index.html"/> 
+        <link rel="up" title="Flotilla Hardware modules" href="index.html"/>
+        <link rel="next" title="Flotilla Hardware Inputs" href="inputs/index.html"/>
+        <link rel="prev" title="Flotilla Hardware modules" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -81,7 +83,17 @@
             
             
                 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">The Flotilla itself</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Detailed installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Flotilla Hardware modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Flotilla itself</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputs/index.html">Flotilla Hardware Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outputs/index.html">Flotilla Hardware Outputs</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -112,6 +124,8 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
+          <li><a href="index.html">Flotilla Hardware modules</a> &raquo;</li>
+      
     <li>The Flotilla itself</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -128,22 +142,71 @@
             
   <div class="section" id="the-flotilla-itself">
 <h1>The Flotilla itself<a class="headerlink" href="#the-flotilla-itself" title="Permalink to this headline">¶</a></h1>
-<p><strong>Source code</strong> <cite>blackpearl/things/hardware/flotilla.py &lt;source-code&gt;</cite></p>
+<p><strong>Source code</strong> <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/things/flotilla.py">blackpearl/things/flotilla.py</a></p>
 <p>This module provides all of the necessary wiring to connect to the Flotilla
-hardware module and</p>
+hardware module, and to receive updates from the connected modules (like the
+light sensors, the matrix, and so on).</p>
+<p>This is the bit that makes the most of Twisted&#8217;s asyncronous library.
+<strong>blackpearl</strong> uses Twisted&#8217;s SerialPort and LineReceiver classes to do all of
+the heavy lifting; <strong>blackpearl</strong> just piggybacks on that and does Flotilla
+specific things.</p>
+<p>Most of the code is internally facing (you don&#8217;t really need to know what&#8217;s
+going on in there), but if you do want to get down and dirty and use it
+directly the things you&#8217;re really going to care about are defined below.</p>
 <dl class="function">
-<dt id="testfunction">
-<code class="descname">testfunction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#testfunction" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is my test function. Let&#8217;s see how it renders, shall we? This is some
-generic text:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># This is code, is it?</span>
-<span class="n">foo</span> <span class="o">=</span> <span class="n">bar</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Monkey&#8217;s love <em>bananas</em>, but they don&#8217;t like <strong>shoes</strong>. Here is an <code class="docutils literal"><span class="pre">inline</span>
-<span class="pre">variable</span></code></p>
+<dt id="FlotillaClient.flotillaCommand">
+<code class="descclassname">FlotillaClient.</code><code class="descname">flotillaCommand</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#FlotillaClient.flotillaCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends a command to the Flotilla.</p>
+<p><code class="docutils literal"><span class="pre">command</span></code> must be Python 3 bytes (e.g <code class="docutils literal"><span class="pre">b'v'</span></code>). Available commands are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>d</strong> (<em>debug</em>): Asks the Flotilla to send back details information about
+itself. Returns 11 lines, including the firmware version and
+what&#8217;s connected to each channel</li>
+<li><strong>v</strong> (<em>version</em>): Asks the Flotilla to send back simple information
+about itself. Returns 5 lines, including the firmware version, the
+named user, and the dock name</li>
+<li><strong>n</strong> (<em>name</em>): Two options: <code class="docutils literal"><span class="pre">n</span> <span class="pre">u</span> <span class="pre">&lt;user</span> <span class="pre">name&gt;</span></code> sets the user name of
+the dock. <code class="docutils literal"><span class="pre">n</span> <span class="pre">d</span> <span class="pre">&lt;dock</span> <span class="pre">name&gt;</span></code> sets the name of the dock itself. The
+maximum length of both names is eight characters</li>
+<li><strong>e</strong> (<em>enumerate</em>): List all of the connected modules. Returns one line
+for each connected module in the form <code class="docutils literal"><span class="pre">c</span> <span class="pre">&lt;channel_number&gt;/&lt;module_name&gt;</span></code>
+in the same way that you would see if a module was plugged in while the
+Flotilla was already running</li>
+<li><strong>s</strong> (<em>send</em>): This sends a command to a particular connected module.
+See the documentation for each module for the specifics</li>
+<li><strong>p</strong> (<em>power</em>): Two options: <code class="docutils literal"><span class="pre">p</span> <span class="pre">0</span></code> turns the power to all connected
+modules off, while <code class="docutils literal"><span class="pre">p</span> <span class="pre">1</span></code> turns the power to all connected modules on</li>
+</ul>
+</div></blockquote>
 </dd></dl>
 
+<dl class="function">
+<dt id="FlotillaCliet.connectedModules">
+<code class="descclassname">FlotillaCliet.</code><code class="descname">connectedModules</code><span class="sig-paren">(</span><em>type_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#FlotillaCliet.connectedModules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asks the Flotilla Python code to return which modules are connected. Rather
+than simply asking the Flotilla hardware to list what&#8217;s connected (as
+<code class="docutils literal"><span class="pre">FlotillaClient.flotillaCommand(b'e')</span></code> would) this returns python representations
+of the connected modules that can be manipulated and used.</p>
+<p>If you pass <code class="docutils literal"><span class="pre">type_</span></code> (as a string, e.g. <code class="docutils literal"><span class="pre">&quot;motor&quot;</span></code>) it will filter the list
+and only return the connected modules of the specified type.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="FlotillaClient.firstOf">
+<code class="descclassname">FlotillaClient.</code><code class="descname">firstOf</code><span class="sig-paren">(</span><em>type_</em><span class="sig-paren">)</span><a class="headerlink" href="#FlotillaClient.firstOf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asks the Flotilla to return the python representation of the first instance
+of the give type (e.g. <code class="docutils literal"><span class="pre">&quot;motor&quot;</span></code>). First is defined as the one connected
+to the lowest numbered port on the Flotilla hardware.</p>
+</dd></dl>
+
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Importantly <strong>blackpearl</strong>&#8216;s <code class="docutils literal"><span class="pre">FlotillaClient</span></code> class expects and
+relies on there being a <strong>blackpearl</strong> project instance handed to
+its <code class="docutils literal"><span class="pre">.run()</span></code> method so you will have to craft your direct usage
+carefully.</p>
+</div>
 </div>
 
 
@@ -153,8 +216,10 @@ generic text:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="inputs/index.html" class="btn btn-neutral float-right" title="Flotilla Hardware Inputs" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="../index.html" class="btn btn-neutral" title="Welcome to Black Pearl’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="index.html" class="btn btn-neutral" title="Flotilla Hardware modules" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

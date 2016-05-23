@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Black Pearl 1.0 documentation</title>
+  <title>The Weather Sensor &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -79,7 +79,13 @@
           
             
             
-                <ul class="simple">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Detailed installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../messages.html">Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Flotilla Hardware modules</a></li>
 </ul>
 
             
@@ -110,7 +116,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
       
-    <li>&lt;no title&gt;</li>
+    <li>The Weather Sensor</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -124,7 +130,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
+  <div class="section" id="the-weather-sensor">
+<h1>The Weather Sensor<a class="headerlink" href="#the-weather-sensor" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code</strong> <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/things/hardware/inputs/weather.py">blackpearl/things/hardware/inputs/weather.py</a></p>
+<p>This module provides a wrapper around the weather sensor. The weather sensor
+measures two things - temperature and barometric pressure. Temperature is
+returned in Celsius (to two decimal places) and pressure is returned in
+kiloPascals (to three decimal places).</p>
+<p>The weather has no special methods of its own - it is a pure input device.</p>
+<p>By default it broadcasts the following data structure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;weather&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;temperature&#39;</span><span class="p">:</span> <span class="mf">23.45</span><span class="p">,</span>
+             <span class="s1">&#39;pressure&#39;</span><span class="p">:</span> <span class="mf">101.325</span><span class="p">,</span>
+             <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>So if you set your <code class="docutils literal"><span class="pre">listening_for</span></code> to include <code class="docutils literal"><span class="pre">'weather'</span></code> your <code class="docutils literal"><span class="pre">.receive()</span></code>
+will get called every time the temperature or pressure changes. Because of the
+sensitivity of both sensors this happens a lot, so be prepared for lots of
+updates!</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This module is <em>very very noisy</em>. It sends constant updates.
+You have been warned :)</p>
+</div>
+</div>
+
 
            </div>
           </div>

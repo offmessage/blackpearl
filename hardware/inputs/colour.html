@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Black Pearl 1.0 documentation</title>
+  <title>The Colour Sensor &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="Black Pearl 1.0 documentation" href="../../index.html"/> 
+    <link rel="top" title="Black Pearl 1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Flotilla Hardware Inputs" href="index.html"/>
+        <link rel="next" title="The Motion Detector" href="motion.html"/>
+        <link rel="prev" title="The Light Sensor" href="light.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -79,7 +82,27 @@
           
             
             
-                <ul class="simple">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Detailed installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../messages.html">Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Flotilla Hardware modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../flotilla.html">The Flotilla itself</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Flotilla Hardware Inputs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dial.html">The Dial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slider.html">The Slider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="joystick.html">The Joystick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch.html">The Touch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="light.html">The Light Sensor</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The Colour Sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="motion.html">The Motion Detector</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../outputs/index.html">Flotilla Hardware Outputs</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -110,7 +133,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
       
-    <li>&lt;no title&gt;</li>
+          <li><a href="../index.html">Flotilla Hardware modules</a> &raquo;</li>
+      
+          <li><a href="index.html">Flotilla Hardware Inputs</a> &raquo;</li>
+      
+    <li>The Colour Sensor</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -124,11 +151,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
+  <div class="section" id="the-colour-sensor">
+<h1>The Colour Sensor<a class="headerlink" href="#the-colour-sensor" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code</strong> <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/things/hardware/inputs/colour.py">blackpearl/things/hardware/inputs/colour.py</a></p>
+<p>This module provides a wrapper around the colour input. The colour measures the
+light levels in 4 ways - through a red filter, through a green filter, through
+a blue filter and with no filter at all.</p>
+<p>In the raw data the maximum value of each of the above is 44,032, but that sort
+of number will only be returned under very bright conditions. Normal light
+levels you should expect a maximum on the clear channel of around 2,000.</p>
+<p>The <strong>blackpearl</strong> python module takes this data and also provides a handy
+calculated value. By dividing each of the red, green and blue channels by the
+value returned by the unfilterd sensor we can calculate a traditional RGB value
+that can be used on the web or passed to the rainbow module.</p>
+<p>This is done as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rgb</span> <span class="o">=</span> <span class="p">[(</span><span class="n">red</span><span class="o">*</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="n">clear</span><span class="p">,</span> <span class="p">(</span><span class="n">green</span><span class="o">*</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="n">clear</span><span class="p">,</span> <span class="p">(</span><span class="n">blue</span><span class="o">*</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="n">clear</span><span class="p">,]</span>
+</pre></div>
+</div>
+<p>The colour has no special methods of its own - it is a pure input device.</p>
+<p>By default it broadcasts the following data structure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;colour&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;rgb&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">82</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">157</span><span class="p">,],</span>
+            <span class="s1">&#39;hex&#39;</span><span class="p">:</span> <span class="s1">&#39;#52479d&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;raw&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="mi">441</span><span class="p">,</span>
+                    <span class="s1">&#39;green&#39;</span><span class="p">:</span> <span class="mi">385</span><span class="p">,</span>
+                    <span class="s1">&#39;blue&#39;</span><span class="p">:</span> <span class="mi">834</span><span class="p">,</span>
+                    <span class="s1">&#39;clear&#39;</span><span class="p">:</span> <span class="mi">1361</span><span class="p">,</span>
+                    <span class="p">}</span>
+            <span class="p">}</span>
+</pre></div>
+</div>
+<p>So if you set your <code class="docutils literal"><span class="pre">listening_for</span></code> to include <code class="docutils literal"><span class="pre">'colour'</span></code> your <code class="docutils literal"><span class="pre">.receive()</span></code>
+will get called every time the colour changes (if you wave the colour sensor
+around this will happen <em>a lot</em>!)</p>
+</div>
+
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="motion.html" class="btn btn-neutral float-right" title="The Motion Detector" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="light.html" class="btn btn-neutral" title="The Light Sensor" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

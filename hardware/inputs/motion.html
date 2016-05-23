@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Black Pearl 1.0 documentation</title>
+  <title>The Motion Detector &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="Black Pearl 1.0 documentation" href="../../index.html"/> 
+    <link rel="top" title="Black Pearl 1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Flotilla Hardware Inputs" href="index.html"/>
+        <link rel="next" title="Flotilla Hardware Outputs" href="../outputs/index.html"/>
+        <link rel="prev" title="The Colour Sensor" href="colour.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -79,7 +82,27 @@
           
             
             
-                <ul class="simple">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Detailed installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../messages.html">Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Flotilla Hardware modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../flotilla.html">The Flotilla itself</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Flotilla Hardware Inputs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dial.html">The Dial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slider.html">The Slider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="joystick.html">The Joystick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="touch.html">The Touch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="light.html">The Light Sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="colour.html">The Colour Sensor</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The Motion Detector</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../outputs/index.html">Flotilla Hardware Outputs</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -110,7 +133,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
       
-    <li>&lt;no title&gt;</li>
+          <li><a href="../index.html">Flotilla Hardware modules</a> &raquo;</li>
+      
+          <li><a href="index.html">Flotilla Hardware Inputs</a> &raquo;</li>
+      
+    <li>The Motion Detector</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -124,11 +151,60 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
+  <div class="section" id="the-motion-detector">
+<h1>The Motion Detector<a class="headerlink" href="#the-motion-detector" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code</strong> <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/things/hardware/inputs/motion.py">blackpearl/things/hardware/inputs/motion.py</a></p>
+<p>This module provides a wrapper around the motion detector. The motion detector
+measures two things - acceleration and magnetic field.</p>
+<p>Acceleration is measured in 3 axes, the third of which - <code class="docutils literal"><span class="pre">z</span></code> - is,
+if you hold the sensor level and still, acceleration due to gravity.</p>
+<p>Magnetic field is also measured in 3 axes. Again, if you hold the sensor still
+and flat then the motion module can calculate a compass heading.</p>
+<p>The motion has no special methods of its own - it is a pure input device.</p>
+<p>By default it broadcasts the following data structure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;motion&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;accelerometer&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">214</span><span class="p">,</span>
+                              <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">601</span><span class="p">,</span>
+                              <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="mi">16967</span><span class="p">,</span>
+                              <span class="p">},</span>
+            <span class="s1">&#39;magnetometer&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">622</span><span class="p">,</span>
+                             <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">457</span><span class="p">,</span>
+                             <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1566</span><span class="p">,</span>
+                             <span class="p">},</span>
+            <span class="s1">&#39;heading&#39;</span><span class="p">:</span> <span class="mf">126.0057</span><span class="p">,</span>
+            <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>So if you set your <code class="docutils literal"><span class="pre">listening_for</span></code> to include <code class="docutils literal"><span class="pre">'motion'</span></code> your <code class="docutils literal"><span class="pre">.receive()</span></code>
+will get called every time the sensor moves or the magnetic field changes. This
+happens a lot, so be prepared for tons of updates!</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">So far I&#8217;ve not been able to work out what units the motion is using.
+Usually we would expect metres per second squared for the
+accelerometer and micro Teslas for the magnetic field, but it doesn&#8217;t
+seem to be either of those in this case.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This module is <em>very very noisy</em>. It sends constant updates,
+however still you keep it. You have been warned :)</p>
+</div>
+</div>
+
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../outputs/index.html" class="btn btn-neutral float-right" title="Flotilla Hardware Outputs" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="colour.html" class="btn btn-neutral" title="The Colour Sensor" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

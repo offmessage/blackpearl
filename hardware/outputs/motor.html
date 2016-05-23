@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Black Pearl 1.0 documentation</title>
+  <title>The Motor &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="Black Pearl 1.0 documentation" href="../../index.html"/> 
+    <link rel="top" title="Black Pearl 1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Flotilla Hardware Outputs" href="index.html"/>
+        <link rel="next" title="The Rainbow" href="rainbow.html"/>
+        <link rel="prev" title="Flotilla Hardware Outputs" href="index.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -79,7 +82,24 @@
           
             
             
-                <ul class="simple">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Detailed installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../messages.html">Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Flotilla Hardware modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../flotilla.html">The Flotilla itself</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inputs/index.html">Flotilla Hardware Inputs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Flotilla Hardware Outputs</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The Motor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rainbow.html">The Rainbow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="number.html">Number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="matrix.html">The Matrix</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -110,7 +130,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
       
-    <li>&lt;no title&gt;</li>
+          <li><a href="../index.html">Flotilla Hardware modules</a> &raquo;</li>
+      
+          <li><a href="index.html">Flotilla Hardware Outputs</a> &raquo;</li>
+      
+    <li>The Motor</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -124,11 +148,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
+  <div class="section" id="the-motor">
+<h1>The Motor<a class="headerlink" href="#the-motor" title="Permalink to this headline">¶</a></h1>
+<p>The motor is the simplest of the hardware outputs. It takes a single input of
+between -63 and +63, and sets the speed of the motor accordingly (with -63
+being maximum speed in one direction, and +63 being maximum speed in the other).</p>
+<p>The module supports the following operations:</p>
+<dl class="function">
+<dt id=".stop">
+<code class="descclassname">.</code><code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the motor.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id=".set_speed">
+<code class="descclassname">.</code><code class="descname">set_speed</code><span class="sig-paren">(</span><em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#.set_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the speed of the motor. <code class="docutils literal"><span class="pre">speed</span></code> must be in the range <strong>-63</strong> to
+<strong>+63</strong>. <code class="docutils literal"><span class="pre">builtins.ValueError</span></code> is raised if speed is outside that range.</p>
+</dd></dl>
+
+</div>
+
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rainbow.html" class="btn btn-neutral float-right" title="The Rainbow" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Flotilla Hardware Outputs" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

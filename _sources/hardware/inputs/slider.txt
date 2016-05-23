@@ -1,0 +1,26 @@
+.. slider-hardware:
+
+The Slider
+==========
+
+.. _source-code: https://github.com/offmessage/blackpearl/blob/master/blackpearl/things/hardware/inputs/slider.py
+
+**Source code** `blackpearl/things/hardware/inputs/slider.py`__
+
+__ source-code_
+
+This module provides a wrapper around the slider input. The slider and dial are
+analogous, as both return a value between 0 and 1023 as they are changed.
+
+Due to fuzziness around the extremes **blackpearl** caps those extremes. Any value
+returned by the slider less than 5 is returned as zero, and any value returned
+by the slider greater than 1000 is returned as 1000.
+
+The slider has no special methods of its own - it is a pure input device.
+
+By default it broadcasts the following data structure::
+
+  {'slider': {'value': 934}}
+  
+So if you set your ``listening_for`` to include ``'slider'`` your ``.receive()``
+will get called every time the slider moves.
