@@ -29,7 +29,7 @@ class Motion(FlotillaInput):
                                    'y': ,
                                    'z': ,
                                    },
-                  'heading': 126.0056,
+                  'heading': 126,
                   },
        }
     """
@@ -48,6 +48,8 @@ class Motion(FlotillaInput):
         self.accelerometer = accelerometer
         self.magnetometer = magnetometer
         heading = int((math.atan2(magnetometer[0], magnetometer[1])*180)/math.pi)
+        if heading < 0:
+            heading = heading + 360
         output = {'accelerometer': {'x': accelerometer[0],
                                     'y': accelerometer[1],
                                     'z': accelerometer[2],
