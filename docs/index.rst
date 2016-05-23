@@ -10,7 +10,13 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-
+   
+   quickstart.rst
+   installation.rst
+   gettingstarted.rst
+   messages.rst
+   examples.rst
+   hardware/index.rst
 
 
 Indices and tables
