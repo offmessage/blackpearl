@@ -41,8 +41,7 @@ class Timebased(SoftwareModule):
     def tick(self, tm):
         # gets called with the new time every tick, frequency set by
         # self.tick_rate
-        self.log("INFO", tm)
-        #pass
+        pass
     
     @defer.deferredGenerator
     def start(self):
@@ -58,6 +57,7 @@ class Timebased(SoftwareModule):
 
     
 class Synced(Timebased):
+    """Receives its ticks from a single clock, an attribute of the project"""
     
     sync = True
     
