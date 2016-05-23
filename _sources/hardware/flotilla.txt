@@ -3,7 +3,7 @@
 The Flotilla itself
 ===================
 
-..source-code: https://github.com/offmessage/blackpearl/blackpearl/hardware/flotilla.py
+.. _source-code: https://github.com/offmessage/blackpearl/blackpearl/hardware/flotilla.py
 
 **Source code** `blackpearl/things/hardware/flotilla.py <source-code>`
 
