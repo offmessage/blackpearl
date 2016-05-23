@@ -78,8 +78,27 @@ Back in your terminal (which you left untouched, didn't you?!) now type::
   
 You should see some output to the terminal along the lines of::
   
-  PASTE IT HERE
-  
+  Flotilla is connected.
+  INFO : b'# Flotilla ready to set sail..'
+  INFO : b'# Version: 1.13'
+  INFO : b'# Serial: 18000f0035573132313503'
+  INFO : b'# User: Unnamed'
+  INFO : b'# Dock: Unnamed'
+  INFO : b'# SRAM: 1379 bytes'
+  INFO : b'# Loop: 0ms (0us) 544fps'
+  INFO : b'# Channels:'
+  INFO : b'# - 0'
+  INFO : b'# - 1 - rainbow (0x54)'
+  INFO : b'# - 2'
+  INFO : b'# - 3'
+  INFO : b'# - 4'
+  INFO : b'# - 5'
+  INFO : b'# - 6 - touch (0x2c)'
+  INFO : b'# - 7'
+  Found a rainbow on channel 2
+  Found a touch on channel 7
+  INFO : All requirements met \o/
+
 Once you see the string ``All requirements met \o/`` go past we're ready.
 
 Press button 1. The rainbow goes red! Press button 2. The rainbow goes green!
