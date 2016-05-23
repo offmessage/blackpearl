@@ -8,7 +8,17 @@ projects/base.py
 The base for our own projects.
 """
 
+from decimal import Decimal
+# Shim for the fact that gcd moves to math in Python 3.5
+import math
+try:
+    GCD = math.gcd
+except AttributeError:
+    import fractions
+    GCD = fractions.gcd
+import functools
 
+from twisted.internet import defer
 from twisted.internet import reactor
 
 from ..things import FlotillaClient
@@ -25,6 +35,7 @@ class BaseProject:
         self._flotilla_port = flotilla_port
         self._baudrate = baudrate
         self._running = False
+        self._time_subscribers = {}
         
     def run(self):
         self.flotilla = FlotillaClient()
@@ -45,7 +56,56 @@ class BaseProject:
         listened_for = []
         for m in self.modules:
             listened_for.extend(m.listening_for)
+            if m._ticks:
+                for k, v in m._ticks.items():
+                    if k in self._time_subscribers:
+                        self._time_subscribers[k].extend(v)
+                    else:
+                        self._time_subscribers[k] = v
         self._listened_for = list(set(listened_for))
+        if self._time_subscribers:
+            # We need to set up a clock able to fire for everyone
+            tick_rates = list(map(lambda x: x*10000, self._time_subscribers.keys()))
+            if len(tick_rates) == 1:
+                # Simple case
+                self._tick_rate = tick_rates[0]/10000
+            elif len(tick_rates) == 2:
+                self._tick_rate = GCD(*tick_rates)/10000
+            else:
+                self._tick_rate = functools.reduce(GCD, tick_rates)/10000
+            
+    def all_connected(self, module):
+        check = all([ mod._all_connected for mod in self.modules ])
+        if check and self._time_subscribers:
+            self._start_clock()
+            
+    @defer.deferredGenerator
+    def _start_clock(self):
+        self._time = 0
+        
+        def mod_by_zero(a, b):
+            # a % b raises DividedByZero if b is 0. But we want everyone to
+            # get called with the first 0, so we need our own function
+            if b == 0:
+                return 0
+            return a % b
+        
+        def ticker(tm):
+            # Gets called with every tick, only calls those that are listening
+            # for this particular tick count
+            for k in self._time_subscribers:
+                if mod_by_zero(int(tm * 10000), int(k * 10000)) == 0:
+                    for sub in self._time_subscribers[k]:
+                        sub.tick(tm)
+        
+        while True:
+            d = defer.Deferred()
+            d.addCallback(ticker)
+            reactor.callLater(self._tick_rate, d.callback, self._time)
+            wfd = defer.waitForDeferred(d)
+            self._time += self._tick_rate
+            self._time = float(Decimal(self._time).quantize(Decimal(str(self._tick_rate))))            
+            yield wfd
     
     def connect(self):
         # Called if a new piece of hardware is connected to the Flotilla

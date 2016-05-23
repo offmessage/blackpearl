@@ -92,8 +92,9 @@ class Module:
             else:
                 missing.append(h)
         if len(hardware) == len(found):
-            self.project.log('INFO', 'All requirments met \o/')
+            self.project.log('INFO', 'All requirements met \o/')
             self._all_connected = True
+            self.project.all_connected(self)
         else:
             self.project.log('ERROR', 'Requirements met: ' + ', '.join(found))
             self.project.log('ERROR', 'Missing modules: ' + ', '.join(missing))

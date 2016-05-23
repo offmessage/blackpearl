@@ -1,9 +1,9 @@
 import math
 
-from .base import Timebased
+from .base import TimeBased
 
 
-class Wave(Timebased):
+class Wave(TimeBased):
     
     tick_rate = 0.1
     frequency = 1

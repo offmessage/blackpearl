@@ -20,31 +20,42 @@ class SoftwareModule:
         self._module.project.message(output)
         
 
-class Timebased(SoftwareModule):
+class TimeBased(SoftwareModule):
     
-    sync = False
+    sync = True
     tick_rate = None
-    time = 0
     
     def __init__(self, module):
         super().__init__(module)
         if self.tick_rate is None:
             raise ValueError("Must set a tick_rate for a time based module")
-        if self.tick_rate < 0.01:
+        if 0.0001 < self.tick_rate < 0.01:
             msg = ("Setting `tick` of a timer to less than 1/100th of a second "
                    "is likely to impact the performance of other modules "
                    "connected to your Flotilla. Doesn't mean you can't try "
                    "though!")
             project.log('WARNING', msg)
-        self.start()
+        if self.tick_rate < 0.0001:
+            raise ValueError("Can't cope with a tick rate below 0.0001")
         
     def tick(self, tm):
         # gets called with the new time every tick, frequency set by
         # self.tick_rate
         pass
     
+        
+class TimeBasedUnsynced(SoftwareModule):
+    # XXX TODO: Provide start, stop and pause methods, otherwise why unsync?
+    sync = False
+    time = 0
+    
+    def __init__(self, module):
+        super().__init__(module)
+        self.start()
+        
     @defer.deferredGenerator
     def start(self):
+        """Define our own clock"""
         while True:
             d = defer.Deferred()
             d.addCallback(self.tick)
@@ -55,10 +66,4 @@ class Timebased(SoftwareModule):
             yield wfd
     
 
-    
-class Synced(Timebased):
-    """Receives its ticks from a single clock, an attribute of the project"""
-    
-    sync = True
-    
-    
+        
