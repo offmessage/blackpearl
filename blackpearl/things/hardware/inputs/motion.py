@@ -1,3 +1,5 @@
+import math
+
 from .base import FlotillaInput
 
 
@@ -27,7 +29,8 @@ class Motion(FlotillaInput):
                                    'y': ,
                                    'z': ,
                                    },
-                  }
+                  'heading': 126.0056,
+                  },
        }
     """
     module = "motion"
@@ -44,6 +47,7 @@ class Motion(FlotillaInput):
             return None
         self.accelerometer = accelerometer
         self.magnetometer = magnetometer
+        heading = int((math.atan2(magnetometer[0], magnetometer[1])*180)/math.pi)
         output = {'accelerometer': {'x': accelerometer[0],
                                     'y': accelerometer[1],
                                     'z': accelerometer[2],
@@ -52,6 +56,7 @@ class Motion(FlotillaInput):
                                    'y': magnetometer[1],
                                    'z': magnetometer[2],
                                    },
+                  'heading': heading,
                   }
         return self.broadcast(output)
     
