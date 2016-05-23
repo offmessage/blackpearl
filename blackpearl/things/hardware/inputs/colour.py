@@ -16,6 +16,7 @@ class Colour(FlotillaInput):
     Example::
     
       {'colour': {'rgb': [82,72,157,],
+                  'hex': '#52479d',
                   'raw': {'red': 441,
                           'green': 385,
                           'blue': 834,
@@ -36,6 +37,7 @@ class Colour(FlotillaInput):
         green = int(green)
         blue = int(blue)
         clear = int(clear)
+        
         def convert(v):
             ratio = v/clear
             if ratio > 1:
@@ -45,6 +47,7 @@ class Colour(FlotillaInput):
                 self.flotilla.project.log("WARNING", msg)
             value = int(ratio * 255)
             return value
+        
         rgb = [convert(red), convert(green), convert(blue),]
         
         print(rgb)
@@ -53,11 +56,13 @@ class Colour(FlotillaInput):
             # This should never happen
             return None
         self.rgb = rgb
+        hex_ = '#' + ''.join([ hex(v)[2:] for v in self.rgb ])
         self.red = red
         self.green = green
         self.blue = blue
         self.clear = clear
         output = {'rgb': rgb,
+                  'hex': hex_,
                   'raw': {'red': red,
                           'green': green,
                           'blue': blue,
