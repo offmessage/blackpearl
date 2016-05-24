@@ -1,4 +1,4 @@
-.. software-projects:
+.. _software-projects:
     
 **blackpearl**'s Project classes
 ================================

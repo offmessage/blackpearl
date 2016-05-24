@@ -1,4 +1,4 @@
-.. outputs:
+.. _outputs:
     
 Flotilla Hardware Outputs
 =========================

@@ -1,4 +1,4 @@
-.. dial-hardware:
+.. _dial-hardware:
 
 The Dial
 ========

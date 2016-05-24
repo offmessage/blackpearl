@@ -1,4 +1,4 @@
-.. using-idle:
+.. _using-idle:
     
 Using IDLE with **blackpearl**
 ==============================

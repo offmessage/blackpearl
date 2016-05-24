@@ -1,4 +1,4 @@
-.. motion-hardware:
+.. _motion-hardware:
 
 The Motion Detector
 ===================

@@ -1,4 +1,4 @@
-.. weather-hardware:
+.. _weather-hardware:
 
 The Weather Sensor
 ==================

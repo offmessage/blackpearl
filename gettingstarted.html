@@ -141,7 +141,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="getting-started-with-blackpearl">
-<h1>Getting started with blackpearl<a class="headerlink" href="#getting-started-with-blackpearl" title="Permalink to this headline">¶</a></h1>
+<span id="gettingstarted"></span><h1>Getting started with blackpearl<a class="headerlink" href="#getting-started-with-blackpearl" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="the-basics">
 <h2>The basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
 <p><strong>blackpearl</strong> makes heavy use of Python classes, so you&#8217;ll need to be
@@ -250,7 +250,7 @@ in the first two; <code class="docutils literal"><span class="pre">listening_for
 <p>The <code class="docutils literal"><span class="pre">listening_for</span></code> attribute is a Python list that defines which messages
 the module is hoping to receive. Only messages sent by the things in this list
 will be passed to our module&#8217;s <code class="docutils literal"><span class="pre">.receive()</span></code> method. All of the standard
-messages that <strong>blackpearl</strong> sends out are listed on the <a class="reference external" href=":doc:/messages">messages page</a>, but for the purposes of this example we&#8217;re only interested
+messages that <strong>blackpearl</strong> sends out are listed on the <a class="reference internal" href="messages.html"><span class="doc">messages page</span></a>, but for the purposes of this example we&#8217;re only interested
 in <code class="docutils literal"><span class="pre">'touch'</span></code>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Rainbow</span><span class="p">,</span> <span class="n">Touch</span><span class="p">,]</span>
 </pre></div>
@@ -309,8 +309,8 @@ there&#8217;s more than one they are magically numbered, and called <code class=
 <code class="docutils literal"><span class="pre">.light2</span></code>, for example).</p>
 <p>Which means, in the example above, that we&#8217;re able to access our rainbow LEDs
 through the <code class="docutils literal"><span class="pre">.rainbow</span></code> attribute of our module. The methods that the
-<code class="docutils literal"><span class="pre">Rainbow</span></code> offers are all explained <a class="reference external" href=":doc:/hardware/ouputs/rainbow">on its page</a>, but for the purposes of this example all we
-care about right now are the <code class="docutils literal"><span class="pre">.set_all()</span></code> and <code class="docutils literal"><span class="pre">.update()</span></code> methods.</p>
+<code class="docutils literal"><span class="pre">Rainbow</span></code> offers are all explained on <a class="reference internal" href="hardware/outputs/rainbow.html"><span class="doc">its page</span></a>, but for the purposes of this example all we care
+about right now are the <code class="docutils literal"><span class="pre">.set_all()</span></code> and <code class="docutils literal"><span class="pre">.update()</span></code> methods.</p>
 <p><code class="docutils literal"><span class="pre">.set_all()</span></code> sets the RGB value of all 5 of the rainbow&#8217;s LEDs, while
 <code class="docutils literal"><span class="pre">.update()</span></code> tells the rainbow to use the new values. The RGB values are passed
 in to <code class="docutils literal"><span class="pre">.set_all()</span></code> in the order red, green, blue, and should be in the range

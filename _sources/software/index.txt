@@ -1,4 +1,4 @@
-.. software-things:
+.. _software-things:
     
 **blackpearl**'s software things
 ================================

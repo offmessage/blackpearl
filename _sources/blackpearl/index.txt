@@ -1,4 +1,4 @@
-.. blackpearl-internals:
+.. _blackpearl-internals:
     
 **blackpearl**'s internals
 ==========================

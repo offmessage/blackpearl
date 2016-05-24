@@ -1,4 +1,4 @@
-.. internet-software:
+.. _internet-software:
     
 Internet requests
 =================

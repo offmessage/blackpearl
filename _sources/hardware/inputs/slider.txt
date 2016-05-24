@@ -1,4 +1,4 @@
-.. slider-hardware:
+.. _slider-hardware:
 
 The Slider
 ==========

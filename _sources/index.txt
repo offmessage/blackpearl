@@ -1,3 +1,5 @@
+.. _mainpage:
+
 ===================================
 Flotilla for Twisted Little Pirates
 ===================================

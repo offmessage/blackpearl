@@ -1,4 +1,4 @@
-.. colour-hardware:
+.. _colour-hardware:
 
 The Colour Sensor
 =================

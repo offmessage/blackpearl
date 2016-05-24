@@ -1,4 +1,4 @@
-.. motor-hardware:
+.. _motor-hardware:
 
 The Motor
 =========
