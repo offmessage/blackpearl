@@ -85,10 +85,10 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Detailed installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting started with blackpearl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../messages.html">Messages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Flotilla Hardware modules</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Flotilla hardware things</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../flotilla.html">The Flotilla itself</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Flotilla Hardware Inputs</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="dial.html">The Dial</a></li>
@@ -97,12 +97,17 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">The Touch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="light.html">The Light Sensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="colour.html">The Colour Sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="weather.html">The Weather Sensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="motion.html">The Motion Detector</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../outputs/index.html">Flotilla Hardware Outputs</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../software/index.html"><strong>blackpearl</strong>&#8216;s software things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../blackpearl/index.html"><strong>blackpearl</strong>&#8216;s internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usingidle.html">Using IDLE with <strong>blackpearl</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting your installation</a></li>
 </ul>
 
             
@@ -133,7 +138,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="../index.html">Flotilla Hardware modules</a> &raquo;</li>
+          <li><a href="../index.html">Flotilla hardware things</a> &raquo;</li>
       
           <li><a href="index.html">Flotilla Hardware Inputs</a> &raquo;</li>
       
@@ -155,12 +160,13 @@
 <h1>The Touch<a class="headerlink" href="#the-touch" title="Permalink to this headline">¶</a></h1>
 <p><strong>Source code</strong> <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/things/hardware/inputs/touch.py">blackpearl/things/hardware/inputs/touch.py</a></p>
 <p>This module provides a wrapper around the touch keypad. The touch has 4 numbered
-buttons (from 1 to 4, obviously). Every time a button is pressed or released an
-update is sent out - each button is <code class="docutils literal"><span class="pre">True</span></code> when pressed and <code class="docutils literal"><span class="pre">False</span></code> when
-not. The touch is capable of tracking each button individually, so each button
-value will change independently.</p>
+buttons (numbered from 1 to 4 on the device itself). Every time a button is
+pressed or released an update is sent out - each button is <code class="docutils literal"><span class="pre">True</span></code> when pressed
+and <code class="docutils literal"><span class="pre">False</span></code> when not. The touch is capable of tracking each button
+individually, so each button value will change independently.</p>
 <p>The touch has no special methods of its own - it is a pure input device.</p>
-<p>By default it broadcasts the following data structure:</p>
+<p>By default it broadcasts the following data structure (in this example both
+buttons 1 and 3 are currently pressed):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;touch&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;buttons&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
                        <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
                        <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>

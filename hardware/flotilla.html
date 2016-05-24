@@ -31,9 +31,9 @@
 
   
     <link rel="top" title="Black Pearl 1.0 documentation" href="../index.html"/>
-        <link rel="up" title="Flotilla Hardware modules" href="index.html"/>
+        <link rel="up" title="Flotilla hardware things" href="index.html"/>
         <link rel="next" title="Flotilla Hardware Inputs" href="inputs/index.html"/>
-        <link rel="prev" title="Flotilla Hardware modules" href="index.html"/> 
+        <link rel="prev" title="Flotilla hardware things" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -85,15 +85,19 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Detailed installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started with blackpearl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../messages.html">Messages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Flotilla Hardware modules</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Flotilla hardware things</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">The Flotilla itself</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inputs/index.html">Flotilla Hardware Inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="outputs/index.html">Flotilla Hardware Outputs</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html"><strong>blackpearl</strong>&#8216;s software things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../blackpearl/index.html"><strong>blackpearl</strong>&#8216;s internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usingidle.html">Using IDLE with <strong>blackpearl</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting your installation</a></li>
 </ul>
 
             
@@ -124,7 +128,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">Flotilla Hardware modules</a> &raquo;</li>
+          <li><a href="index.html">Flotilla hardware things</a> &raquo;</li>
       
     <li>The Flotilla itself</li>
       <li class="wy-breadcrumbs-aside">
@@ -154,8 +158,8 @@ specific things.</p>
 going on in there), but if you do want to get down and dirty and use it
 directly the things you&#8217;re really going to care about are defined below.</p>
 <dl class="function">
-<dt id="FlotillaClient.flotillaCommand">
-<code class="descclassname">FlotillaClient.</code><code class="descname">flotillaCommand</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#FlotillaClient.flotillaCommand" title="Permalink to this definition">¶</a></dt>
+<dt id=".flotillaCommand">
+<code class="descclassname">.</code><code class="descname">flotillaCommand</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#.flotillaCommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends a command to the Flotilla.</p>
 <p><code class="docutils literal"><span class="pre">command</span></code> must be Python 3 bytes (e.g <code class="docutils literal"><span class="pre">b'v'</span></code>). Available commands are:</p>
 <blockquote>
@@ -182,8 +186,8 @@ modules off, while <code class="docutils literal"><span class="pre">p</span> <sp
 </dd></dl>
 
 <dl class="function">
-<dt id="FlotillaCliet.connectedModules">
-<code class="descclassname">FlotillaCliet.</code><code class="descname">connectedModules</code><span class="sig-paren">(</span><em>type_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#FlotillaCliet.connectedModules" title="Permalink to this definition">¶</a></dt>
+<dt id=".connectedModules">
+<code class="descclassname">.</code><code class="descname">connectedModules</code><span class="sig-paren">(</span><em>type_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#.connectedModules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Asks the Flotilla Python code to return which modules are connected. Rather
 than simply asking the Flotilla hardware to list what&#8217;s connected (as
 <code class="docutils literal"><span class="pre">FlotillaClient.flotillaCommand(b'e')</span></code> would) this returns python representations
@@ -193,8 +197,8 @@ and only return the connected modules of the specified type.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="FlotillaClient.firstOf">
-<code class="descclassname">FlotillaClient.</code><code class="descname">firstOf</code><span class="sig-paren">(</span><em>type_</em><span class="sig-paren">)</span><a class="headerlink" href="#FlotillaClient.firstOf" title="Permalink to this definition">¶</a></dt>
+<dt id=".firstOf">
+<code class="descclassname">.</code><code class="descname">firstOf</code><span class="sig-paren">(</span><em>type_</em><span class="sig-paren">)</span><a class="headerlink" href="#.firstOf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Asks the Flotilla to return the python representation of the first instance
 of the give type (e.g. <code class="docutils literal"><span class="pre">&quot;motor&quot;</span></code>). First is defined as the one connected
 to the lowest numbered port on the Flotilla hardware.</p>
@@ -219,7 +223,7 @@ carefully.</p>
         <a href="inputs/index.html" class="btn btn-neutral float-right" title="Flotilla Hardware Inputs" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Flotilla Hardware modules" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Flotilla hardware things" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

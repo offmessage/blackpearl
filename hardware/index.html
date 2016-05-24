@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Flotilla Hardware modules &mdash; Black Pearl 1.0 documentation</title>
+  <title>Flotilla hardware things &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -84,15 +84,19 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Detailed installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started with blackpearl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../messages.html">Messages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Flotilla Hardware modules</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Flotilla hardware things</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="flotilla.html">The Flotilla itself</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inputs/index.html">Flotilla Hardware Inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="outputs/index.html">Flotilla Hardware Outputs</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html"><strong>blackpearl</strong>&#8216;s software things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../blackpearl/index.html"><strong>blackpearl</strong>&#8216;s internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usingidle.html">Using IDLE with <strong>blackpearl</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting your installation</a></li>
 </ul>
 
             
@@ -123,7 +127,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Flotilla Hardware modules</li>
+    <li>Flotilla hardware things</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -137,10 +141,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="flotilla-hardware-modules">
-<h1>Flotilla Hardware modules<a class="headerlink" href="#flotilla-hardware-modules" title="Permalink to this headline">¶</a></h1>
-<p><strong>blackpearl</strong> provides</p>
-<p>Contents:</p>
+  <div class="section" id="flotilla-hardware-things">
+<h1>Flotilla hardware things<a class="headerlink" href="#flotilla-hardware-things" title="Permalink to this headline">¶</a></h1>
+<p><strong>blackpearl</strong> provides Python wrappers around each of the hardware things that
+come with the Flotilla kits.</p>
+<p>The inputs send messages depending on events that occur (like button presses or
+changes in temperature); the <strong>blackpearl</strong> code takes the raw output from the
+dock itself and turns it into something consumable by Python code (and does
+some calculations in advance, too).</p>
+<p>The outputs take actions that your code tells them to. That might be to display
+a certain pattern on the rainbow, display a letter on the matrix or move the
+motors one way or another. In certain circumstances they can send messages too
+(like when an animation sequence has ended).</p>
+<p>These next pages give some real detail about the message formats that each
+sends, as well as the methods that you can call to make the outputs do things.
+It&#8217;s likely that these pages are the ones you&#8217;ll refer to the most once you&#8217;ve
+got the basics nailed.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="flotilla.html">The Flotilla itself</a></li>
@@ -151,6 +167,7 @@
 <li class="toctree-l2"><a class="reference internal" href="inputs/touch.html">The Touch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inputs/light.html">The Light Sensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inputs/colour.html">The Colour Sensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputs/weather.html">The Weather Sensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inputs/motion.html">The Motion Detector</a></li>
 </ul>
 </li>
@@ -163,7 +180,6 @@
 </li>
 </ul>
 </div>
-<p>This is my intro paragraph.</p>
 </div>
 
 

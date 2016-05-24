@@ -3,21 +3,20 @@
 Quick start
 ===========
 
-In a few lines you should be able to get this code working.
-
-First, the basics. For this *quick start* I'm assuming you're using a Debian
+For this *quick start* I'm assuming you're using a Debian
 based operating system (either the latest Raspbian or Ubuntu 15.04 or later)
-and that you are using firmware 1.13 or greater (you have applied the update at
-https://github.com/pimoroni/flotilla-pre). We set these prerequisites to make
-sure that you have a recent enough Python for stuff to work (3.4 or greater)
-and that the Flotilla Dock has had the majority of its initial bugs ironed out
-(and that it speaks at the right speed).
+and that you are using firmware 1.13 or greater (that is, you have applied the
+update at https://github.com/pimoroni/flotilla-pre).
+
+These prerequisites ensure that you have a recent enough Python for stuff to
+work (3.4 or greater) and that the Flotilla Dock has had the majority of its
+initial bugs ironed out (and that it speaks at the right speed).
 
 Permissions
 -----------
 
-First up, let's get the permissions right. The Flotilla connects via a serial
-connection (albeit over USB). By default on Debian based systems only the
+First we need to get the permissions right. The Flotilla connects via a serial
+connection (albeit over USB), and by default on Debian based systems only the
 **root** user and members of the **dialout** group can access the serial ports.
 Rather than have **blackpearl** users run everything as root I recommend that
 you add your user to the **dialout** group instead.
@@ -59,15 +58,17 @@ In a terminal type the following::
   
 Leave your terminal as is while you do the next steps.
 
-I'll go through what each of those lines above means in more detail on the
-installation page.
+.. note:: I'll go through what each of those lines above means in more detail
+          on the :doc:`installation page </installation>`. The most
+          important bit will be what on earth ``virtualenv`` is if you've never 
+          come across it before. Fear not!
 
-Connection
-----------
+Connect the hardware
+--------------------
 
 Make sure that your Flotilla is connected to a USB socket on your machine, and
 that a touch and a rainbow are attached to it. The three blue LEDs on the dock
-should be on, possibly pulsing gently.
+should be on, one of them pulsing gently.
 
 Test
 ----
@@ -107,3 +108,6 @@ Press button 3. The rainbow goes blue! Press button 4. The rainbow turns off!
 Press ``ctrl-c`` on your keyboard and the script will stop.
 
 Congratulations, **blackpearl** is installed and working!
+
+(if of course this didn't work you may want to try the `troubleshooting
+installation page <:doc:/troublesheeting>`_)

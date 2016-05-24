@@ -32,7 +32,7 @@
   
     <link rel="top" title="Black Pearl 1.0 documentation" href="index.html"/>
         <link rel="next" title="Detailed installation" href="installation.html"/>
-        <link rel="prev" title="Welcome to Black Pearl’s documentation!" href="index.html"/> 
+        <link rel="prev" title="Flotilla for Twisted Little Pirates" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -86,15 +86,19 @@
 <li class="toctree-l2"><a class="reference internal" href="#permissions">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#connection">Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connect-the-hardware">Connect the hardware</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test">Test</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Detailed installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started with blackpearl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="messages.html">Messages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla Hardware modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla hardware things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software/index.html"><strong>blackpearl</strong>&#8216;s software things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blackpearl/index.html"><strong>blackpearl</strong>&#8216;s internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingidle.html">Using IDLE with <strong>blackpearl</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting your installation</a></li>
 </ul>
 
             
@@ -141,18 +145,17 @@
             
   <div class="section" id="quick-start">
 <h1>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
-<p>In a few lines you should be able to get this code working.</p>
-<p>First, the basics. For this <em>quick start</em> I&#8217;m assuming you&#8217;re using a Debian
+<p>For this <em>quick start</em> I&#8217;m assuming you&#8217;re using a Debian
 based operating system (either the latest Raspbian or Ubuntu 15.04 or later)
-and that you are using firmware 1.13 or greater (you have applied the update at
-<a class="reference external" href="https://github.com/pimoroni/flotilla-pre">https://github.com/pimoroni/flotilla-pre</a>). We set these prerequisites to make
-sure that you have a recent enough Python for stuff to work (3.4 or greater)
-and that the Flotilla Dock has had the majority of its initial bugs ironed out
-(and that it speaks at the right speed).</p>
+and that you are using firmware 1.13 or greater (that is, you have applied the
+update at <a class="reference external" href="https://github.com/pimoroni/flotilla-pre">https://github.com/pimoroni/flotilla-pre</a>).</p>
+<p>These prerequisites ensure that you have a recent enough Python for stuff to
+work (3.4 or greater) and that the Flotilla Dock has had the majority of its
+initial bugs ironed out (and that it speaks at the right speed).</p>
 <div class="section" id="permissions">
 <h2>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h2>
-<p>First up, let&#8217;s get the permissions right. The Flotilla connects via a serial
-connection (albeit over USB). By default on Debian based systems only the
+<p>First we need to get the permissions right. The Flotilla connects via a serial
+connection (albeit over USB), and by default on Debian based systems only the
 <strong>root</strong> user and members of the <strong>dialout</strong> group can access the serial ports.
 Rather than have <strong>blackpearl</strong> users run everything as root I recommend that
 you add your user to the <strong>dialout</strong> group instead.</p>
@@ -190,14 +193,19 @@ or whatever).</p>
 </pre></div>
 </div>
 <p>Leave your terminal as is while you do the next steps.</p>
-<p>I&#8217;ll go through what each of those lines above means in more detail on the
-installation page.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">I&#8217;ll go through what each of those lines above means in more detail
+on the <a class="reference internal" href="installation.html"><span class="doc">installation page</span></a>. The most
+important bit will be what on earth <code class="docutils literal"><span class="pre">virtualenv</span></code> is if you&#8217;ve never
+come across it before. Fear not!</p>
 </div>
-<div class="section" id="connection">
-<h2>Connection<a class="headerlink" href="#connection" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="connect-the-hardware">
+<h2>Connect the hardware<a class="headerlink" href="#connect-the-hardware" title="Permalink to this headline">¶</a></h2>
 <p>Make sure that your Flotilla is connected to a USB socket on your machine, and
 that a touch and a rainbow are attached to it. The three blue LEDs on the dock
-should be on, possibly pulsing gently.</p>
+should be on, one of them pulsing gently.</p>
 </div>
 <div class="section" id="test">
 <h2>Test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h2>
@@ -233,6 +241,8 @@ should be on, possibly pulsing gently.</p>
 Press button 3. The rainbow goes blue! Press button 4. The rainbow turns off!</p>
 <p>Press <code class="docutils literal"><span class="pre">ctrl-c</span></code> on your keyboard and the script will stop.</p>
 <p>Congratulations, <strong>blackpearl</strong> is installed and working!</p>
+<p>(if of course this didn&#8217;t work you may want to try the <a class="reference external" href=":doc:/troublesheeting">troubleshooting
+installation page</a>)</p>
 </div>
 </div>
 
@@ -246,7 +256,7 @@ Press button 3. The rainbow goes blue! Press button 4. The rainbow turns off!</p
         <a href="installation.html" class="btn btn-neutral float-right" title="Detailed installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Welcome to Black Pearl’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Flotilla for Twisted Little Pirates" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

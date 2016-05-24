@@ -30,7 +30,7 @@ By default it broadcasts the following data structure::
                                'y': -457,
                                'z': -1566,
                                },
-              'heading': 126.0057,
+              'heading': 126,
               }
    }
 

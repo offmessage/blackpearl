@@ -32,7 +32,7 @@
   
     <link rel="top" title="Black Pearl 1.0 documentation" href="index.html"/>
         <link rel="next" title="Examples" href="examples.html"/>
-        <link rel="prev" title="Getting started" href="gettingstarted.html"/> 
+        <link rel="prev" title="Getting started with blackpearl" href="gettingstarted.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -84,10 +84,17 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Detailed installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started with blackpearl</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Messages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#blackpearl-s-standard-messages"><strong>blackpearl</strong>&#8216;s standard messages</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla Hardware modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla hardware things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software/index.html"><strong>blackpearl</strong>&#8216;s software things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blackpearl/index.html"><strong>blackpearl</strong>&#8216;s internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingidle.html">Using IDLE with <strong>blackpearl</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting your installation</a></li>
 </ul>
 
             
@@ -135,16 +142,64 @@
   <div class="section" id="messages">
 <h1>Messages<a class="headerlink" href="#messages" title="Permalink to this headline">¶</a></h1>
 <p>Messages are the core of how the various bits of <strong>blackpearl</strong> communicate with
-each other. Anything like the Flotilla is <em>event driven</em> - the system waits for
-events (inputs) from external influences, be that user input (like pressing a
-button on the touch), sensor input (like the temperature changing) or system
-input (like a tick from a clock, or a sine wave).</p>
-<p>The programs that you write to use <strong>blackpearl</strong> listen for messages being
-broadcast by other bits of the system.</p>
-<p>I&#8217;ve tried to use the same terminology as the excellent Scratch so that
-younger coders will feel at home with what&#8217;s going on here. Essentially anything
-can <code class="docutils literal"><span class="pre">broadcast</span></code> a message, and anyone who has said that they are listening for
-a message of that type will <code class="docutils literal"><span class="pre">receive</span></code> it.</p>
+each other. <strong>blackpearl</strong> and the way it communicates with the Flotilla is
+called <em>event driven</em> - the system waits for events from external influences,
+be that user input (like pressing a button on the touch or twiddling the dial),
+sensor input (like the temperature or the light level changing) or system
+input (like a tick from a clock, or a sine wave, or a web page returning).</p>
+<p>Each of these <em>events</em> create a message that is passed around the system to any
+modules that have said they are listening for them. The code that you write to
+use <strong>blackpearl</strong> listens for messages being broadcast by other bits of the
+system and reacts to them.</p>
+<p>I&#8217;ve used the same terminology as <a class="reference external" href="http://scratch.mit.edu">Scratch</a> so
+that coders with Scratch experience will feel at home with what&#8217;s going on here.
+Essentially anything can <strong>broadcast</strong> a message, and anyone who has said that
+they are listening for a message of that type will <strong>receive</strong> it.</p>
+<div class="section" id="blackpearl-s-standard-messages">
+<h2><strong>blackpearl</strong>&#8216;s standard messages<a class="headerlink" href="#blackpearl-s-standard-messages" title="Permalink to this headline">¶</a></h2>
+<p>The components within <strong>blackpearl</strong> send the following standard messages. You
+can define your own, too (but we&#8217;ll come to that later).</p>
+<p>The Flotilla hardware inputs all send messages when something changes. These
+are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">'colour'</span></code> - the colour sensor - sends a message when the colour it can see
+changes, or when the overall light level changes</li>
+<li><code class="docutils literal"><span class="pre">'dial'</span></code> - the dial - sends a message when someone turns the dial</li>
+<li><code class="docutils literal"><span class="pre">'joystick'</span></code> - the joystick - sends a message when the joystick moves or
+when the button is pressed</li>
+<li><code class="docutils literal"><span class="pre">'light'</span></code> - the light sensor - sends a message when the light level changes</li>
+<li><code class="docutils literal"><span class="pre">'motion'</span></code> - the accelerometer and magnetometer - sends a message whenever
+the sensor is moved (in any direction, however slowly)</li>
+<li><code class="docutils literal"><span class="pre">'slider'</span></code> - the slider - sends a message when someone slides the slider</li>
+<li><code class="docutils literal"><span class="pre">'touch'</span></code> - the touch keypad - sends a message when someone presses or
+releases a button</li>
+<li><code class="docutils literal"><span class="pre">'weather'</span></code> - the thermometer and barometer - sends a messages whenever the
+temperature or pressure changes</li>
+</ul>
+</div></blockquote>
+<p>The <strong>blackpearl</strong> software components send messages too:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">'sawtoothwave'</span></code> - a sawtooth wave generator - sends out regular values
+that make up a saw tooth wave</li>
+<li><code class="docutils literal"><span class="pre">'sinewave'</span></code> - a sine wave generator - sends out regular values that make
+up a sine wave</li>
+<li><code class="docutils literal"><span class="pre">'squarewave'</span></code> - a square wave generator - sends out regular values that
+make up a square wave</li>
+<li><code class="docutils literal"><span class="pre">'trianglewave'</span></code> - a triangle wave generator - sends out regular values
+that make up a triangle wave</li>
+<li><code class="docutils literal"><span class="pre">'clock'</span></code> - a clock - sends out the current time twice a second</li>
+</ul>
+</div></blockquote>
+<p>And finally the <strong>blackpearl</strong> system itself also sends messages:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">'log'</span></code> - Python logging messages, so that you can do cool things like make
+the rainbow go red if there&#8217;s an error!</li>
+</ul>
+</div></blockquote>
+</div>
 </div>
 
 
@@ -157,7 +212,7 @@ a message of that type will <code class="docutils literal"><span class="pre">rec
         <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="gettingstarted.html" class="btn btn-neutral" title="Getting started" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="gettingstarted.html" class="btn btn-neutral" title="Getting started with blackpearl" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

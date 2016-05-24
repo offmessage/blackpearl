@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting started &mdash; Black Pearl 1.0 documentation</title>
+  <title>Getting started with blackpearl &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -84,10 +84,18 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Detailed installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started with blackpearl</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-basics">The basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#an-example">An example</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="messages.html">Messages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla Hardware modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla hardware things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software/index.html"><strong>blackpearl</strong>&#8216;s software things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blackpearl/index.html"><strong>blackpearl</strong>&#8216;s internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingidle.html">Using IDLE with <strong>blackpearl</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting your installation</a></li>
 </ul>
 
             
@@ -118,7 +126,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Getting started</li>
+    <li>Getting started with blackpearl</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -132,8 +140,224 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="getting-started">
-<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="getting-started-with-blackpearl">
+<h1>Getting started with blackpearl<a class="headerlink" href="#getting-started-with-blackpearl" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-basics">
+<h2>The basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
+<p><strong>blackpearl</strong> makes heavy use of Python classes, so you&#8217;ll need to be
+comfortable with Python&#8217;s concept of subclassing to make the most of it. By
+taking this approach I&#8217;ve allowed beginners to simply change a few things and
+see the effect, and more advanced programmers to get into the guts of it and
+build their own classes using the building blocks provided. Hopefully that
+strikes a good balance, even if it does require a little more Python knowledge
+than the very basics.</p>
+<p><strong>blackpearl</strong> has the concept of a <strong>Project</strong>. There is only one <strong>Project</strong>
+running at a time, and a <strong>Project</strong> acts as the container for all of your code.</p>
+<p>Hanging off projects are <strong>Modules</strong>. These are containers of code that tie
+together functionality. A <strong>Project</strong> can contain any number of <strong>Modules</strong>, and
+<strong>Modules</strong> can interact with each other via messages that are passed around
+the system.</p>
+<p>Each module defines 3 things:</p>
+<blockquote>
+<div><ul class="simple">
+<li>What messages it&#8217;s listening for</li>
+<li>What hardware needs to be connected to the Flotilla dock for the module to
+work</li>
+<li>What additional software components (like clocks, wave generators, etc) are
+also needed for the module to work</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="an-example">
+<h2>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To start with we&#8217;ll only use the rainbow and the touch, as these are
+the components that come with the Mini Starter Kit. Later projects
+will use the parts that came with the larger kits.</p>
+</div>
+<p>I&#8217;ll use the example that we used to test our installation to describe what&#8217;s
+going on in practical terms. That script can be found in
+<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/touchtherainbow.py">blackpearl/examples/touchtherainbow.py</a>,
+but it&#8217;s also included here in its entirety for reference:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Rainbow</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Touch</span>
+
+
+<span class="k">class</span> <span class="nc">TouchTheRainbow</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">,]</span>
+    <span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Touch</span><span class="p">,</span> <span class="n">Rainbow</span><span class="p">,]</span>
+
+    <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="c1"># We&#39;re listening for buttons!</span>
+        <span class="n">buttons</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">][</span><span class="s1">&#39;buttons&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;3&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;4&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
+    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">TouchTheRainbow</span><span class="p">,]</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">MyProject</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>At the top of the file we import the necessary bits and bobs, Firstly, as
+described above, the <strong>Module</strong> and <strong>Project</strong> classes that are the basic
+building blocks of a <strong>blackpearl</strong> project:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
+</pre></div>
+</div>
+<p>Then from <code class="docutils literal"><span class="pre">blackpearl.things</span></code> (because they are, after all, <em>things</em>), we
+import the things that we need for our module to work:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Rainbow</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Touch</span>
+</pre></div>
+</div>
+<p><strong>blackpearl</strong> provides a Python class for each of the hardware components that
+come with the Flotilla kits. So there is a <code class="docutils literal"><span class="pre">Rainbow</span></code> class for the rainbow
+LEDs, a <code class="docutils literal"><span class="pre">Touch</span></code> class for the touch keypad, a <code class="docutils literal"><span class="pre">Motor</span></code> class for the motors
+and so on (these are documented in detail later on; please feel free to skip
+ahead if this bit&#8217;s boring!)</p>
+<p>Next we define our own module, using <strong>blackpearl</strong>&#8216;s <strong>Module</strong> class as our
+base class:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TouchTheRainbow</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>This is the core component of <strong>blackpearl</strong>. Each module that we build
+works up from one of the base <strong>Module</strong> classes (we&#8217;ll talk about the others
+later), and defines its own code on top.</p>
+<p>Each module can define any of three things - what messages it&#8217;s interested in
+receiving, what hardware is required for it to work, and what additional
+software is required for it to work. In this first example we&#8217;re only interested
+in the first two; <code class="docutils literal"><span class="pre">listening_for</span></code> and <code class="docutils literal"><span class="pre">hardware_required</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">,]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">listening_for</span></code> attribute is a Python list that defines which messages
+the module is hoping to receive. Only messages sent by the things in this list
+will be passed to our module&#8217;s <code class="docutils literal"><span class="pre">.receive()</span></code> method. All of the standard
+messages that <strong>blackpearl</strong> sends out are listed on the <a class="reference external" href=":doc:/messages">messages page</a>, but for the purposes of this example we&#8217;re only interested
+in <code class="docutils literal"><span class="pre">'touch'</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Rainbow</span><span class="p">,</span> <span class="n">Touch</span><span class="p">,]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">hardware_required</span></code> attribute defines which Flotilla hardware our module
+needs in order to work. Like <code class="docutils literal"><span class="pre">listening_for</span></code> it&#8217;s a Python list, but this
+time it includes the <em>classes</em> we imported from <code class="docutils literal"><span class="pre">blackpearl.things</span></code>; that
+means their names are <em>not</em> in quotes.</p>
+<p>Every time a message is broadcast that our module has said it&#8217;s listening for
+the message gets passed to the <code class="docutils literal"><span class="pre">.receive()</span></code> method of our module. So next we
+define that method:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+    <span class="c1"># We&#39;re listening for buttons!</span>
+    <span class="n">buttons</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">][</span><span class="s1">&#39;buttons&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Each message that arrives is a dictionary, called <code class="docutils literal"><span class="pre">message</span></code>. Each message is
+structured such that the first key is the name of the thing that we&#8217;re listening
+for (in this case <code class="docutils literal"><span class="pre">'touch'</span></code>. The Touch hardware sends out its message in the
+form of another dictionary (called <code class="docutils literal"><span class="pre">'buttons'</span></code>) that defines each button on
+the keypad. If the button is <code class="docutils literal"><span class="pre">True</span></code> then it&#8217;s pressed. If it&#8217;s <code class="docutils literal"><span class="pre">False</span></code> then
+it&#8217;s not.</p>
+<p>An example message from the touch when someone has pressed button 1 will look
+like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;touch&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;buttons&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                       <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                       <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                       <span class="s1">&#39;4&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                       <span class="p">}</span>
+           <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>Our code then takes some decisions based on which button has been pressed.
+Remember, our <code class="docutils literal"><span class="pre">.receive()</span></code> method is only called when a button has been
+pressed or released, because we&#8217;re only listening for messages from the touch.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;3&#39;</span><span class="p">]:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;4&#39;</span><span class="p">]:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>One slight piece of magic (magic isn&#8217;t generally considered very Pythonic, but
+it&#8217;s useful here) is that by listing things in <code class="docutils literal"><span class="pre">hardware_required</span></code> our
+module automatically gets attributes that match the required hardware. In other
+words, if we list a <code class="docutils literal"><span class="pre">Rainbow</span></code>, our module automatically gets to access the
+<code class="docutils literal"><span class="pre">Rainbow</span></code> code through an attribute called <code class="docutils literal"><span class="pre">.rainbow</span></code>. (Even cleverer, if
+there&#8217;s more than one they are magically numbered, and called <code class="docutils literal"><span class="pre">.light1</span></code> and
+<code class="docutils literal"><span class="pre">.light2</span></code>, for example).</p>
+<p>Which means, in the example above, that we&#8217;re able to access our rainbow LEDs
+through the <code class="docutils literal"><span class="pre">.rainbow</span></code> attribute of our module. The methods that the
+<code class="docutils literal"><span class="pre">Rainbow</span></code> offers are all explained <a class="reference external" href=":doc:/hardware/ouputs/rainbow">on its page</a>, but for the purposes of this example all we
+care about right now are the <code class="docutils literal"><span class="pre">.set_all()</span></code> and <code class="docutils literal"><span class="pre">.update()</span></code> methods.</p>
+<p><code class="docutils literal"><span class="pre">.set_all()</span></code> sets the RGB value of all 5 of the rainbow&#8217;s LEDs, while
+<code class="docutils literal"><span class="pre">.update()</span></code> tells the rainbow to use the new values. The RGB values are passed
+in to <code class="docutils literal"><span class="pre">.set_all()</span></code> in the order red, green, blue, and should be in the range
+0 to 255 (anyone used to web design or CSS will recognise this format for
+describing a colour). So the code above says: if button 1 is pressed, set all
+of the rainbow&#8217;s LEDs to red. If button 2 is pressed set all the rainbow&#8217;s LEDs
+to green. If button 3 is pressed set them all to blue, and if button 4 is
+pressed turn them all off.</p>
+<p>That&#8217;s all the code we need to write to make the rainbow respond to button
+presses on the touch.</p>
+<p>To recap:</p>
+<blockquote>
+<div><ul class="simple">
+<li>We define the messages we&#8217;re <code class="docutils literal"><span class="pre">listening_for</span></code></li>
+<li>We define the <code class="docutils literal"><span class="pre">hardware_required</span></code></li>
+<li>Then we define our <code class="docutils literal"><span class="pre">.receive()</span></code> method that acts upon the message we
+receive, talking to the rainbow through the magic <code class="docutils literal"><span class="pre">.rainbow</span></code> attribute</li>
+</ul>
+</div></blockquote>
+<p>The rest of the script is the bit that actually makes it run. Remember I said
+at the top of this page that the <strong>Project</strong> is the bit that everything hangs
+off? Well, we need to define a project, and attach our <code class="docutils literal"><span class="pre">TouchTheRainbow</span></code>
+module to it. We use the <strong>Project</strong>&#8216;s <code class="docutils literal"><span class="pre">required_modules</span></code> attribute to tell
+the project which modules it should use. This is, like <code class="docutils literal"><span class="pre">hardware_required</span></code> on
+the <strong>Module</strong>, is a list of classes (so names <em>not</em> in quotes):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
+    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">TouchTheRainbow</span><span class="p">,]</span>
+</pre></div>
+</div>
+<p>And then finally we need to make our code run when it&#8217;s passed to the python
+interpreter (the <code class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__'</span></code> bit is just standard Python, it
+means that if you invoke the script using <code class="docutils literal"><span class="pre">python</span> <span class="pre">touchtherainbow.py</span></code> it&#8217;ll
+run). Anything that subclasses <strong>blackpearl</strong>&#8216;s <strong>Project</strong> class will
+automatically run when an instance is created. This means that all we need to
+do in our <code class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__'</span></code> block is create an instance of our
+project class (which we do by <em>calling</em> it; putting brackets after its name):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">MyProject</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now our project will run from within our virtual environment as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">blackpearl</span>
+<span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">touchtherainbow</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

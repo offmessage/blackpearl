@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to Black Pearl’s documentation! &mdash; Black Pearl 1.0 documentation</title>
+  <title>Flotilla for Twisted Little Pirates &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -83,10 +83,14 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Detailed installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started with blackpearl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="messages.html">Messages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla Hardware modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla hardware things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software/index.html"><strong>blackpearl</strong>&#8216;s software things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blackpearl/index.html"><strong>blackpearl</strong>&#8216;s internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usingidle.html">Using IDLE with <strong>blackpearl</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting your installation</a></li>
 </ul>
 
             
@@ -117,7 +121,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="#">Docs</a> &raquo;</li>
       
-    <li>Welcome to Black Pearl&#8217;s documentation!</li>
+    <li>Flotilla for Twisted Little Pirates</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -131,39 +135,94 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="welcome-to-black-pearl-s-documentation">
-<h1>Welcome to Black Pearl&#8217;s documentation!<a class="headerlink" href="#welcome-to-black-pearl-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
+  <div class="section" id="flotilla-for-twisted-little-pirates">
+<h1>Flotilla for Twisted Little Pirates<a class="headerlink" href="#flotilla-for-twisted-little-pirates" title="Permalink to this headline">¶</a></h1>
+<p><strong>blackpearl</strong> aims to provide an easy to use Python framework to allow coders
+from novice to expert to interact with Pimoroni&#8217;s <a class="reference external" href="http://flotil.la">Flotilla</a>. As well as being easy to use it is also fast; blisteringly
+fast. Hence its name.</p>
+<blockquote>
+<div><em>I&#8217;ve heard of one, supposed to be very fast, nigh uncatchable: The Black
+Pearl</em></div></blockquote>
+<p>(It also helps that we&#8217;re using <a class="reference external" href="https://twistedmatrix.com/">Twisted</a> under
+the hood, and the crew of The Black Pearl were definitely ... <em>twisted</em>)</p>
+<p><strong>blackpearl</strong> is capable of taking input from multiple inputs, processing that
+input and sending it to multiple outputs with the Rpi2 running at around 4%
+processor load. In other words, you could be playing with your Flotilla whilst
+also watching an HD movie. On a Raspberry Pi.</p>
+<p>It has a quick <em>&#8220;plug and play&#8221;</em> style of coding that allows users to get
+started very quickly, but provides a rich API under the hood that more
+experienced coders can use for far more complex projects.</p>
+<p>And when I say get started very quickly, this is all the code you have to
+write to get the rainbow module displaying the colour that the colour sensor
+is currently looking at:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ColourMatcher</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Colour</span><span class="p">,</span> <span class="n">Rainbow</span><span class="p">,]</span>
+    <span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">][</span><span class="s1">&#39;rgb&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#permissions">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#connection">Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#connect-the-hardware">Connect the hardware</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#test">Test</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Detailed installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="messages.html">Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Detailed installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-by-step">Step by step</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#what-is-virtualenv">What is virtualenv</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started with blackpearl</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#the-basics">The basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#an-example">An example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="messages.html">Messages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="messages.html#blackpearl-s-standard-messages"><strong>blackpearl</strong>&#8216;s standard messages</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla Hardware modules</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla hardware things</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="hardware/flotilla.html">The Flotilla itself</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hardware/inputs/index.html">Flotilla Hardware Inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hardware/outputs/index.html">Flotilla Hardware Outputs</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="software/index.html"><strong>blackpearl</strong>&#8216;s software things</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="software/timers.html">Timers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/waves.html">Waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/internetrequests.html">Internet requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software/minecraft.html">Minecraft</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blackpearl/index.html"><strong>blackpearl</strong>&#8216;s internals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blackpearl/modules.html"><strong>blackpearl</strong>&#8216;s Module classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blackpearl/projects.html"><strong>blackpearl</strong>&#8216;s Project classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usingidle.html">Using IDLE with <strong>blackpearl</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting your installation</a></li>
 </ul>
 </div>
-</div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
+</div>
+</div>
 </div>
 
 
