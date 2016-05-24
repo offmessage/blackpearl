@@ -1,4 +1,4 @@
-.. touch-hardware:
+.. _touch-hardware:
 
 The Touch
 =========

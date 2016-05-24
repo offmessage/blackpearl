@@ -1,4 +1,4 @@
-.. software-modules:
+.. _software-modules:
     
 **blackpearl**'s Module classes
 ===============================

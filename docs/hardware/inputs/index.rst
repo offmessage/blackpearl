@@ -1,4 +1,4 @@
-.. inputs:
+.. _inputs:
     
 Flotilla Hardware Inputs
 ========================

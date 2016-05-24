@@ -1,4 +1,4 @@
-.. quickstart:
+.. _quickstart:
     
 Quick start
 ===========
@@ -109,5 +109,5 @@ Press ``ctrl-c`` on your keyboard and the script will stop.
 
 Congratulations, **blackpearl** is installed and working!
 
-(if of course this didn't work you may want to try the `troubleshooting
-installation page <:doc:/troublesheeting>`_)
+(if of course this didn't work you may want to try the :doc:`troubleshooting
+installation page </troubleshooting>`)

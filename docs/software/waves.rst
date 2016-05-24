@@ -1,4 +1,4 @@
-.. waves-software:
+.. _waves-software:
     
 Waves
 =====

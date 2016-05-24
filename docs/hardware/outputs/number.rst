@@ -1,4 +1,4 @@
-.. number-hardware:
+.. _number-hardware:
 
 Number
 ======

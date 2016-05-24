@@ -1,4 +1,4 @@
-.. rainbow-hardware:
+.. _rainbow-hardware:
 
 The Rainbow
 ===========

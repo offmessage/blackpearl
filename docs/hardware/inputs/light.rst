@@ -1,4 +1,4 @@
-.. light-hardware:
+.. _light-hardware:
 
 The Light Sensor
 ================

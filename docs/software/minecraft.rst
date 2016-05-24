@@ -1,4 +1,4 @@
-.. minecraft-software:
+.. _minecraft-software:
     
 Minecraft
 =========

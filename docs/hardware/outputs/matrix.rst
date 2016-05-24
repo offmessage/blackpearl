@@ -1,4 +1,4 @@
-.. matrix-hardware:
+.. _matrix-hardware:
 
 The Matrix
 ==========

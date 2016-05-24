@@ -1,4 +1,4 @@
-.. joystick-hardware:
+.. _joystick-hardware:
 
 The Joystick
 ============

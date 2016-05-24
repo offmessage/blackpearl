@@ -1,4 +1,4 @@
-.. flotilla:
+.. _flotilla:
 
 The Flotilla itself
 ===================

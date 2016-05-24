@@ -1,4 +1,4 @@
-.. gettingstarted:
+.. _gettingstarted:
     
 Getting started with blackpearl
 ===============================
@@ -114,8 +114,8 @@ in the first two; ``listening_for`` and ``hardware_required``::
 The ``listening_for`` attribute is a Python list that defines which messages
 the module is hoping to receive. Only messages sent by the things in this list
 will be passed to our module's ``.receive()`` method. All of the standard
-messages that **blackpearl** sends out are listed on the `messages page
-<:doc:/messages>`_, but for the purposes of this example we're only interested
+messages that **blackpearl** sends out are listed on the :doc:`messages page
+</messages>`, but for the purposes of this example we're only interested
 in ``'touch'``.
 
 ::
@@ -181,9 +181,9 @@ there's more than one they are magically numbered, and called ``.light1`` and
 
 Which means, in the example above, that we're able to access our rainbow LEDs
 through the ``.rainbow`` attribute of our module. The methods that the
-``Rainbow`` offers are all explained `on its page
-<:doc:/hardware/ouputs/rainbow>`_, but for the purposes of this example all we
-care about right now are the ``.set_all()`` and ``.update()`` methods.
+``Rainbow`` offers are all explained on :doc:`its page
+</hardware/outputs/rainbow>`, but for the purposes of this example all we care
+about right now are the ``.set_all()`` and ``.update()`` methods.
 
 ``.set_all()`` sets the RGB value of all 5 of the rainbow's LEDs, while
 ``.update()`` tells the rainbow to use the new values. The RGB values are passed
