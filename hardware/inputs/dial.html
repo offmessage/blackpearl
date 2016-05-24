@@ -161,9 +161,10 @@
 <p><strong>Source code</strong> <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/things/hardware/inputs/dial.py">blackpearl/things/hardware/inputs/dial.py</a></p>
 <p>This module provides a wrapper around the dial input. The dial and slider are
 analogous, as both return a value between 0 and 1023 as they are changed.</p>
-<p>Due to fuzziness around the extremes <strong>blackpearl</strong> caps those extremes. Any value
-returned by the dial less than 5 is returned as zero, and any value returned
-by the dial greater than 1000 is returned as 1000.</p>
+<p>Due to fuzziness around the extremes <strong>blackpearl</strong> caps the returned values.
+Any value returned by the dial less than 5 is sent out in the message as zero,
+and any value returned by the dial greater than 1000 is sent out as 1000. That
+way your code can be sure when the dial is at its minimum or maximum value.</p>
 <p>The dial has no special methods of its own - it is a pure input device.</p>
 <p>By default it broadcasts the following data structure:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;dial&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">934</span><span class="p">}}</span>
