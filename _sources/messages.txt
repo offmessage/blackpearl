@@ -20,6 +20,8 @@ that coders with Scratch experience will feel at home with what's going on here.
 Essentially anything can **broadcast** a message, and anyone who has said that
 they are listening for a message of that type will **receive** it.
 
+.. _messages-blackpearl-standard:
+
 **blackpearl**'s standard messages
 ----------------------------------
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Number &mdash; Black Pearl 1.0 documentation</title>
+  <title>The Number display &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -94,9 +94,9 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Flotilla Hardware Outputs</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="motor.html">The Motor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rainbow.html">The Rainbow</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Number</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The Number display</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#how-it-works">How it works</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#important-methods">Important methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#supported-methods">Supported methods</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="matrix.html">The Matrix</a></li>
@@ -142,7 +142,7 @@
       
           <li><a href="index.html">Flotilla Hardware Outputs</a> &raquo;</li>
       
-    <li>Number</li>
+    <li>The Number display</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -156,46 +156,138 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="number">
-<span id="number-hardware"></span><h1>Number<a class="headerlink" href="#number" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="the-number-display">
+<span id="number-hardware"></span><h1>The Number display<a class="headerlink" href="#the-number-display" title="Permalink to this headline">¶</a></h1>
+<p id="number-hardware-works"><strong>Source code</strong>: <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/things/hardware/outputs/number.py">blackpearl/things/hardware/outputs/number.py</a></p>
 <div class="section" id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Talk about how to construct a number, talk about the colon and
-apostrophe</p>
+<p>The number display is capable of displaying 4 digits. Each digit can be followed
+by a decimal point (period), and it also has a colon between the second and
+third digit. It also has an &#8220;apostrophe&#8221;, which sits between digits 3 and 4 (I
+think this is really a period between digits 1 and 2 if you hold the display
+the other way up, but I&#8217;m just guessing!)</p>
+<p>At the hardware level the display doesn&#8217;t accept numbers to display. Instead
+each bar that makes up a digit is assigned a value. Each one is a power of 2
+(one of 1, 2, 4, 8, 16, 32, 64 and 128). This means that any combination of
+bars can be set by adding up the values assigned to the bars that you want
+turned on.</p>
+<p>The diagram below shows how the Flotilla number display assigns those values:</p>
+<img alt="../../_images/8_bit.png" src="../../_images/8_bit.png" />
+<p>So, for example, if you wanted to display the number <strong>1</strong> you would want the
+two rightmost bars turned on, and all the others turned off. That would be
+represented by <code class="docutils literal"><span class="pre">96</span></code>, as that is <strong>32</strong> (bottom right) + <strong>64</strong> (top right).
+Likewise the number 5 would be represented by <code class="docutils literal"><span class="pre">182</span></code>, as that is <strong>128</strong> (top
+bar) + <strong>4</strong> (top left) + <strong>2</strong> (middle bar) + <strong>32</strong> (bottom right) + <strong>16</strong>
+(bottom bar).</p>
+<p>Luckily the <code class="docutils literal"><span class="pre">Number</span></code> Python code handily defines all of these for you, like
+so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">NUM_DOT</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">NUM_MID</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">NUM_TL</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">NUM_BL</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">NUM_B</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">NUM_BR</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">NUM_TR</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">NUM_T</span> <span class="o">=</span> <span class="mi">128</span>
+</pre></div>
 </div>
+<p>And handily defines the numbers 0 to 9, too:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">NUMBERS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">NUM_TL</span> <span class="o">+</span> <span class="n">NUM_BL</span> <span class="o">+</span> <span class="n">NUM_T</span> <span class="o">+</span> <span class="n">NUM_B</span> <span class="o">+</span> <span class="n">NUM_TR</span> <span class="o">+</span> <span class="n">NUM_BR</span><span class="p">,</span>            <span class="c1"># 0</span>
+    <span class="n">NUM_TR</span> <span class="o">+</span> <span class="n">NUM_BR</span><span class="p">,</span>                                              <span class="c1"># 1</span>
+    <span class="n">NUM_BL</span> <span class="o">+</span> <span class="n">NUM_T</span> <span class="o">+</span> <span class="n">NUM_B</span> <span class="o">+</span> <span class="n">NUM_TR</span> <span class="o">+</span> <span class="n">NUM_MID</span><span class="p">,</span>                    <span class="c1"># 2</span>
+    <span class="n">NUM_T</span> <span class="o">+</span> <span class="n">NUM_B</span> <span class="o">+</span> <span class="n">NUM_TR</span> <span class="o">+</span> <span class="n">NUM_BR</span> <span class="o">+</span> <span class="n">NUM_MID</span><span class="p">,</span>                    <span class="c1"># 3</span>
+    <span class="n">NUM_TR</span> <span class="o">+</span> <span class="n">NUM_TL</span> <span class="o">+</span> <span class="n">NUM_MID</span> <span class="o">+</span> <span class="n">NUM_BR</span><span class="p">,</span>                           <span class="c1"># 4</span>
+    <span class="n">NUM_TL</span> <span class="o">+</span> <span class="n">NUM_BR</span> <span class="o">+</span> <span class="n">NUM_MID</span> <span class="o">+</span> <span class="n">NUM_T</span> <span class="o">+</span> <span class="n">NUM_B</span><span class="p">,</span>                    <span class="c1"># 5</span>
+    <span class="n">NUM_T</span> <span class="o">+</span> <span class="n">NUM_MID</span> <span class="o">+</span> <span class="n">NUM_B</span> <span class="o">+</span> <span class="n">NUM_BL</span> <span class="o">+</span> <span class="n">NUM_BR</span> <span class="o">+</span> <span class="n">NUM_TL</span><span class="p">,</span>           <span class="c1"># 6</span>
+    <span class="n">NUM_T</span> <span class="o">+</span> <span class="n">NUM_TR</span> <span class="o">+</span> <span class="n">NUM_BR</span><span class="p">,</span>                                      <span class="c1"># 7</span>
+    <span class="n">NUM_TL</span> <span class="o">+</span> <span class="n">NUM_BL</span> <span class="o">+</span> <span class="n">NUM_T</span> <span class="o">+</span> <span class="n">NUM_B</span> <span class="o">+</span> <span class="n">NUM_TR</span> <span class="o">+</span> <span class="n">NUM_BR</span> <span class="o">+</span> <span class="n">NUM_MID</span><span class="p">,</span>  <span class="c1"># 8</span>
+    <span class="n">NUM_TL</span> <span class="o">+</span> <span class="n">NUM_T</span> <span class="o">+</span> <span class="n">NUM_TR</span> <span class="o">+</span> <span class="n">NUM_BR</span> <span class="o">+</span> <span class="n">NUM_MID</span>                    <span class="c1"># 9</span>
+    <span class="p">]</span>
+</pre></div>
 </div>
-<div class="section" id="important-methods">
-<h2>Important methods<a class="headerlink" href="#important-methods" title="Permalink to this headline">¶</a></h2>
+<p>This means that you can get the correct value for, say <strong>9</strong> by accessing
+<code class="docutils literal"><span class="pre">NUMBERS[9]</span></code>.</p>
+<p>The <code class="docutils literal"><span class="pre">Number</span></code> class defines some useful methods and attributes to work with it
+more easily.</p>
+</div>
+<div class="section" id="supported-methods">
+<span id="number-hardware-methods"></span><h2>Supported methods<a class="headerlink" href="#supported-methods" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id=".set_number">
-<code class="descclassname">.</code><code class="descname">set_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#.set_number" title="Permalink to this definition">¶</a></dt>
-<dd><p>blah blah</p>
+<code class="descclassname">.</code><code class="descname">set_number</code><span class="sig-paren">(</span><em>number</em>, <em>pad=None</em>, <em>precision=''</em><span class="sig-paren">)</span><a class="headerlink" href="#.set_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pass a number in the range -999 to +9999 (including decimals) to this method
+and it will do its best to display that number on the display. The only
+mandatory parameter is the number that you want to display (which should be
+an <code class="docutils literal"><span class="pre">int</span></code> or a <code class="docutils literal"><span class="pre">float</span></code>, not a string).</p>
+<p>If the number you pass in has more than 4 digits (e.g. <code class="docutils literal"><span class="pre">123.456</span></code>) the
+display will truncate it, showing the most significant digits (e.g.
+<code class="docutils literal"><span class="pre">123.4</span></code>).</p>
+<p>If the number takes less than all 4 digits you can pad the left of the
+display by passing in one of <code class="docutils literal"><span class="pre">-</span></code> or <code class="docutils literal"><span class="pre">0</span></code>, and that character will be used
+to pad the left hand characters of the display.</p>
+<p>e.g. <code class="docutils literal"><span class="pre">number.set_number(9.3,</span> <span class="pre">pad=&quot;0&quot;)</span></code> will display <code class="docutils literal"><span class="pre">009.3</span></code></p>
+<p>If the number takes less than all 4 digits you can force the decimal point to
+the left and right pad with zeroes by setting <code class="docutils literal"><span class="pre">precision</span></code> to one of
+<code class="docutils literal"><span class="pre">'0'</span></code>, <code class="docutils literal"><span class="pre">'00'</span></code> or <code class="docutils literal"><span class="pre">'000'</span></code>. This is particularly helpful if you want
+a stopwatch or countdown timer where you are displaying tenths or hundredths
+of a second and you don&#8217;t want the decimal point jumping around).</p>
+<p>As with the rainbow you need to call <code class="docutils literal"><span class="pre">.update()</span></code> after calling this method
+so that your changes are sent to the display. This allows you to construct
+more complex display configurations before sending everything at once.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id=".update">
 <code class="descclassname">.</code><code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>blah blah</p>
+<dd><p>Sends the current values to the display.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id=".set_value">
-<code class="descclassname">.</code><code class="descname">set_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#.set_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>blah blah</p>
+<code class="descclassname">.</code><code class="descname">set_value</code><span class="sig-paren">(</span><em>posn</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is at a lower level than <code class="docutils literal"><span class="pre">.set_number()</span></code> above. <code class="docutils literal"><span class="pre">posn</span></code> is the digit
+you want to set (starting at 0, at the left, and going to 3, at the right)
+and <code class="docutils literal"><span class="pre">value</span></code> is a number between 0 and 255. <code class="docutils literal"><span class="pre">value</span></code> will set the bars as
+described in the diagrams above.</p>
+<p>As with <code class="docutils literal"><span class="pre">.set_number()</span></code> you must call <code class="docutils literal"><span class="pre">.update()</span></code> for your changes to
+be sent to the display.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id=".set_digit">
-<code class="descclassname">.</code><code class="descname">set_digit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#.set_digit" title="Permalink to this definition">¶</a></dt>
-<dd><p>blah blah</p>
+<code class="descclassname">.</code><code class="descname">set_digit</code><span class="sig-paren">(</span><em>posn</em>, <em>digit</em><span class="sig-paren">)</span><a class="headerlink" href="#.set_digit" title="Permalink to this definition">¶</a></dt>
+<dd><p>As with <code class="docutils literal"><span class="pre">.set_value()</span></code> <code class="docutils literal"><span class="pre">posn</span></code> is the digit you want to set.</p>
+<p>Just to confuse you this method accepts a <code class="docutils literal"><span class="pre">string</span></code> for <code class="docutils literal"><span class="pre">digit</span></code> not an
+<code class="docutils literal"><span class="pre">int</span></code>. The reason for this is that you can pass in <code class="docutils literal"><span class="pre">'9.'</span></code> and it will
+display the number 9 plus the decimal point.</p>
+<p>As with <code class="docutils literal"><span class="pre">.set_number()</span></code> you must call <code class="docutils literal"><span class="pre">.update()</span></code> for your changes to
+be sent to the display.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id=".reset">
 <code class="descclassname">.</code><code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>blah blah</p>
+<dd><p>As you might expect, this resets the display and turns all bars, periods,
+colons and apostrophes off.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id=".colon">
+<code class="descclassname">.</code><code class="descname">colon</code><a class="headerlink" href="#.colon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set <code class="docutils literal"><span class="pre">.colon</span></code> to <code class="docutils literal"><span class="pre">True</span></code> to turn the colon on. Set it to <code class="docutils literal"><span class="pre">False</span></code> to
+turn it off.</p>
+<p>As with <code class="docutils literal"><span class="pre">.set_number()</span></code> you must call <code class="docutils literal"><span class="pre">.update()</span></code> for your changes to
+be sent to the display.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id=".apostrophe">
+<code class="descclassname">.</code><code class="descname">apostrophe</code><a class="headerlink" href="#.apostrophe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set <code class="docutils literal"><span class="pre">.apostrophe</span></code> to <code class="docutils literal"><span class="pre">True</span></code> to turn the apostrophe on. Set it to
+<code class="docutils literal"><span class="pre">False</span></code> to  turn it off.</p>
+<p>As with <code class="docutils literal"><span class="pre">.set_number()</span></code> you must call <code class="docutils literal"><span class="pre">.update()</span></code> for your changes to
+be sent to the display.</p>
 </dd></dl>
 
 </div>

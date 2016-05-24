@@ -92,9 +92,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../flotilla.html">The Flotilla itself</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inputs/index.html">Flotilla Hardware Inputs</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Flotilla Hardware Outputs</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">The Motor</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The Motor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#supported-methods">Supported methods</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="rainbow.html">The Rainbow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="number.html">Number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="number.html">The Number display</a></li>
 <li class="toctree-l3"><a class="reference internal" href="matrix.html">The Matrix</a></li>
 </ul>
 </li>
@@ -154,9 +158,14 @@
             
   <div class="section" id="the-motor">
 <span id="motor-hardware"></span><h1>The Motor<a class="headerlink" href="#the-motor" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="how-it-works">
+<span id="motor-hardware-works"></span><h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <p>The motor is the simplest of the hardware outputs. It takes a single input of
 between -63 and +63, and sets the speed of the motor accordingly (with -63
 being maximum speed in one direction, and +63 being maximum speed in the other).</p>
+</div>
+<div class="section" id="supported-methods">
+<span id="motor-hardware-methods"></span><h2>Supported methods<a class="headerlink" href="#supported-methods" title="Permalink to this headline">¶</a></h2>
 <p>The module supports the following operations:</p>
 <dl class="function">
 <dt id=".stop">
@@ -171,6 +180,7 @@ being maximum speed in one direction, and +63 being maximum speed in the other).
 <strong>+63</strong>. <code class="docutils literal"><span class="pre">builtins.ValueError</span></code> is raised if speed is outside that range.</p>
 </dd></dl>
 
+</div>
 </div>
 
 

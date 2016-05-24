@@ -153,7 +153,7 @@ update at <a class="reference external" href="https://github.com/pimoroni/flotil
 work (3.4 or greater) and that the Flotilla Dock has had the majority of its
 initial bugs ironed out (and that it speaks at the right speed).</p>
 <div class="section" id="permissions">
-<h2>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h2>
+<span id="quickstart-permissions"></span><h2>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h2>
 <p>First we need to get the permissions right. The Flotilla connects via a serial
 connection (albeit over USB), and by default on Debian based systems only the
 <strong>root</strong> user and members of the <strong>dialout</strong> group can access the serial ports.
@@ -168,7 +168,7 @@ intend to use <strong>blackpearl</strong> as. In a terminal type the following:<
 <p>Then logout and log back in again.</p>
 </div>
 <div class="section" id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<span id="quickstart-prerequisites"></span><h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>Next we need to install the prerequisite packages from the operating system.
 <strong>blackpearl</strong> installs all of its own python packages in a virtual environment,
 but there are some packages we need before we begin:</p>
@@ -177,7 +177,7 @@ but there are some packages we need before we begin:</p>
 </div>
 </div>
 <div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<span id="quickstart-installation"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>I&#8217;m assuming you put all your projects in a folder in your home directory called
 <code class="docutils literal"><span class="pre">projects</span></code>. So, wherever you see <code class="docutils literal"><span class="pre">/home/pi/projects</span></code> you should replace this
 with wherever you prefer to install stuff (e.g. <code class="docutils literal"><span class="pre">/home/andy/Documents/Flotilla</span></code>
@@ -202,13 +202,13 @@ come across it before. Fear not!</p>
 </div>
 </div>
 <div class="section" id="connect-the-hardware">
-<h2>Connect the hardware<a class="headerlink" href="#connect-the-hardware" title="Permalink to this headline">¶</a></h2>
+<span id="quickstart-connect-hardware"></span><h2>Connect the hardware<a class="headerlink" href="#connect-the-hardware" title="Permalink to this headline">¶</a></h2>
 <p>Make sure that your Flotilla is connected to a USB socket on your machine, and
 that a touch and a rainbow are attached to it. The three blue LEDs on the dock
 should be on, one of them pulsing gently.</p>
 </div>
 <div class="section" id="test">
-<h2>Test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h2>
+<span id="quickstart-test"></span><h2>Test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h2>
 <p>Back in your terminal (which you left untouched, didn&#8217;t you?!) now type:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">touchtherainbow</span><span class="o">.</span><span class="n">py</span>
 </pre></div>

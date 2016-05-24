@@ -12,6 +12,8 @@ These prerequisites ensure that you have a recent enough Python for stuff to
 work (3.4 or greater) and that the Flotilla Dock has had the majority of its
 initial bugs ironed out (and that it speaks at the right speed).
 
+.. _quickstart-permissions:
+
 Permissions
 -----------
 
@@ -29,6 +31,8 @@ intend to use **blackpearl** as. In a terminal type the following::
   
 Then logout and log back in again.
 
+.. _quickstart-prerequisites:
+
 Prerequisites
 -------------
 
@@ -37,7 +41,9 @@ Next we need to install the prerequisite packages from the operating system.
 but there are some packages we need before we begin::
   
   sudo apt-get install python-virtualenv python3-dev git-core
-  
+
+.. _quickstart-installation:
+
 Installation
 ------------
 
@@ -63,12 +69,16 @@ Leave your terminal as is while you do the next steps.
           important bit will be what on earth ``virtualenv`` is if you've never 
           come across it before. Fear not!
 
+.. _quickstart-connect-hardware:
+
 Connect the hardware
 --------------------
 
 Make sure that your Flotilla is connected to a USB socket on your machine, and
 that a touch and a rainbow are attached to it. The three blue LEDs on the dock
 should be on, one of them pulsing gently.
+
+.. _quickstart-test:
 
 Test
 ----
