@@ -1,0 +1,5 @@
+.. troubleshooting:
+    
+Troubleshooting your installation
+=================================
+

@@ -21,5 +21,6 @@ Each of the modules is documented below:
     touch.rst
     light.rst
     colour.rst
+    weather.rst
     motion.rst
     

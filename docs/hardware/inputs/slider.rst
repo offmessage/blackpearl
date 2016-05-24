@@ -12,9 +12,10 @@ __ source-code_
 This module provides a wrapper around the slider input. The slider and dial are
 analogous, as both return a value between 0 and 1023 as they are changed.
 
-Due to fuzziness around the extremes **blackpearl** caps those extremes. Any value
-returned by the slider less than 5 is returned as zero, and any value returned
-by the slider greater than 1000 is returned as 1000.
+Due to fuzziness around the extremes **blackpearl** caps the returned values.
+Any value returned by the slider less than 5 is sent out in the message as zero,
+and any value returned by the slider greater than 1000 is sent out as 1000. That
+way your code can be sure when the slider is at its minimum or maximum value.
 
 The slider has no special methods of its own - it is a pure input device.
 

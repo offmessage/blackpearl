@@ -22,7 +22,7 @@ Most of the code is internally facing (you don't really need to know what's
 going on in there), but if you do want to get down and dirty and use it
 directly the things you're really going to care about are defined below.
 
-.. function:: FlotillaClient.flotillaCommand(command)
+.. function:: .flotillaCommand(command)
    
    Sends a command to the Flotilla.
    
@@ -47,7 +47,7 @@ directly the things you're really going to care about are defined below.
       modules off, while ``p 1`` turns the power to all connected modules on
 
 
-.. function:: FlotillaCliet.connectedModules(type_=None)
+.. function:: .connectedModules(type_=None)
    
    Asks the Flotilla Python code to return which modules are connected. Rather
    than simply asking the Flotilla hardware to list what's connected (as
@@ -57,7 +57,7 @@ directly the things you're really going to care about are defined below.
    If you pass ``type_`` (as a string, e.g. ``"motor"``) it will filter the list
    and only return the connected modules of the specified type.
    
-.. function:: FlotillaClient.firstOf(type_)
+.. function:: .firstOf(type_)
    
    Asks the Flotilla to return the python representation of the first instance
    of the give type (e.g. ``"motor"``). First is defined as the one connected
