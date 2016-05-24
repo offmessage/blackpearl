@@ -3,9 +3,19 @@
 The Motor
 =========
 
+.. _motor-hardware-works:
+
+How it works
+------------
+
 The motor is the simplest of the hardware outputs. It takes a single input of
 between -63 and +63, and sets the speed of the motor accordingly (with -63
 being maximum speed in one direction, and +63 being maximum speed in the other).
+
+.. _motor-hardware-methods:
+
+Supported methods
+-----------------
 
 The module supports the following operations:
 

@@ -3,6 +3,11 @@
 The Rainbow
 ===========
 
+.. _rainbow-hardware-works:
+
+How it works
+------------
+
 The rainbow has 5 LEDs (numbered 0 to 4). Each one can be
 individually set to an RGB value, where each of red, green and blue is between
 0 and 255. This module provides a convenience ``.set_all(r, g, b)`` method that
@@ -17,7 +22,9 @@ The LED numbered 0 is the one closest to the USB port, while 4 is the furthest.
           off at once rather than have them change one at a time as you build
           stuff up.
 
-Important methods
+.. _rainbow-hardware-methods:
+
+Supported methods
 -----------------
 
 .. function:: .set_all(r, g, b)
@@ -45,5 +52,8 @@ Important methods
    ``value`` must be between 0 and 1. Converts the value to an rgb value. (If
    I'm honest I simply copied the maths from the rockpool Javascript library. I
    don't actually know what this does, other than both zero and one are pure
-   red, and all the numbers between create a different colour).
+   red, and all the numbers between create a different colour). This method
+   returns an list of the form ``[r, g, b,]``. It *does not* act on the rainbow
+   directly (in other words, you need to pass the return value from this method
+   to ``.set_all()`` or ``.set_pixel()``).
    

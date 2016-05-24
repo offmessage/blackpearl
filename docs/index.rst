@@ -58,10 +58,7 @@ Contents
    usingidle.rst
    troubleshooting.rst
 
-Indices and tables
-==================
+Complete index
+--------------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+:doc:`Complete index of all pages and headings <contents>`
