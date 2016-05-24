@@ -126,7 +126,7 @@ class Module:
             if l in data:
                 self.receive(data)
         
-    def receive(self, data):
+    def receive(self, message):
         pass
 
     def broadcast(self, data):

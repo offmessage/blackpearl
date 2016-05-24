@@ -8,8 +8,8 @@ class ColourMatcher(Module):
     hardware_required = [Colour, Rainbow,]
     listening_for = ['colour']
     
-    def receive(self, data):
-        r, g, b = data['colour']['rgb']
+    def receive(self, message):
+        r, g, b = message['colour']['rgb']
         print(r, g, b)
         self.rainbow.set_all(r, g, b)
         self.rainbow.update()

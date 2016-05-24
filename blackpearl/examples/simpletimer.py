@@ -10,8 +10,8 @@ class MyTimer(Timer):
         
 class Listener(Module):
     listening_for = ['timer']
-    def receive(self, data):
-        print(data['timer']['time'])
+    def receive(self, message):
+        print(message['timer']['time'])
         
 class MyProject(Project):
     required_modules = [MyTimer, Listener,]

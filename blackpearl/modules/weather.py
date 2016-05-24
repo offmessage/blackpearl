@@ -11,12 +11,12 @@ class Weather(Module):
     listening_for = ['weather']
     hardware_required = ['weather']
     
-    def receive(self, data):
-        temp = data['temperature']
+    def receive(self, message):
+        temp = message['temperature']
         if temp != self.temperature:
             self.temperature = temp
             self.temperature_changed(temp)
-        pressure = data['pressure']
+        pressure = message['pressure']
         if pressure != self.pressure:
             self.pressure = pressure
             self.pressure_changed(pressure)

@@ -1,5 +1,5 @@
 from blackpearl.modules import Module
-from blackpearl.projects import flotilla
+from blackpearl.projects import Project
 from blackpearl.things import Rainbow
 from blackpearl.things import Touch
 
@@ -8,9 +8,9 @@ class TouchTheRainbow(Module):
     listening_for = ['touch',]
     hardware_required = [Touch, Rainbow,]
     
-    def receive(self, data):
+    def receive(self, message):
         # We're listening for buttons!
-        buttons = data['touch']['buttons']
+        buttons = message['touch']['buttons']
         if buttons['1']:
             self.rainbow.set_all(255, 0, 0)
             self.rainbow.update()
@@ -24,7 +24,10 @@ class TouchTheRainbow(Module):
             self.rainbow.reset()
 
 
+class MyProject(Project):
+    required_modules = [TouchTheRainbow,]
+    
+    
 if __name__ == '__main__':
-    flotilla.add_module(TouchTheRainbow)
-    flotilla.run()
+    MyProject()
     

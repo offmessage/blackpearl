@@ -38,8 +38,8 @@ class SpeedChanger(Module):
     listening_for = ['dial',]
     hardware_required = [Dial, Matrix]
     
-    def receive(self, data):
-        value = data['dial']['value']
+    def receive(self, message):
+        value = message['dial']['value']
         if value < 200:
             spd = 0.25
         elif value < 400:
@@ -56,9 +56,9 @@ class RainbowSetter(Module):
     listening_for = ['matrix',]
     hardware_required = [Matrix, Rainbow,]
     
-    def receive(self, data):
-        if 'scroller' in data['matrix']:
-            status = data['matrix']['scroller']
+    def receive(self, message):
+        if 'scroller' in message['matrix']:
+            status = message['matrix']['scroller']
             if status in ['running', 'step', 'loop']:
                 self.rainbow.set_all(0, 255, 0)
                 self.rainbow.update()
@@ -73,15 +73,15 @@ class MyTimer(Timer):
         
 class Listener(Module):
     listening_for = ['timer']
-    def receive(self, data):
-        print(data['timer']['time'])
+    def receive(self, message):
+        print(message['timer']['time'])
         
 class DiscoLights(Module):
     listening_for = ['slider',]
     hardware_required = [Slider, Rainbow,]
     
-    def receive(self, data):
-        value = (data['slider']['value'])/1000.0
+    def receive(self, message):
+        value = (message['slider']['value'])/1000.0
         red, green, blue = self.rainbow.hue(value)
         self.rainbow.set_all(red, green, blue)
         self.rainbow.update()
@@ -90,8 +90,8 @@ class Mover(Module):
     listening_for = ['slider',]
     hardware_required = [Slider, Motor, Motor,]
     
-    def receive(self, data):
-        value = data['slider']['value']
+    def receive(self, message):
+        value = message['slider']['value']
         if value == 0:
             v = -63
         elif value == 1000:
@@ -105,8 +105,8 @@ class Mover(Module):
 class ClockDisplay(Module):
     listening_for = ['clock',]
     hardware_required = [Number,]
-    def receive(self, data):
-        tm = data['clock']['as_string']
+    def receive(self, message):
+        tm = message['clock']['as_string']
         self.number.set_digit(0, tm[0])
         self.number.set_digit(1, tm[1])
         if tm[2] == ":":

@@ -8,8 +8,8 @@ class Mover(Module):
     listening_for = ['slider',]
     hardware_required = [Slider, Motor, Motor,]
     
-    def receive(self, data):
-        value = data['slider']['value'] # This is between 0 and 1000
+    def receive(self, message):
+        value = message['slider']['value'] # This is between 0 and 1000
         if value == 0:
             # if value is 0 then we want maximum reverse speed!
             v = -63

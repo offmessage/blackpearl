@@ -10,8 +10,8 @@ class Touch(Module):
                '4': False,
                }
 
-    def receive(self, data):
-        buttons = data['touch']['buttons']
+    def receive(self, message):
+        buttons = message['touch']['buttons']
         for k in buttons:
             method_name = None
             if not self.buttons[k] and buttons[k]:

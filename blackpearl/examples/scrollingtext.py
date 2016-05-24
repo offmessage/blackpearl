@@ -33,8 +33,8 @@ class SpeedChanger(Module):
     listening_for = ['dial',]
     hardware_required = [Dial, Matrix,]
     
-    def receive(self, data):
-        value = data['dial']['value']
+    def receive(self, message):
+        value = message['dial']['value']
         if value < 200:
             spd = 0.25
         elif value < 400:
@@ -52,9 +52,9 @@ class Listener(Module):
     listening_for = ['matrix',]
     hardware_required = [Matrix, Rainbow,]
     
-    def receive(self, data):
+    def receive(self, message):
         if 'scroller' in data['matrix']:
-            status = data['matrix']['scroller']
+            status = message['matrix']['scroller']
             if status in ['running', 'step', 'loop']:
                 self.rainbow.set_all(0, 255, 0)
                 self.rainbow.update()

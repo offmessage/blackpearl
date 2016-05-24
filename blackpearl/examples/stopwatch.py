@@ -12,13 +12,13 @@ class Stopwatch(Timer):
     hardware_required = [Number, Touch,]
     listening_for = ['timer', 'touch',]
     
-    def receive(self, data):
-        if 'timer' in data:
-            tm = data['timer']['time']
+    def receive(self, message):
+        if 'timer' in message:
+            tm = message['timer']['time']
             self.number.set_number(tm)
             self.number.update()
-        elif 'touch' in data:
-            buttons = data['touch']['buttons']
+        elif 'touch' in message:
+            buttons = message['touch']['buttons']
             if buttons['1']:
                 if self.status == 'RUNNING':
                     self.stop()

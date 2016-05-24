@@ -8,8 +8,8 @@ class Listener(Module):
     listening_for = ['clock',]
     hardware_required = [Number,]
     
-    def receive(self, data):
-        tm = data['clock']['as_string']
+    def receive(self, message):
+        tm = message['clock']['as_string']
         self.number.set_digit(0, tm[0])
         self.number.set_digit(1, tm[1])
         if tm[2] == ":":
