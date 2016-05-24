@@ -209,7 +209,7 @@ at the top of this page that the **Project** is the bit that everything hangs
 off? Well, we need to define a project, and attach our ``TouchTheRainbow``
 module to it. We use the **Project**'s ``required_modules`` attribute to tell
 the project which modules it should use. This is, like ``hardware_required`` on
-the **Module**, is a list of classes (so names *not* in quotes)::
+the **Module**, a list of classes (so names *not* in quotes)::
 
   class MyProject(Project):
       required_modules = [TouchTheRainbow,]

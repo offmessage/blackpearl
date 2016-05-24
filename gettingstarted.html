@@ -335,7 +335,7 @@ at the top of this page that the <strong>Project</strong> is the bit that everyt
 off? Well, we need to define a project, and attach our <code class="docutils literal"><span class="pre">TouchTheRainbow</span></code>
 module to it. We use the <strong>Project</strong>&#8216;s <code class="docutils literal"><span class="pre">required_modules</span></code> attribute to tell
 the project which modules it should use. This is, like <code class="docutils literal"><span class="pre">hardware_required</span></code> on
-the <strong>Module</strong>, is a list of classes (so names <em>not</em> in quotes):</p>
+the <strong>Module</strong>, a list of classes (so names <em>not</em> in quotes):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
     <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">TouchTheRainbow</span><span class="p">,]</span>
 </pre></div>
