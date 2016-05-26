@@ -23,7 +23,7 @@ class TouchTheRainbow(Module):
     
     def receive(self, message):
         buttons = message['touch']['buttons']
-        if button['1'] is True:
+        if buttons['1'] is True:
             self.button1_press_count = self.button1_press_count + 1
             
             colour_index = self.button1_press_count % 9
@@ -35,7 +35,7 @@ class TouchTheRainbow(Module):
             self.rainbow.set_pixel(active_pixel, r, g, b)
             self.rainbow.update()
             
-        if button['2'] is True:
+        if buttons['2'] is True:
             self.button2_press_count = self.button2_press_count + 1
             
             colour_index = self.button1_press_count % 9

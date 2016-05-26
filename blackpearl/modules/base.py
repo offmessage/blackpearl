@@ -25,7 +25,6 @@ class Module:
         self.project = project
         self._checkRequirements()
         self._setupSoftware()
-        self.setup()
         
     def setup(self):
         pass
@@ -95,6 +94,7 @@ class Module:
             self.project.log('INFO', 'All requirements met \o/')
             self._all_connected = True
             self.project.all_connected(self)
+            self.setup()
         else:
             self.project.log('ERROR', 'Requirements met: ' + ', '.join(found))
             self.project.log('ERROR', 'Missing modules: ' + ', '.join(missing))

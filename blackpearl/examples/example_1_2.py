@@ -33,10 +33,10 @@ class TouchTheRainbow(Module):
         
     def receive(self, message):
         buttons = message['touch']['buttons']
-        if button['1'] is True:
+        if buttons['1'] is True:
             self.button1_press_count += 1
             self.update_rainbow()
-        if button['2'] is True:
+        if buttons['2'] is True:
             self.button2_press_count += 1
             self.update_rainbow()
 
