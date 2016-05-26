@@ -85,7 +85,7 @@ Test
 
 Back in your terminal (which you left untouched, didn't you?!) now type::
   
-  python blackpearl/examples/touchtherainbow.py
+  python blackpearl/examples/gettingstarted.py
   
 You should see some output to the terminal along the lines of::
   
