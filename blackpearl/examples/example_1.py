@@ -8,21 +8,45 @@ class TouchTheRainbow(Module):
     listening_for = ['touch',]
     hardware_required = [Touch, Rainbow,]
     
+    button1_press_count = 0
+    button2_press_count = 0
+    colours = [(255,51,204),
+               (255,102,51),
+               (204,255,51),
+               (204,51,255),
+               (102,51,255),
+               (102,255,51),
+               (51,102,255),
+               (255,204,51),
+               (51,255,102),
+               ]
+    
     def receive(self, message):
-        # We're listening for buttons!
         buttons = message['touch']['buttons']
-        if buttons['1'] is True:
-            self.rainbow.set_all(255, 0, 0)
-            self.rainbow.update()
-        elif buttons['2'] is True:
-            self.rainbow.set_all(0, 255, 0)
-            self.rainbow.update()
-        elif buttons['3'] is True:
-            self.rainbow.set_all(0, 0, 255)
-            self.rainbow.update()
-        elif buttons['4'] is True:
+        if button['1'] is True:
+            self.button1_press_count = self.button1_press_count + 1
+            
+            colour_index = self.button1_press_count % 9
+            r, g, b = self.colours[colour_index]
+            
+            active_pixel = self.button2_press_count % 5
+            
             self.rainbow.reset()
-
+            self.rainbow.set_pixel(active_pixel, r, g, b)
+            self.rainbow.update()
+            
+        if button['2'] is True:
+            self.button2_press_count = self.button2_press_count + 1
+            
+            colour_index = self.button1_press_count % 9
+            r, g, b = self.colours[colour_index]
+            
+            active_pixel = self.button2_press_count % 5
+            
+            self.rainbow.reset()
+            self.rainbow.set_pixel(active_pixel, r, g, b)
+            self.rainbow.update()
+            
 
 class MyProject(Project):
     required_modules = [TouchTheRainbow,]
