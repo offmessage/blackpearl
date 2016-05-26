@@ -11,16 +11,16 @@ class TouchTheRainbow(Module):
     def receive(self, message):
         # We're listening for buttons!
         buttons = message['touch']['buttons']
-        if buttons['1']:
+        if buttons['1'] is True:
             self.rainbow.set_all(255, 0, 0)
             self.rainbow.update()
-        elif buttons['2']:
+        elif buttons['2'] is True:
             self.rainbow.set_all(0, 255, 0)
             self.rainbow.update()
-        elif buttons['3']:
+        elif buttons['3'] is True:
             self.rainbow.set_all(0, 0, 255)
             self.rainbow.update()
-        elif buttons['4']:
+        elif buttons['4'] is True:
             self.rainbow.reset()
 
 
