@@ -1,7 +1,7 @@
 .. _example1:
     
-Example 1: Remembering what state things are in
-===============================================
+Example 1: Simple interactive light show
+========================================
 
 .. note:: Like the getting started example, this project uses the touch keypad
           and rainbow LEDs, so it'll work with the Mini Starter Kit.
@@ -16,11 +16,6 @@ for button 2, blue for button 3 and nothing for button 4).
 This time we want only one LED to light up at a time, and have that change 
 every time someone presses button 1. And we want to change the colour every time
 someone presses button 2.
-
-This project remembers the state of the rainbow each time a button is pressed
-and changes it the next time a button is pressed. This ability to remembering
-is because we've used Python classes to wrap the functionality of the hardware,
-and can store the state of the hardware in those classes.
 
 This example can be found in
 `blackpearl/examples/example_1.py
@@ -84,6 +79,11 @@ but it's also included here in its entirety for reference::
   if __name__ == '__main__':
       MyProject()
   
+This project remembers the state of the rainbow each time a button is pressed
+and changes it the next time a button is pressed. This ability to remembering
+is because we've used Python classes to wrap the functionality of the hardware,
+and can store the state of the hardware in those classes.
+
 As with the :ref:`Getting Started example <gettingstarted-example>` the first
 thing we need to do is import all the necessary bits and bobs. These are the
 basic ``Project``, the basic ``Module`` and the ``Rainbow`` and ``Touch``

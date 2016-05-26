@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Example 1: Remembering what state things are in &mdash; Black Pearl 1.0 documentation</title>
+  <title>Example 1: Simple interactive light show &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -88,7 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started with blackpearl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../messages.html">Messages</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 1: Remembering what state things are in</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 1: Simple interactive light show</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#step-by-step-example">Step by step example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#making-the-code-neater">Making the code neater</a></li>
 </ul>
@@ -134,7 +134,7 @@
       
           <li><a href="index.html">Examples</a> &raquo;</li>
       
-    <li>Example 1: Remembering what state things are in</li>
+    <li>Example 1: Simple interactive light show</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -148,8 +148,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="example-1-remembering-what-state-things-are-in">
-<span id="example1"></span><h1>Example 1: Remembering what state things are in<a class="headerlink" href="#example-1-remembering-what-state-things-are-in" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="example-1-simple-interactive-light-show">
+<span id="example1"></span><h1>Example 1: Simple interactive light show<a class="headerlink" href="#example-1-simple-interactive-light-show" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Like the getting started example, this project uses the touch keypad
@@ -163,10 +163,6 @@ for button 2, blue for button 3 and nothing for button 4).</p>
 <p>This time we want only one LED to light up at a time, and have that change
 every time someone presses button 1. And we want to change the colour every time
 someone presses button 2.</p>
-<p>This project remembers the state of the rainbow each time a button is pressed
-and changes it the next time a button is pressed. This ability to remembering
-is because we&#8217;ve used Python classes to wrap the functionality of the hardware,
-and can store the state of the hardware in those classes.</p>
 <p>This example can be found in
 <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_1.py">blackpearl/examples/example_1.py</a>,
 but it&#8217;s also included here in its entirety for reference:</p>
@@ -228,6 +224,10 @@ but it&#8217;s also included here in its entirety for reference:</p>
     <span class="n">MyProject</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>This project remembers the state of the rainbow each time a button is pressed
+and changes it the next time a button is pressed. This ability to remembering
+is because we&#8217;ve used Python classes to wrap the functionality of the hardware,
+and can store the state of the hardware in those classes.</p>
 <p>As with the <a class="reference internal" href="../gettingstarted.html#gettingstarted-example"><span class="std std-ref">Getting Started example</span></a> the first
 thing we need to do is import all the necessary bits and bobs. These are the
 basic <code class="docutils literal"><span class="pre">Project</span></code>, the basic <code class="docutils literal"><span class="pre">Module</span></code> and the <code class="docutils literal"><span class="pre">Rainbow</span></code> and <code class="docutils literal"><span class="pre">Touch</span></code>
