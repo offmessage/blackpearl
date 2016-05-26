@@ -97,6 +97,8 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">The Rainbow</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#how-it-works">How it works</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#supported-methods">Supported methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-snippets">Example snippets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#complete-examples">Complete examples</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="number.html">The Number display</a></li>
@@ -218,6 +220,42 @@ directly (in other words, you need to pass the return value from this method
 to <code class="docutils literal"><span class="pre">.set_all()</span></code> or <code class="docutils literal"><span class="pre">.set_pixel()</span></code>).</p>
 </dd></dl>
 
+</div>
+<div class="section" id="example-snippets">
+<span id="rainbow-hardware-snippets"></span><h2>Example snippets<a class="headerlink" href="#example-snippets" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Each of these code snippets assumes you have an instance of the
+<code class="docutils literal"><span class="pre">Rainbow</span></code> class called <code class="docutils literal"><span class="pre">rainbow</span></code>. In your modules this would be
+achieved by listing <code class="docutils literal"><span class="pre">Rainbow</span></code> in your <code class="docutils literal"><span class="pre">hardware_required</span></code> and then
+setting <code class="docutils literal"><span class="pre">rainbow</span> <span class="pre">=</span> <span class="pre">self.rainbow</span></code> in your <code class="docutils literal"><span class="pre">.receive()</span></code> method.</p>
+</div>
+<p>To set all 5 LEDs to red you would use the following code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To set the first LED red, the second green, the third blue, the fourth red and
+the fifth green you would use the following code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+<span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="complete-examples">
+<h2>Complete examples<a class="headerlink" href="#complete-examples" title="Permalink to this headline">¶</a></h2>
+<p>The following examples use the Rainbow:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="../../gettingstarted.html"><span class="doc">Getting started with blackpearl</span></a></li>
+<li><a class="reference internal" href="../../examples/example_1.html"><span class="doc">Example 1: Simple interactive light show</span></a></li>
+<li><span class="xref doc">/examples/example2</span></li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 
