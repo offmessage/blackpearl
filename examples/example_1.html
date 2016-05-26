@@ -283,7 +283,7 @@ pressed or released, because we&#8217;re only listening for messages from the to
 <p>The first thing we do is take some actions when button 1 is pressed. In this
 case we want to add 1 to our counter that tells us how many times it&#8217;s been
 pressed:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">button</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">+</span> <span class="mi">1</span>
 </pre></div>
 </div>
@@ -321,7 +321,7 @@ rainbow LEDs:</p>
 the colour of only the one we want to the colour from our list.</p>
 <p>The code for when button 2 is pressed is exactly the same, except we add one
 to the counter we&#8217;re storing for button 2 presses instead:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">button</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">+</span> <span class="mi">1</span>
 
     <span class="n">colour_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">%</span> <span class="mi">9</span>
@@ -383,10 +383,10 @@ of colours in the <code class="docutils literal"><span class="pre">self.colours<
 <p>Now our button press code can be much simpler:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
   <span class="n">buttons</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">][</span><span class="s1">&#39;buttons&#39;</span><span class="p">]</span>
-  <span class="k">if</span> <span class="n">button</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">+=</span> <span class="mi">1</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">update_rainbow</span><span class="p">()</span>
-  <span class="k">if</span> <span class="n">button</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">+=</span> <span class="mi">1</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">update_rainbow</span><span class="p">()</span>
 </pre></div>
@@ -438,10 +438,10 @@ way):</p>
 
     <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="n">buttons</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">][</span><span class="s1">&#39;buttons&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">button</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_rainbow</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">button</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_rainbow</span><span class="p">()</span>
 

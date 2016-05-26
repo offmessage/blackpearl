@@ -143,7 +143,7 @@ The first thing we do is take some actions when button 1 is pressed. In this
 case we want to add 1 to our counter that tells us how many times it's been
 pressed::
 
-          if button['1'] is True:
+          if buttons['1'] is True:
               self.button1_press_count = self.button1_press_count + 1
   
 The next line works out which member of the colour list to use. We do this
@@ -188,7 +188,7 @@ the colour of only the one we want to the colour from our list.
 The code for when button 2 is pressed is exactly the same, except we add one
 to the counter we're storing for button 2 presses instead::
   
-          if button['2'] is True:
+          if buttons['2'] is True:
               self.button2_press_count = self.button2_press_count + 1
               
               colour_index = self.button1_press_count % 9
@@ -250,10 +250,10 @@ Now our button press code can be much simpler::
   
       def receive(self, message):
         buttons = message['touch']['buttons']
-        if button['1'] is True:
+        if buttons['1'] is True:
             self.button1_press_count += 1
             self.update_rainbow()
-        if button['2'] is True:
+        if buttons['2'] is True:
             self.button2_press_count += 1
             self.update_rainbow()
 
@@ -306,10 +306,10 @@ way)::
           
       def receive(self, message):
           buttons = message['touch']['buttons']
-          if button['1'] is True:
+          if buttons['1'] is True:
               self.button1_press_count += 1
               self.update_rainbow()
-          if button['2'] is True:
+          if buttons['2'] is True:
               self.button2_press_count += 1
               self.update_rainbow()
   
