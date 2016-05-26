@@ -51,13 +51,14 @@ Contents
    installation.rst
    gettingstarted.rst
    messages.rst
-   examples.rst
+   examples/index.rst
+   examples/examplesbykit.rst
    hardware/index.rst
    software/index.rst
    blackpearl/index.rst
    usingidle.rst
    troubleshooting.rst
-
+   
 Complete index
 --------------
 

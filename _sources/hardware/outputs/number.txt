@@ -129,6 +129,11 @@ Supported methods
    As you might expect, this resets the display and turns all bars, periods,
    colons and apostrophes off.
    
+.. _number-hardware-attributes:
+
+Attributes
+----------
+
 .. attribute:: .colon
    
    Set ``.colon`` to ``True`` to turn the colon on. Set it to ``False`` to 
@@ -145,6 +150,80 @@ Supported methods
    As with ``.set_number()`` you must call ``.update()`` for your changes to
    be sent to the display.
    
+.. _number-hardware-snippets:
 
+Example snippets
+----------------
+
+.. note:: Each of these code snippets assumes you have an instance of the
+          ``Number`` class called ``number``. In your modules this would be
+          achieved by listing ``Number`` in your ``hardware_required`` and then 
+          setting ``number = self.number`` in your ``.receive()`` method.
+
+To display the number **9.3** you would use the following code::
+
+  number.set_number(9.3)
+  
+The result would look like this:
+
+.. image:: /images/9.3.png
+
+To display the number **09.32** you would use the following code::
+
+  number.set_number(9.32, pad='0')
+  
+The result would look like this:
+
+.. image:: /images/09.32.png
+
+And to display the number **9.300** you would use the following code::
+
+  number.set_number(9.3, precision='000')
+  
+The result would look like this:
+
+.. image:: /images/9.300.png
+
+To display a 24 hour clock style display of the time **16:20** you would use the
+following code::
+
+  number.set_digit(0, '1')
+  number.set_digit(1, '6')
+  number.set_digit(2, '2')
+  number.set_digit(3, '0')
+  number.colon = True
+  number.update()
+  
+The result would look like this:
+
+.. image:: /images/16.20.png
+
+To display a representation of the word ``toon.`` you would use the following
+code::
+  
+  t = number.NUM_TL + number.NUM_BL + number.NUM_MID + number.NUM_B
+  o = number.NUM_BL + number.NUM_MID + number.NUM_BR + number.NUM_B
+  n_period = number.NUM_BL + number.NUM_MID + number.NUM_BR + NUM_DOT
+  number.set_value(0, t)
+  number.set_value(1, o)
+  number.set_value(2, o)
+  number.set_value(3, n_period)
+  number.update()
+  
+The result would look like this:
+
+.. image:: /images/toon.png
+
+.. _number-hardware-examples:
+
+Complete examples
+-----------------
+
+The following examples use the Number:
+
+ * A thing
+ * Another thing
+ 
+ 
 
    

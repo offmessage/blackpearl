@@ -90,7 +90,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="messages.html">Messages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examplesbykit.html">Examples broken down by kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hardware/index.html">Flotilla hardware things</a></li>
 <li class="toctree-l1"><a class="reference internal" href="software/index.html"><strong>blackpearl</strong>&#8216;s software things</a></li>
 <li class="toctree-l1"><a class="reference internal" href="blackpearl/index.html"><strong>blackpearl</strong>&#8216;s internals</a></li>
@@ -169,7 +170,7 @@ also needed for the module to work</li>
 </div></blockquote>
 </div>
 <div class="section" id="an-example">
-<h2>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
+<span id="gettingstarted-example"></span><h2>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">To start with we&#8217;ll only use the rainbow and the touch, as these are
@@ -178,7 +179,7 @@ will use the parts that came with the larger kits.</p>
 </div>
 <p>I&#8217;ll use the example that we used to test our installation to describe what&#8217;s
 going on in practical terms. That script can be found in
-<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/touchtherainbow.py">blackpearl/examples/touchtherainbow.py</a>,
+<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/gettingstarted.py">blackpearl/examples/gettingstarted.py</a>,
 but it&#8217;s also included here in its entirety for reference:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
@@ -287,16 +288,16 @@ like this:</p>
 <p>Our code then takes some decisions based on which button has been pressed.
 Remember, our <code class="docutils literal"><span class="pre">.receive()</span></code> method is only called when a button has been
 pressed or released, because we&#8217;re only listening for messages from the touch.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-<span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]:</span>
+<span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-<span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;3&#39;</span><span class="p">]:</span>
+<span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;3&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-<span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;4&#39;</span><span class="p">]:</span>
+<span class="k">elif</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;4&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -354,7 +355,7 @@ project class (which we do by <em>calling</em> it; putting brackets after its na
 <p>Now our project will run from within our virtual environment as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">blackpearl</span>
 <span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
-<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">touchtherainbow</span><span class="o">.</span><span class="n">py</span>
+<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">example_1</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>

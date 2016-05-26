@@ -30,6 +30,8 @@ Each module defines 3 things:
  * What additional software components (like clocks, wave generators, etc) are
    also needed for the module to work
    
+.. _gettingstarted-example:
+
 An example
 ----------
 
@@ -39,8 +41,8 @@ An example
           
 I'll use the example that we used to test our installation to describe what's
 going on in practical terms. That script can be found in
-`blackpearl/examples/touchtherainbow.py
-<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/touchtherainbow.py>`_,
+`blackpearl/examples/gettingstarted.py
+<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/gettingstarted.py>`_,
 but it's also included here in its entirety for reference::
 
   from blackpearl.modules import Module
@@ -159,16 +161,16 @@ pressed or released, because we're only listening for messages from the touch.
 
 ::
 
-          if buttons['1']:
+          if buttons['1'] is True:
               self.rainbow.set_all(255, 0, 0)
               self.rainbow.update()
-          elif buttons['2']:
+          elif buttons['2'] is True:
               self.rainbow.set_all(0, 255, 0)
               self.rainbow.update()
-          elif buttons['3']:
+          elif buttons['3'] is True:
               self.rainbow.set_all(0, 0, 255)
               self.rainbow.update()
-          elif buttons['4']:
+          elif buttons['4'] is True:
               self.rainbow.reset()
   
 One slight piece of magic (magic isn't generally considered very Pythonic, but
@@ -229,5 +231,5 @@ Now our project will run from within our virtual environment as follows::
 
   cd /home/pi/projects/blackpearl
   source venv/bin/activate
-  python blackpearl/examples/touchtherainbow.py
+  python blackpearl/examples/example_1.py
   
