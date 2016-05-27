@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Examples &mdash; Black Pearl 1.0 documentation</title>
+  <title>Planned examples &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -31,8 +31,9 @@
 
   
     <link rel="top" title="Black Pearl 1.0 documentation" href="../index.html"/>
-        <link rel="next" title="Example 1: Simple interactive light show" href="example_1.html"/>
-        <link rel="prev" title="Messages" href="../messages.html"/> 
+        <link rel="up" title="Examples" href="index.html"/>
+        <link rel="next" title="Examples broken down by kit" href="examplesbykit.html"/>
+        <link rel="prev" title="Example 2: Making a thermometer" href="example_2.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,10 +87,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Detailed installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started with blackpearl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../messages.html">Messages</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="example_1.html">Example 1: Simple interactive light show</a></li>
 <li class="toctree-l2"><a class="reference internal" href="example_2.html">Example 2: Making a thermometer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plannedexamples.html">Planned examples</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Planned examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple-examples">Simple examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#medium-examples">Medium examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-examples">Advanced examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examplesbykit.html">Examples broken down by kit</a></li>
@@ -128,11 +134,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Examples</li>
+          <li><a href="index.html">Examples</a> &raquo;</li>
+      
+    <li>Planned examples</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/examples/index.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/examples/plannedexamples.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -142,27 +150,65 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="examples">
-<span id="id1"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="example_1.html">Example 1: Simple interactive light show</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="example_1.html#step-by-step-example">Step by step example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_1.html#making-the-code-neater">Making the code neater</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="example_2.html">Example 2: Making a thermometer</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="example_2.html#step-by-step-example">Step by step example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_2.html#making-the-code-neater">Making the code neater</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="plannedexamples.html">Planned examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="plannedexamples.html#simple-examples">Simple examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plannedexamples.html#medium-examples">Medium examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plannedexamples.html#advanced-examples">Advanced examples</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="planned-examples">
+<span id="id1"></span><h1>Planned examples<a class="headerlink" href="#planned-examples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="simple-examples">
+<h2>Simple examples<a class="headerlink" href="#simple-examples" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Colour matcher</dt>
+<dd>Wire up the colour sensor to tell the rainbow what colour to show (colour
+sensor and rainbow)</dd>
+<dt>Back and forth</dt>
+<dd>Simple back and forward control of the two motors. Shows how to get both
+motors working together and how to wire up more than one of the same piece
+of hardware (motors and slider)</dd>
+<dt>Stopwatch</dt>
+<dd>Teaches how to use the timer things (number and touch)</dd>
+<dt>The clock</dt>
+<dd>Teaches about the timer, and how to manipulate the number at a lower level
+(just the number)</dd>
+<dt>The discolights</dt>
+<dd>Create a light show using the wave modules (just the rainbow)</dd>
+<dt>Discolights++</dt>
+<dd>Add the keypad in to the mix, and let it change which lights are lit and
+invert some of the colours (rainbow and touch)</dd>
+</dl>
+</div>
+<div class="section" id="medium-examples">
+<h2>Medium examples<a class="headerlink" href="#medium-examples" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Discolights++</dt>
+<dd>Use of the rainbow, keypad and slider (or dial) to allow the user to control
+the speed of the show. Shows how Modules can interact with each other
+(rainbow, touch and slider)</dd>
+<dt>Scrolling text</dt>
+<dd>First use of the matrix and all its madness (matrix)</dd>
+<dt>Scrolling text++</dt>
+<dd>Let the dial alter the speed of the text, let the keypad pause and restart
+it (matrix and dial)</dd>
+</dl>
+</div>
+<div class="section" id="advanced-examples">
+<h2>Advanced examples<a class="headerlink" href="#advanced-examples" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Scrolling text+++</dt>
+<dd>Let the dial alter the speed of the text, let the keypad pause and restart
+it, and blip the rainbow every time it loops. Teaches about non-hardware
+messages (matrix, dial and rainbow). Think about extending by adding the
+number to count the loops</dd>
+<dt>The combination lock</dt>
+<dd>Use the rainbow and keypad to create a combination lock. Teaches about
+use of the Timer software module, plus more complex Python classes (rainbow
+and touch)</dd>
+<dt>Following the line: A robot!</dt>
+<dd>Make a robot that follows a line... (2 light sensors, 2 motors)</dd>
+<dt>Drop an anvil!</dt>
+<dd>Use the keypad to cause things to happen inside Minecraft (touch, plus
+Minecraft Pi)</dd>
+<dt>Weather forecaster</dt>
+<dd>Get the weather from the internet and display it on the matrix (matrix plus
+URL fetcher)</dd>
+</dl>
 </div>
 </div>
 
@@ -173,10 +219,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="example_1.html" class="btn btn-neutral float-right" title="Example 1: Simple interactive light show" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="examplesbykit.html" class="btn btn-neutral float-right" title="Examples broken down by kit" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../messages.html" class="btn btn-neutral" title="Messages" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="example_2.html" class="btn btn-neutral" title="Example 2: Making a thermometer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
