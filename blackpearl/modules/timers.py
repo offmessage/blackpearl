@@ -25,6 +25,7 @@ class Timer(Module):
                    "though!")
             project.log('WARNING', msg)
         super().__init__(project)
+        self.setup()
         
     def setup(self):
         # This is run when the class is instantiated, so you could start
@@ -55,7 +56,8 @@ class Timer(Module):
                 # we are paused or stopped
                 break
             d = defer.Deferred()
-            reactor.callLater(self.tick, d.callback, self.update())
+            self.update()
+            reactor.callLater(self.tick, d.callback, None)
             wfd = defer.waitForDeferred(d)
             yield wfd
     
@@ -86,6 +88,7 @@ class Clock(Timer):
         
     def update(self):
         tm = time.localtime(time.time())
+        print(tm)
         if self.colon:
             fmt = "{:02d}:{:02d}"
         else:
