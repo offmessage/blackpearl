@@ -88,7 +88,6 @@ class Clock(Timer):
         
     def update(self):
         tm = time.localtime(time.time())
-        print(tm)
         if self.colon:
             fmt = "{:02d}:{:02d}"
         else:
