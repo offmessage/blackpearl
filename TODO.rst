@@ -17,9 +17,6 @@ Minecraft
 Little refactorings
 ===================
 
-Move the NUM* constants to be class properties not module properties - felt
-weird when I wrote the documentation
-
 Noticed that ``hardware_required``, ``software_required`` but ``required_modules``
 
 New features

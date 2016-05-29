@@ -16,6 +16,28 @@ class Number(FlotillaOutput):
     minutes = None
     seconds = None
     
+    NUM_DOT = 1
+    NUM_MID = 2
+    NUM_TL = 4
+    NUM_BL = 8
+    NUM_B = 16
+    NUM_BR = 32
+    NUM_TR = 64
+    NUM_T = 128
+    
+    NUMBERS = [
+        NUM_TL + NUM_BL + NUM_T + NUM_B + NUM_TR + NUM_BR,            # 0
+        NUM_TR + NUM_BR,                                              # 1
+        NUM_BL + NUM_T + NUM_B + NUM_TR + NUM_MID,                    # 2
+        NUM_T + NUM_B + NUM_TR + NUM_BR + NUM_MID,                    # 3
+        NUM_TR + NUM_TL + NUM_MID + NUM_BR,                           # 4
+        NUM_TL + NUM_BR + NUM_MID + NUM_T + NUM_B,                    # 5
+        NUM_T + NUM_MID + NUM_B + NUM_BL + NUM_BR + NUM_TL,           # 6
+        NUM_T + NUM_TR + NUM_BR,                                      # 7
+        NUM_TL + NUM_BL + NUM_T + NUM_B + NUM_TR + NUM_BR + NUM_MID,  # 8
+        NUM_TL + NUM_T + NUM_TR + NUM_BR + NUM_MID                    # 9
+        ]
+    
     def reset(self):
         self.brightness = 40
         self.digits = [0, 0, 0, 0,]
@@ -36,11 +58,11 @@ class Number(FlotillaOutput):
         if digit is None:
             value = 0
         elif digit == '-':
-            value = NUM_MID
+            value = self.NUM_MID
         elif len(digit) == 1:
-            value = NUMBERS[int(digit)]
+            value = self.NUMBERS[int(digit)]
         else:
-            value = NUMBERS[int(digit[0])]+1
+            value = self.NUMBERS[int(digit[0])]+1
         self.set_value(posn, value)
         
     def set_value(self, posn, value):
@@ -175,24 +197,3 @@ class Number(FlotillaOutput):
         self.send(data)
         
 
-NUM_DOT = 1
-NUM_MID = 2
-NUM_TL = 4
-NUM_BL = 8
-NUM_B = 16
-NUM_BR = 32
-NUM_TR = 64
-NUM_T = 128
-
-NUMBERS = [
-    NUM_TL + NUM_BL + NUM_T + NUM_B + NUM_TR + NUM_BR,            # 0
-    NUM_TR + NUM_BR,                                              # 1
-    NUM_BL + NUM_T + NUM_B + NUM_TR + NUM_MID,                    # 2
-    NUM_T + NUM_B + NUM_TR + NUM_BR + NUM_MID,                    # 3
-    NUM_TR + NUM_TL + NUM_MID + NUM_BR,                           # 4
-    NUM_TL + NUM_BR + NUM_MID + NUM_T + NUM_B,                    # 5
-    NUM_T + NUM_MID + NUM_B + NUM_BL + NUM_BR + NUM_TL,           # 6
-    NUM_T + NUM_TR + NUM_BR,                                      # 7
-    NUM_TL + NUM_BL + NUM_T + NUM_B + NUM_TR + NUM_BR + NUM_MID,  # 8
-    NUM_TL + NUM_T + NUM_TR + NUM_BR + NUM_MID                    # 9
-    ]
