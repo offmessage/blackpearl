@@ -6,11 +6,6 @@ Planned examples
 Simple examples
 ---------------
 
-Back and forth
-    Simple back and forward control of the two motors. Shows how to get both
-    motors working together and how to wire up more than one of the same piece
-    of hardware (motors and slider)
-    
 Stopwatch
     Teaches how to use the timer things (number and touch)
 

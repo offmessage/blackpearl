@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Example 4: Mighty Mover &mdash; Black Pearl 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Black Pearl 1.0 documentation" href="../index.html"/>
+        <link rel="up" title="Examples" href="index.html"/>
+        <link rel="next" title="Planned examples" href="plannedexamples.html"/>
+        <link rel="prev" title="Example 3: Matching colours" href="example_3.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Black Pearl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Detailed installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started with blackpearl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Messages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="example_1.html">Example 1: Simple interactive light show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_2.html">Example 2: Making a thermometer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_3.html">Example 3: Matching colours</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 4: Mighty Mover</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-by-step-example">Step by step example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plannedexamples.html">Planned examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examplesbykit.html">Examples broken down by kit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardware/index.html">Flotilla hardware things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html"><strong>blackpearl</strong>&#8216;s software things</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../blackpearl/index.html"><strong>blackpearl</strong>&#8216;s internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usingidle.html">Using IDLE with <strong>blackpearl</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting your installation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Black Pearl</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Examples</a> &raquo;</li>
+      
+    <li>Example 4: Mighty Mover</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/example_4.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="example-4-mighty-mover">
+<span id="example4"></span><h1>Example 4: Mighty Mover<a class="headerlink" href="#example-4-mighty-mover" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This project uses the motors and the slider, which come with
+the Mega Treasure Chest.</p>
+</div>
+<p>This is the beginnings of a remote controlled vehicle. You&#8217;ll need to attach
+the motors and wheels to the orange plate that came in the Mega Treasure Chest.
+The best way to see instructions for this is in Pimoroni&#8217;s own
+<a class="reference external" href="https://www.youtube.com/watch?v=kwXr0Sf1s9k">Update 47 video</a>, but it&#8217;s
+fairly simple: just pop the wheels onto the motor shafts and use the short
+screws to attach the motors to the orange plate in the locations that are marked
+out with motor sized rectangles.</p>
+<p>Once the motors are attached wire them up to the dock along with a slider, and
+put the slider as close to the middle as you can, before firing up this script.</p>
+<p>By pushing the slider up (so more lights come on) the vehicle will go forward.
+Pushing it down will make it go backwards. The further you push it the faster
+the motors go.</p>
+<p>This is a simple example that we&#8217;ll expand on, but it shows not only how to
+wire up the motors, but how to access a piece of hardware when there is more
+than one of the same type attached.</p>
+<div class="section" id="step-by-step-example">
+<h2>Step by step example<a class="headerlink" href="#step-by-step-example" title="Permalink to this headline">¶</a></h2>
+<p>This example can be found in
+<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_4.py">blackpearl/examples/example_4.py</a>,
+but it&#8217;s also included here in its entirety for reference:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Motor</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Slider</span>
+
+
+<span class="k">class</span> <span class="nc">Mover</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;slider&#39;</span><span class="p">,]</span>
+    <span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Slider</span><span class="p">,</span> <span class="n">Motor</span><span class="p">,</span> <span class="n">Motor</span><span class="p">,]</span>
+
+    <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;slider&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">63</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1000</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="mi">63</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="mi">500</span><span class="p">)</span><span class="o">//</span><span class="mi">8</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">motor1</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">motor2</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
+    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Mover</span><span class="p">,]</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">MyProject</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As with the all of our projects the first thing we need to do is import all the
+necessary bits and bobs. For this one they are the basic <code class="docutils literal"><span class="pre">Project</span></code>, the basic
+<code class="docutils literal"><span class="pre">Module</span></code> plus the <code class="docutils literal"><span class="pre">Motor</span></code> and <code class="docutils literal"><span class="pre">Slider</span></code> <em>things</em>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Motor</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Slider</span>
+</pre></div>
+</div>
+<p>As before we define our own module, using <strong>blackpearl</strong>&#8216;s <strong>Module</strong> class as
+our base class:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mover</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>We&#8217;re <code class="docutils literal"><span class="pre">listening_for</span></code> messages from the slider, and we need the slider and
+<strong>two</strong> motors for this to work. The important bit here is that we need to
+include the <code class="docutils literal"><span class="pre">Motor</span></code> class <strong>twice</strong> in the <code class="docutils literal"><span class="pre">hardware_required</span></code> list,
+because we want two of them:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;slider&#39;</span><span class="p">,]</span>
+<span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Slider</span><span class="p">,</span> <span class="n">Motor</span><span class="p">,</span> <span class="n">Motor</span><span class="p">,]</span>
+</pre></div>
+</div>
+<p>Our <code class="docutils literal"><span class="pre">.receive()</span></code> is called with messages from the <code class="docutils literal"><span class="pre">slider</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The format of the message that the slider sends is documented on the
+<a class="reference internal" href="../hardware/inputs/slider.html#slider-hardware"><span class="std std-ref">Slider&#8217;s page</span></a>.</p>
+</div>
+<p>The slider returns a value in the range 0 to 1000.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;slider&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>We know that if the slider sends a zero we want full speed in reverse (<code class="docutils literal"><span class="pre">-63</span></code>)
+and if it sends 1,000 we want full speed ahead (<code class="docutils literal"><span class="pre">+63</span></code>):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">63</span>
+<span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1000</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="mi">63</span>
+</pre></div>
+</div>
+<p>The next thing we do is use Python&#8217;s <code class="docutils literal"><span class="pre">//</span></code> operator. Remember how <code class="docutils literal"><span class="pre">%</span></code> gave us
+the remainder? Well, <code class="docutils literal"><span class="pre">//</span></code> is the other half of that - it gives us the integer
+part of <strong>x divided by y</strong>. In other words, where <code class="docutils literal"><span class="pre">5</span> <span class="pre">%</span> <span class="pre">2</span></code> is 1, because 1 is
+the remainder of 5 divided by 2, <code class="docutils literal"><span class="pre">5</span> <span class="pre">//</span> <span class="pre">2</span></code> is 2, because that 2 goes into 5
+twice.</p>
+<p>At the moment the value we get from the slider is between 0 and 1,000. We want
+it to be between -63 and +63, so that it matches the values that motors expect.
+To do this we subtract 500 (so it&#8217;s now between -500 and +500) and then divide
+by 8 (so it&#8217;s between -62.5 and +62.5.</p>
+<p>However, we know that the motors only take whole numbers as their speed. We can
+convert our number to a whole number in one of two ways - we can pass it through
+<code class="docutils literal"><span class="pre">int()</span></code>, which will strip off the decimal part (<code class="docutils literal"><span class="pre">int(62.5)</span> <span class="pre">==</span> <span class="pre">62</span></code>) or we
+can use Python&#8217;s <code class="docutils literal"><span class="pre">//</span></code> operator.</p>
+<p>Remember how <code class="docutils literal"><span class="pre">%</span></code> gave us the remainder? Well, <code class="docutils literal"><span class="pre">//</span></code> is the other half of
+that - it gives us the integer part of <strong>x divided by y</strong>. In other words,
+where <code class="docutils literal"><span class="pre">5</span> <span class="pre">%</span> <span class="pre">2</span></code> is 1, because 1 is the remainder of 5 divided by 2, <code class="docutils literal"><span class="pre">5</span> <span class="pre">//</span> <span class="pre">2</span></code>
+is 2, because that 2 goes into 5 twice. In the example we use <code class="docutils literal"><span class="pre">//</span></code> to get
+our new speed between -62 and +62:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">else</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="mi">500</span><span class="p">)</span><span class="o">//</span><span class="mi">8</span>
+</pre></div>
+</div>
+<p>Now that we&#8217;ve got our speed we want to send that speed to the motors. Because
+we have two of them they&#8217;ve been magically named <code class="docutils literal"><span class="pre">motor1</span></code> and <code class="docutils literal"><span class="pre">motor2</span></code>. And
+because they are on opposite sides of the vehicle we need to set one of them to
+the reverse of the other. So we set the speed like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">motor1</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">motor2</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As before, the rest of the script is the bit that makes the whole thing run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
+    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Mover</span><span class="p">,]</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">MyProject</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now our project will run from within our virtual environment as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">blackpearl</span>
+<span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">example_4</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="plannedexamples.html" class="btn btn-neutral float-right" title="Planned examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="example_3.html" class="btn btn-neutral" title="Example 3: Matching colours" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andy Theyers.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

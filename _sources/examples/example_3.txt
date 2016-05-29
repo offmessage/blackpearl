@@ -107,7 +107,7 @@ Now our project will run from within our virtual environment as follows::
 
   cd /home/pi/projects/blackpearl
   source venv/bin/activate
-  python blackpearl/examples/example_2.py
+  python blackpearl/examples/example_3.py
   
 Making the code neater
 ----------------------

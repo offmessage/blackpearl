@@ -9,5 +9,7 @@ Examples
    
    example_1.rst
    example_2.rst
+   example_3.rst
+   example_4.rst
    plannedexamples.rst
    
