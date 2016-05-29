@@ -90,7 +90,7 @@ Supported methods
    e.g. ``number.set_number(9.3, pad="0")`` will display ``009.3``
    
    If the number takes less than all 4 digits you can force the decimal point to
-   the left and right pad with zeroes by setting ``precision`` to one of
+   the left (by right padding with zeroes) by setting ``precision`` to one of
    ``'0'``, ``'00'`` or ``'000'``. This is particularly helpful if you want
    a stopwatch or countdown timer where you are displaying tenths or hundredths 
    of a second and you don't want the decimal point jumping around).
