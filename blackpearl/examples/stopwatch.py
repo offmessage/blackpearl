@@ -15,7 +15,7 @@ class Stopwatch(Timer):
     def receive(self, message):
         if 'timer' in message:
             tm = message['timer']['time']
-            self.number.set_number(tm)
+            self.number.set_number(tm, precision='00')
             self.number.update()
         elif 'touch' in message:
             buttons = message['touch']['buttons']

@@ -50,11 +50,13 @@ class Number(FlotillaOutput):
             raise ValueError("posn should be between 0 and 3")
         self.digits[posn] = value
         
-    def set_number(self, number, pad=None):
+    def set_number(self, number, pad=None, precision=''):
         # XXX TODO: allow left right pad too, so that we can have 54.70
-        valid = [None, '-', '0',]
-        if pad not in valid:
+        print(number)
+        if pad not in [None, '-', '0',]:
             raise ValueError("invalid pad character")
+        if precision not in ['', '0', '00', '000']:
+            raise ValueError("invalid precision, must be one of '', '0', '00' or '000'")
         if not (-999 <= number <= 9999):
             raise ValueError("Number is too large. Must be between -999 and 9999")
         
@@ -67,9 +69,15 @@ class Number(FlotillaOutput):
         count = len(digits)
         haspoint = False
         if "." in digits:
-            # decimals don't consume a whole digit on the ouput
+            # decimals don't consume a whole digit on the output
             count = count - 1
             haspoint = True
+            # Now right pad with zeroes if we've been asked to
+            units, decimals = str(number).split('.')
+            if len(decimals) < len(precision):
+                addn_zeroes = ['0',] * (len(precision) - len(decimals))
+                digits.extend(addn_zeroes)
+                count = len(digits) - 1
         if haspoint and count > 4:
             # we need to trim off extraneous decimal points
             digits = digits[:5]
@@ -83,6 +91,7 @@ class Number(FlotillaOutput):
             digits.insert(0, pad)
         
         workingdigit = 0
+        print(digits)
         for i in range(len(digits)):
             if not haspoint:
                 # simple case, no decimal point
@@ -103,6 +112,8 @@ class Number(FlotillaOutput):
             workingdigit += 1
         
     def set_hoursminutes(self, hours, minutes, pad="0"):
+        # XXX TODO This is no use, as seen by examples/clock.py
+        # Needs refreshing to match actual use
         if pad not in [None, '0']:
             raise ValueError("invalid pad character")
         
@@ -130,6 +141,9 @@ class Number(FlotillaOutput):
             self.set_digit(i, digits[i])
         
     def set_minutesseconds(self, minutes, seconds, pad=None):
+        # XXX TODO This is no use, as seen by examples/clock.py
+        # Needs refreshing to match actual use
+        # Seconds always need padding, minutes padding is optional
         if pad not in [None, '0']:
             raise ValueError("invalid pad character")
         
