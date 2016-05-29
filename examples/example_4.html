@@ -249,13 +249,9 @@ and if it sends 1,000 we want full speed ahead (<code class="docutils literal"><
     <span class="n">v</span> <span class="o">=</span> <span class="mi">63</span>
 </pre></div>
 </div>
-<p>The next thing we do is use Python&#8217;s <code class="docutils literal"><span class="pre">//</span></code> operator. Remember how <code class="docutils literal"><span class="pre">%</span></code> gave us
-the remainder? Well, <code class="docutils literal"><span class="pre">//</span></code> is the other half of that - it gives us the integer
-part of <strong>x divided by y</strong>. In other words, where <code class="docutils literal"><span class="pre">5</span> <span class="pre">%</span> <span class="pre">2</span></code> is 1, because 1 is
-the remainder of 5 divided by 2, <code class="docutils literal"><span class="pre">5</span> <span class="pre">//</span> <span class="pre">2</span></code> is 2, because that 2 goes into 5
-twice.</p>
-<p>At the moment the value we get from the slider is between 0 and 1,000. We want
-it to be between -63 and +63, so that it matches the values that motors expect.
+<p>At the moment the value we get from the slider is between 0 and 1,000. We&#8217;ve
+dealt with the two extremenes, 0 and 1,000; now we want to convert any other
+number to be between -63 and +63, so that it matches the values that motors expect.
 To do this we subtract 500 (so it&#8217;s now between -500 and +500) and then divide
 by 8 (so it&#8217;s between -62.5 and +62.5.</p>
 <p>However, we know that the motors only take whole numbers as their speed. We can

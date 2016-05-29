@@ -105,14 +105,9 @@ and if it sends 1,000 we want full speed ahead (``+63``)::
             elif value == 1000:
                 v = 63
   
-The next thing we do is use Python's ``//`` operator. Remember how ``%`` gave us
-the remainder? Well, ``//`` is the other half of that - it gives us the integer
-part of **x divided by y**. In other words, where ``5 % 2`` is 1, because 1 is
-the remainder of 5 divided by 2, ``5 // 2`` is 2, because that 2 goes into 5
-twice.
-
-At the moment the value we get from the slider is between 0 and 1,000. We want
-it to be between -63 and +63, so that it matches the values that motors expect.
+At the moment the value we get from the slider is between 0 and 1,000. We've
+dealt with the two extremenes, 0 and 1,000; now we want to convert any other
+number to be between -63 and +63, so that it matches the values that motors expect.
 To do this we subtract 500 (so it's now between -500 and +500) and then divide
 by 8 (so it's between -62.5 and +62.5.
 
