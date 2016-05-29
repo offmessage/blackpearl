@@ -18,10 +18,9 @@ class Mover(Module):
             v = 63
         else:
             # otherwise take 500 off value (so now value is between -500 and +500
-            # and then divide by 8 (so now it's between -63 and 63) and finally
-            # put it through int() so that we knock off the decimal points (by
-            # making it an integer)
-            v = int((value - 500)/8)
+            # and then divide by 8 (so now it's between -63 and 63) using
+            # Python's // operator (which always returns an integer)
+            v = (value - 500)//8
         
         self.motor1.set_speed(v)
         self.motor2.set_speed(v * -1)
