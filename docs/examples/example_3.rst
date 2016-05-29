@@ -6,9 +6,12 @@ Example 3: Matching colours
 .. note:: This project uses the colour sensor and the rainbow, which come with
           the Large Starter kit.
 
+This is a very simple example, but it shows how the colour sensor can be used
+to identify the colours it sees, and can be used as the starting point for a
+sock sorter (or similar, but that's what I need to get my drawers in order!)
+
 Step by step example
 --------------------
-
 
 This example can be found in
 `blackpearl/examples/example_3.py
