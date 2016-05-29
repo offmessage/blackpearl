@@ -9,10 +9,11 @@ class ColourMatcher(Module):
     listening_for = ['colour']
     
     def receive(self, message):
-        rgb = message['colour']['rgb']
-        r = rgb[0]
-        g = rgb[1]
-        b = rgb[2]
+        colour = message['colour']['rgb']
+        self.rainbow.reset()
+        r = colour[0]
+        g = colour[1]
+        b = colour[2]
         self.rainbow.set_all(r, g, b)
         self.rainbow.update()
         

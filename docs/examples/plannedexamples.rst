@@ -6,10 +6,6 @@ Planned examples
 Simple examples
 ---------------
 
-Colour matcher
-    Wire up the colour sensor to tell the rainbow what colour to show (colour
-    sensor and rainbow)
-    
 Back and forth
     Simple back and forward control of the two motors. Shows how to get both
     motors working together and how to wire up more than one of the same piece
