@@ -10,13 +10,13 @@ class Weather(FlotillaInput):
     
     Outputs
     -------
-    Output is converted into Celsius and kPa (kilopascals) for more human
+    Output is converted into Celsius and hPa (hectopascals/mbar) for more human
     readability. It broadcasts two floats - ``temperature`` and ``pressure``.
     
     Example::
     
       {'weather': {'temperature': 23.45,
-                   'pressure': 101.325,
+                   'pressure': 1013.25,
                    }
        }
     """
@@ -27,7 +27,7 @@ class Weather(FlotillaInput):
     def change(self, data):
         temp, pressure = data.split(b',')
         temp = int(temp)/100.0 # Celsius
-        pressure = int(pressure)/1000.0 # kPa
+        pressure = int(pressure)/100.0 # hPa/mbar
         if self.TEMPERATURE == temp and self.PRESSURE == pressure:
             # This should never happen
             return None

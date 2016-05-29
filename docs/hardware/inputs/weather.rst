@@ -12,14 +12,14 @@ __ source-code_
 This module provides a wrapper around the weather sensor. The weather sensor
 measures two things - temperature and barometric pressure. Temperature is
 returned in Celsius (to two decimal places) and pressure is returned in
-kiloPascals (to three decimal places).
+hectoPascals/millibars (to two decimal places).
 
 The weather has no special methods of its own - it is a pure input device.
 
 By default it broadcasts the following data structure::
 
   {'weather': {'temperature': 23.45,
-               'pressure': 101.325,
+               'pressure': 1013.25,
                }
    }
 
