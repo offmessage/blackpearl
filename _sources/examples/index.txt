@@ -11,5 +11,6 @@ Examples
    example_2.rst
    example_3.rst
    example_4.rst
+   example_5.rst
    plannedexamples.rst
    
