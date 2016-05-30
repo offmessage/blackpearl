@@ -3,8 +3,6 @@ from blackpearl.projects import Project
 from blackpearl.things import Number
 from blackpearl.things import Clock
 
-import time
-
 class KitchenClock(Module):
     
     hardware_required = [Number,]
