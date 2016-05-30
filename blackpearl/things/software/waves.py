@@ -1,6 +1,6 @@
 import math
 
-from .base import TimeBased
+from .timers import TimeBased
 
 
 class Wave(TimeBased):
