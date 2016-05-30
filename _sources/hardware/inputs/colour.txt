@@ -42,3 +42,13 @@ By default it broadcasts the following data structure::
 So if you set your ``listening_for`` to include ``'colour'`` your ``.receive()``
 will get called every time the colour changes (if you wave the colour sensor
 around this will happen *a lot*!)
+
+.. _colour-hardware-examples:
+
+Complete examples
+-----------------
+
+The following examples use the colour sensor:
+
+ * :doc:`/examples/example_3`
+ 

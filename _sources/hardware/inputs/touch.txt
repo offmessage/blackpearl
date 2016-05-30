@@ -3,11 +3,8 @@
 The Touch
 =========
 
-.. _source-code: https://github.com/offmessage/blackpearl/blob/master/blackpearl/things/hardware/inputs/touch.py
-
-**Source code** `blackpearl/things/hardware/inputs/touch.py`__
-
-__ source-code_
+**Source code** `blackpearl/things/hardware/inputs/touch.py
+<https://github.com/offmessage/blackpearl/blob/master/blackpearl/things/hardware/inputs/touch.py>`_
 
 This module provides a wrapper around the touch keypad. The touch has 4 numbered
 buttons (numbered from 1 to 4 on the device itself). Every time a button is
@@ -30,3 +27,13 @@ buttons 1 and 3 are currently pressed)::
 
 So if you set your ``listening_for`` to include ``'touch'`` your ``.receive()``
 will get called every time someone presses or releases a button.
+
+.. _touch-hardware-examples:
+
+Complete examples
+-----------------
+
+The following examples use the touch keypad:
+
+ * :doc:`/gettingstarted`
+ * :doc:`/examples/example_1`
