@@ -1,37 +1,43 @@
 from blackpearl.modules import Module
-from blackpearl.modules import Timer
-from blackpearl.modules import Touch
 from blackpearl.projects import Project
 from blackpearl.things import Number
+from blackpearl.things import Stopwatch
 from blackpearl.things import Touch
 
 
-class Stopwatch(Timer):
+class MyStopwatch(Module):
     
-    tick = 0.01
     hardware_required = [Number, Touch,]
-    listening_for = ['timer', 'touch',]
+    software_required = [Stopwatch,]
+    listening_for = ['stopwatch', 'touch',]
     
+    def setup(self):
+        self.number.set_number(0.0, precision='00')
+        self.number.update()
+        
     def receive(self, message):
-        if 'timer' in message:
-            tm = message['timer']['time']
+        if 'stopwatch' in message:
+            tm = message['stopwatch']['time']
             self.number.set_number(tm, precision='00')
             self.number.update()
+        
         elif 'touch' in message:
             buttons = message['touch']['buttons']
-            if buttons['1']:
-                if self.status == 'RUNNING':
-                    self.stop()
-                elif self.status == 'STOPPED':
-                    self.start()
-            if buttons['2'] and self.status == 'STOPPED':
-                self.reset()
-                self.number.set_number(0)
+            if buttons['1'] and self.stopwatch.status == 'STOPPED':
+                self.stopwatch.start()
+            elif buttons['1'] and self.stopwatch.status == 'RUNNING':
+                self.stopwatch.stop()
+                self.stopwatch.reset()
+            elif buttons['2'] and self.stopwatch.status in ['PAUSED', 'RUNNING']:
+                self.stopwatch.pause()
+            elif buttons['4'] and self.stopwatch.status in ['PAUSED', 'STOPPED']:
+                self.stopwatch.reset()
+                self.number.set_number(0.0, precision='00')
                 self.number.update()
         
         
 class MyProject(Project):
-    required_modules = [Stopwatch, ]
+    required_modules = [MyStopwatch, ]
     
 
 if __name__ == '__main__':

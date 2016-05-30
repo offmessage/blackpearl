@@ -28,6 +28,9 @@ class Stopwatch(TimeBasedUnsynced):
     tick_rate = 0.01
     auto_start = False
     
+    def timer_stopped(self):
+        pass
+    
     
 class Clock(TimeBased):
     

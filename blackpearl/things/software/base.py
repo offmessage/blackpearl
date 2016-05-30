@@ -59,6 +59,13 @@ class TimeBasedUnsynced(SoftwareModule):
         if self.auto_start:
             self.start()
         
+    def tick(self, tm):
+        # Override this with whatever you want to happen every tick
+        data = {'status': self.status,
+                'time': tm,
+                }
+        self.broadcast(data)
+            
     def check(self):
         return self.status == "RUNNING"
     
