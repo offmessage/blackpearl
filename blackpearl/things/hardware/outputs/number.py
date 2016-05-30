@@ -73,8 +73,6 @@ class Number(FlotillaOutput):
         self.digits[posn] = value
         
     def set_number(self, number, pad=None, precision=''):
-        # XXX TODO: allow left right pad too, so that we can have 54.70
-        print(number)
         if pad not in [None, '-', '0',]:
             raise ValueError("invalid pad character")
         if precision not in ['', '0', '00', '000']:
@@ -113,7 +111,7 @@ class Number(FlotillaOutput):
             digits.insert(0, pad)
         
         workingdigit = 0
-        print(digits)
+        
         for i in range(len(digits)):
             if not haspoint:
                 # simple case, no decimal point

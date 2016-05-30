@@ -50,8 +50,6 @@ class Colour(FlotillaInput):
         
         rgb = [convert(red), convert(green), convert(blue),]
         
-        print(rgb)
-        
         if self.rgb == rgb:
             # This should never happen
             return None

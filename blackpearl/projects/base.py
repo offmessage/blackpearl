@@ -99,7 +99,6 @@ class BaseProject:
         def ticker(tm):
             # Gets called with every tick, only calls those that are listening
             # for this particular tick count
-            print("Top of ticker:", time.time(), tm)
             for k in self._time_subscribers:
                 if mod_by_zero(int(tm * 10000), int(k * 10000)) == 0:
                     for sub in self._time_subscribers[k]:
