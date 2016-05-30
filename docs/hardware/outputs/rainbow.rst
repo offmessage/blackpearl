@@ -82,6 +82,8 @@ the fifth green you would use the following code::
   rainbow.set_pixel(4, 0, 255, 0)
   rainbow.update()
   
+.. _rainbow-hardware-examples:
+
 Complete examples
 -----------------
 
@@ -89,4 +91,5 @@ The following examples use the Rainbow:
 
  * :doc:`/gettingstarted`
  * :doc:`/examples/example_1`
- * :doc:`/examples/example2`
+ * :doc:`/examples/example_2`
+ * :doc:`/examples/example_3`

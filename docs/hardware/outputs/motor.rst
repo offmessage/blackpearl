@@ -28,4 +28,12 @@ The module supports the following operations:
    Sets the speed of the motor. ``speed`` must be in the range **-63** to 
    **+63**. ``builtins.ValueError`` is raised if speed is outside that range.
    
-   
+
+.. _motor-hardware-examples:
+
+Complete examples
+-----------------
+
+The following examples use the motors:
+
+ * :doc:`/examples/example_4`

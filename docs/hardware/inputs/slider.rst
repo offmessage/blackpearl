@@ -25,3 +25,12 @@ By default it broadcasts the following data structure::
   
 So if you set your ``listening_for`` to include ``'slider'`` your ``.receive()``
 will get called every time the slider moves.
+
+.. _slider-hardware-examples:
+
+Complete examples
+-----------------
+
+The following examples use the slider:
+
+ * :doc:`/examples/example_4`
