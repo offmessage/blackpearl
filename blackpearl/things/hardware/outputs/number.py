@@ -9,8 +9,8 @@ class Number(FlotillaOutput):
     
     brightness = 40
     digits = [0, 0, 0, 0, ]
-    colon = 0
-    apostrophe = 0
+    colon = False
+    apostrophe = False
     number = None
     hours = None
     minutes = None
@@ -41,8 +41,8 @@ class Number(FlotillaOutput):
     def reset(self):
         self.brightness = 40
         self.digits = [0, 0, 0, 0,]
-        self.colon = 0
-        self.apostrophe = 0
+        self.colon = False
+        self.apostrophe = False
         self.number = None
         self.hours = None
         self.minutes = None
@@ -133,67 +133,16 @@ class Number(FlotillaOutput):
                 self.set_digit(workingdigit, digits[i])
             workingdigit += 1
         
-    def set_hoursminutes(self, hours, minutes, pad="0"):
-        # XXX TODO This is no use, as seen by examples/clock.py
-        # Needs refreshing to match actual use
-        if pad not in [None, '0']:
-            raise ValueError("invalid pad character")
-        
-        if not (0 <= hours <= 23):
-            raise ValueError("Hours must be between 0 and 23")
-        if not (0 <= minutes <= 59):
-            raise ValueError("Minutes must be between 0 and 59")
-        
-        self.hours, self.minutes = hours, minutes
-        self.number, self.seconds = None, None
-        
-        self.colon = 1
-        
-        hours = list(str(hours))
-        if len(hours) == 1:
-            hours.insert(0, pad)
-            
-        minutes = list(str(minutes))
-        if len(minutes) == 1:
-            minutes.insert(0, pad)
-            
-        digits = hours + minutes
-        
-        for i in range(4):
-            self.set_digit(i, digits[i])
-        
-    def set_minutesseconds(self, minutes, seconds, pad=None):
-        # XXX TODO This is no use, as seen by examples/clock.py
-        # Needs refreshing to match actual use
-        # Seconds always need padding, minutes padding is optional
-        if pad not in [None, '0']:
-            raise ValueError("invalid pad character")
-        
-        if not (0 <= minutes <= 59):
-            raise ValueError("Minutes must be between 0 and 59")
-        if not (0 <= seconds <= 59):
-            raise ValueError("Seconds must be between 0 and 59")
-        
-        self.minutes, self.seconds = minutes, seconds
-        self.number, self.hours = None, None
-
-        self.colon = 1
-        
-        minutes = list(str(minutes))
-        if len(minutes) == 1:
-            minutes.insert(0, pad)
-            
-        seconds = list(str(seconds))
-        if len(seconds) == 1:
-            seconds.insert(0, pad)
-            
-        digits = minutes + seconds
-        
-        for i in range(4):
-            self.set_digit(i, digits[i])
-            
     def update(self):
-        data = self.digits + [self.colon, self.apostrophe, self.brightness,]
+        if self.colon:
+            colon = 1
+        else:
+            colon = 0
+        if self.apostrophe:
+            apostrophe = 1
+        else:
+            apostrophe = 0
+        data = self.digits + [colon, apostrophe, self.brightness,]
         self.send(data)
         
 
