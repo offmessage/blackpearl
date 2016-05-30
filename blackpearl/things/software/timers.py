@@ -1,55 +1,56 @@
-from decimal import Decimal
+import time
 
-from twisted.internet import defer
-from twisted.internet import reactor
-
-from .base import SoftwareModule
+from .base import TimeBased
+from .base import TimeBasedUnsynced
 
 
-class TimeBased(SoftwareModule):
+class Countdown(TimeBasedUnsynced):
     
-    sync = True
-    tick_rate = None
+    module = 'countdown'
+    time = 10
+    tick_rate = -0.01
+    auto_start = False
     
-    def __init__(self, module):
-        super().__init__(module)
-        if self.tick_rate is None:
-            raise ValueError("Must set a tick_rate for a time based module")
-        if 0.0001 < self.tick_rate < 0.01:
-            msg = ("Setting `tick` of a timer to less than 1/100th of a second "
-                   "is likely to impact the performance of other modules "
-                   "connected to your Flotilla. Doesn't mean you can't try "
-                   "though!")
-            project.log('WARNING', msg)
-        if self.tick_rate < 0.0001:
-            raise ValueError("Can't cope with a tick rate below 0.0001")
-        
+    def check(self):
+        return self.status == "RUNNING" and self.time > 0
+    
+    def timer_stopped(self):
+        if self.time == 0:
+            self.status = "STOPPED"
+            data = {'status': 'COMPLETED',
+                    'time': self.time,
+                    }
+            self.broadcast(data)
+            
+class Stopwatch(TimeBasedUnsynced):
+    
+    module = 'stopwatch'
+    tick_rate = 0.01
+    auto_start = False
+    
+    
+class Clock(TimeBased):
+    
+    module = 'clock'
+    tick_rate = 0.5
+    auto_start = True
+    colon = True
+    
     def tick(self, tm):
-        # gets called with the new time every tick, frequency set by
-        # self.tick_rate
-        pass
-    
+        # ignore the time sent by the tick - instead get localtime
+        tm = time.localtime(time.time())
         
-class TimeBasedUnsynced(SoftwareModule):
-    # XXX TODO: Provide start, stop and pause methods, otherwise why unsync?
-    sync = False
-    time = 0
-    
-    def __init__(self, module):
-        super().__init__(module)
-        self.start()
+        if self.colon:
+            fmt = "{:02d}:{:02d}"
+        else:
+            fmt = "{:02d} {:02d}"
+        self.colon = not self.colon
         
-    @defer.deferredGenerator
-    def start(self):
-        """Define our own clock"""
-        while True:
-            d = defer.Deferred()
-            d.addCallback(self.tick)
-            reactor.callLater(self.tick_rate, d.callback, self.time)
-            wfd = defer.waitForDeferred(d)
-            self.time += self.tick_rate
-            self.time = float(Decimal(self.time).quantize(Decimal(str(self.tick_rate))))            
-            yield wfd
-    
-
-        
+        data = {'status': 'RUNNING',
+                'hours': "{:02d}".format(tm.tm_hour),
+                'minutes': "{:02d}".format(tm.tm_min),
+                'seconds': "{:02d}".format(tm.tm_sec),
+                'colon': self.colon,
+                'as_string': fmt.format(tm.tm_hour, tm.tm_min),
+                }
+        self.broadcast(data)

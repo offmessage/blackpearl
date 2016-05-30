@@ -24,7 +24,10 @@ from .hardware import Slider
 from .hardware import Touch
 from .hardware import Weather
 
+from .software import Clock
+from .software import Countdown
 from .software import Sawtooth
 from .software import Sine
 from .software import Square
+from .software import Stopwatch
 from .software import Triangle
