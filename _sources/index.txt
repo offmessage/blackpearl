@@ -52,7 +52,6 @@ Contents
    gettingstarted.rst
    messages.rst
    examples/index.rst
-   examples/examplesbykit.rst
    hardware/index.rst
    software/index.rst
    blackpearl/index.rst
