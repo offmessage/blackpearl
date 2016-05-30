@@ -221,9 +221,5 @@ Complete examples
 
 The following examples use the Number:
 
- * A thing
- * Another thing
+ * :doc:`/examples/example_5`
  
- 
-
-   

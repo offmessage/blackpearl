@@ -6,9 +6,6 @@ Planned examples
 Simple examples
 ---------------
 
-Stopwatch
-    Teaches how to use the timer things (number and touch)
-
 The clock
     Teaches about the timer, and how to manipulate the number at a lower level
     (just the number)
