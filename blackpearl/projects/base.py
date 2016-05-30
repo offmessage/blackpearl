@@ -8,6 +8,8 @@ projects/base.py
 The base for our own projects.
 """
 
+import time
+
 from decimal import Decimal
 # Shim for the fact that gcd moves to math in Python 3.5
 import math
@@ -75,12 +77,16 @@ class BaseProject:
                 self._tick_rate = functools.reduce(GCD, tick_rates)/10000
             
     def all_connected(self, module):
+        # Gets called once for every module connected. If only one is hardware
+        # the ``check`` will be True multiple times. We only want to call
+        # ``_start_clock()`` once.
         check = all([ mod._all_connected for mod in self.modules ])
-        if check and self._time_subscribers:
+        if check and self._time_subscribers and not getattr(self, '_clock_running', False):
             self._start_clock()
             
     @defer.deferredGenerator
     def _start_clock(self):
+        self._clock_running = True
         self._time = 0
         
         def mod_by_zero(a, b):
@@ -93,6 +99,7 @@ class BaseProject:
         def ticker(tm):
             # Gets called with every tick, only calls those that are listening
             # for this particular tick count
+            print("Top of ticker:", time.time(), tm)
             for k in self._time_subscribers:
                 if mod_by_zero(int(tm * 10000), int(k * 10000)) == 0:
                     for sub in self._time_subscribers[k]:
@@ -100,8 +107,9 @@ class BaseProject:
         
         while True:
             d = defer.Deferred()
-            d.addCallback(ticker)
-            reactor.callLater(self._tick_rate, d.callback, self._time)
+            #d.addCallback(ticker)
+            ticker(self._time)
+            reactor.callLater(self._tick_rate, d.callback, None)
             wfd = defer.waitForDeferred(d)
             self._time += self._tick_rate
             self._time = float(Decimal(self._time).quantize(Decimal(str(self._tick_rate))))            
