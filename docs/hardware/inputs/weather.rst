@@ -18,9 +18,10 @@ The weather has no special methods of its own - it is a pure input device.
 
 By default it broadcasts the following data structure::
 
-  {'weather': {'temperature': 23.45,
+  {'weather': {'channel': 2,
+               'temperature': 23.45,
                'pressure': 1013.25,
-               }
+               },
    }
 
 So if you set your ``listening_for`` to include ``'weather'`` your ``.receive()``

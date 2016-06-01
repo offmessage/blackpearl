@@ -18,6 +18,7 @@ class FlotillaModule:
     def broadcast(self, data):
         if data is None:
             return data
+        data['channel'] = self.channel
         output = {self.module: data}
         self.flotilla.message(output)
 
