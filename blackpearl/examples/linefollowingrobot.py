@@ -6,6 +6,7 @@ from blackpearl.things import Motor
 from blackpearl.things import Rainbow
 from blackpearl.things import Touch
 
+BASE_SPEED = 32
 
 class Robot(Module):
     
@@ -14,8 +15,8 @@ class Robot(Module):
     
     right_light = 0
     left_light = 0
-    right_speed = 20
-    left_speed = 20
+    right_speed = BASE_SPEED
+    left_speed = BASE_SPEED
     running = True
     
     def setup(self):
@@ -23,10 +24,6 @@ class Robot(Module):
         self.rainbow.set_all(255, 255, 255)
         self.rainbow.update()
         self.matrix.reset()
-        #self.matrix.addText("Hello Grace! Happy birthday! Have a lovely day! ")
-        #self.matrix.scrollspeed = 0.1
-        #self.matrix.loop = True
-        #self.matrix.scroll()
         self.set_speed()
         
     def set_speed(self):
@@ -36,15 +33,41 @@ class Robot(Module):
         else:
             self.motor1.set_speed(0)
             self.motor2.set_speed(0)
+        self.calc_graph()
+        
+    def calc_graph(self):
+        
+        leftmax = max((min(self.left_light, 2400) - 1600)//100, 0)
+        rightmax = max((min(self.right_light, 2400) - 1600)//100, 0)
+        pixels = [0,
+                  ((2**leftmax) - 1),
+                  ((2**leftmax) - 1),
+                  0,
+                  0,
+                  ((2**rightmax) - 1),
+                  ((2**rightmax) - 1),
+                  0,
+                  ]
+        if self.running:
+            self.matrix.update(pixels)
         
     def receive(self, message):
         if 'touch' in message:
-            self.right_speed = 0
-            self.left_speed = 0
-            self.running = False
-            self.set_speed()
-            self.rainbow.set_all(0,0,0)
-            self.rainbow.update()
+            if message['touch']['buttons']['1']:
+                self.right_speed = BASE_SPEED
+                self.left_speed = BASE_SPEED
+                self.running = True
+                self.set_speed()
+                self.rainbow.set_all(255,255,255)
+                self.rainbow.update()
+            elif message['touch']['buttons']['4']:
+                self.right_speed = 0
+                self.left_speed = 0
+                self.running = False
+                self.set_speed()
+                self.rainbow.set_all(0,0,0)
+                self.rainbow.update()
+                self.matrix.reset()
             
         elif 'light' in message:
             left = 4
@@ -56,9 +79,13 @@ class Robot(Module):
             elif channel == 5:
                 self.right_light = lux
             
-            if self.left_light < 1600 or self.right_light < 1500:
+            if self.left_light < 1500 or self.right_light < 1500:
                 # special case caused by small paper and studland table!
+                self.left_speed = BASE_SPEED
+                self.right_speed = BASE_SPEED
+                self.set_speed()
                 return
+            
             test = self.left_light - self.right_light
             # right > left means left is over the line, so left should stop
             # left > right means right is over the line, so right should stop
@@ -68,8 +95,8 @@ class Robot(Module):
                 elif test > 0:
                     self.right_speed = 0
             else:
-                self.left_speed = 20
-                self.right_speed = 20
+                self.left_speed = BASE_SPEED
+                self.right_speed = BASE_SPEED
             self.set_speed()
             
     
