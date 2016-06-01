@@ -22,10 +22,11 @@ The light has no special methods of its own - it is a pure input device.
 
 By default it broadcasts the following data structure::
 
-  {'light': {'visible': 136,
+  {'light': {'channel': 2,
+             'visible': 136,
              'infrared': 421,
              'lux': 723,
-             }
+             },
    }
 
 So if you set your ``listening_for`` to include ``'light'`` your ``.receive()``

@@ -17,12 +17,13 @@ The touch has no special methods of its own - it is a pure input device.
 By default it broadcasts the following data structure (in this example both
 buttons 1 and 3 are currently pressed)::
 
-  {'touch': {'buttons': {'1': True,
+  {'touch': {'channel': 2,
+             'buttons': {'1': True,
                          '2': False,
                          '3': True,
                          '4': False,
-                         }
-             }
+                         },
+             },
    }
 
 So if you set your ``listening_for`` to include ``'touch'`` your ``.receive()``

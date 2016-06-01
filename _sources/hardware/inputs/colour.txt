@@ -30,7 +30,8 @@ The colour has no special methods of its own - it is a pure input device.
 
 By default it broadcasts the following data structure::
 
-  {'colour': {'rgb': [82,72,157,],
+  {'colour': {'channel': 2,
+              'rgb': [82,72,157,],
               'hex': '#52479d',
               'raw': {'red': 441,
                       'green': 385,

@@ -21,7 +21,10 @@ The slider has no special methods of its own - it is a pure input device.
 
 By default it broadcasts the following data structure::
 
-  {'slider': {'value': 934}}
+  {'slider': {'channel': 2,
+              'value': 934,
+              },
+   }
   
 So if you set your ``listening_for`` to include ``'slider'`` your ``.receive()``
 will get called every time the slider moves.

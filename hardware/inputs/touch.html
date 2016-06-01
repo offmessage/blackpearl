@@ -170,12 +170,13 @@ individually, so each button value will change independently.</p>
 <p>The touch has no special methods of its own - it is a pure input device.</p>
 <p>By default it broadcasts the following data structure (in this example both
 buttons 1 and 3 are currently pressed):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;touch&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;buttons&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;touch&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+           <span class="s1">&#39;buttons&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
                        <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
                        <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
                        <span class="s1">&#39;4&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                       <span class="p">}</span>
-           <span class="p">}</span>
+                       <span class="p">},</span>
+           <span class="p">},</span>
  <span class="p">}</span>
 </pre></div>
 </div>

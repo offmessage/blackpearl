@@ -22,7 +22,8 @@ The motion has no special methods of its own - it is a pure input device.
 
 By default it broadcasts the following data structure::
 
-  {'motion': {'accelerometer': {'x': 214,
+  {'motion': {'channel': 2,
+              'accelerometer': {'x': 214,
                                 'y': -601,
                                 'z': 16967,
                                 },
@@ -31,7 +32,7 @@ By default it broadcasts the following data structure::
                                'z': -1566,
                                },
               'heading': 126,
-              }
+              },
    }
 
 So if you set your ``listening_for`` to include ``'motion'`` your ``.receive()``

@@ -21,7 +21,10 @@ The dial has no special methods of its own - it is a pure input device.
 
 By default it broadcasts the following data structure::
 
-  {'dial': {'value': 934}}
+  {'dial': {'channel': 2,
+            'value': 934,
+            },
+   }
   
 So if you set your ``listening_for`` to include ``'dial'`` your ``.receive()``
 will get called every time the dial moves.

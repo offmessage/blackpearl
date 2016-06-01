@@ -170,7 +170,10 @@ and any value returned by the slider greater than 1000 is sent out as 1000. That
 way your code can be sure when the slider is at its minimum or maximum value.</p>
 <p>The slider has no special methods of its own - it is a pure input device.</p>
 <p>By default it broadcasts the following data structure:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;slider&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">934</span><span class="p">}}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;slider&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">934</span><span class="p">,</span>
+            <span class="p">},</span>
+ <span class="p">}</span>
 </pre></div>
 </div>
 <p>So if you set your <code class="docutils literal"><span class="pre">listening_for</span></code> to include <code class="docutils literal"><span class="pre">'slider'</span></code> your <code class="docutils literal"><span class="pre">.receive()</span></code>

@@ -25,11 +25,12 @@ The joystick has no special methods of its own - it is a pure input device.
 
 By default it broadcasts the following data structure::
 
-  {'joystick': {'coordinates': {'x': 512,
+  {'joystick': {'channel': 2, 
+                'coordinates': {'x': 512,
                                 'y': 512,
-                                }
+                                },
                 'button': False,
-                }
+                },
    }
               
 So if you set your ``listening_for`` to include ``'joystick'`` your ``.receive()``
