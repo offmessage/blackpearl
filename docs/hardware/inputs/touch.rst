@@ -38,3 +38,4 @@ The following examples use the touch keypad:
 
  * :doc:`/gettingstarted`
  * :doc:`/examples/stopwatch_1`
+ * :doc:`/examples/stopwatch_2`

@@ -222,4 +222,5 @@ Complete examples
 The following examples use the Number:
 
  * :doc:`/examples/stopwatch_1`
+ * :doc:`/examples/stopwatch_2`
  

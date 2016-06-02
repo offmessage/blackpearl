@@ -11,7 +11,7 @@ Examples
    colourmatcher.rst
    mightymover.rst
    stopwatch_1.rst
-   example_4_2.rst
+   stopwatch_2.rst
    examples_no_docs.rst
    plannedexamples.rst
    examplesbykit.rst
