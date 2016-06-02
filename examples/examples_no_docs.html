@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Examples broken down by kit &mdash; Black Pearl 1.0 documentation</title>
+  <title>Example scripts that aren’t yet documented &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -32,8 +32,8 @@
   
     <link rel="top" title="Black Pearl 1.0 documentation" href="../index.html"/>
         <link rel="up" title="Examples" href="index.html"/>
-        <link rel="next" title="Flotilla hardware things" href="../hardware/index.html"/>
-        <link rel="prev" title="Planned examples" href="plannedexamples.html"/> 
+        <link rel="next" title="Planned examples" href="plannedexamples.html"/>
+        <link rel="prev" title="Example 5 (part 2): A more complex stopwatch" href="example_5_2.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -94,15 +94,14 @@
 <li class="toctree-l2"><a class="reference internal" href="example_4.html">Example 4: Mighty Mover</a></li>
 <li class="toctree-l2"><a class="reference internal" href="example_5.html">Example 5: The Simple Stopwatch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="example_5_2.html">Example 5 (part 2): A more complex stopwatch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples_no_docs.html">Example scripts that aren&#8217;t yet documented</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plannedexamples.html">Planned examples</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Examples broken down by kit</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mini-starter-kit">Mini starter kit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#medium-starter-kit">Medium starter kit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#large-starter-kit">Large starter kit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mega-treasure-chest">Mega treasure chest</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example scripts that aren&#8217;t yet documented</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple-examples">Simple examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#medium-examples">Medium examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-examples">Advanced examples</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="plannedexamples.html">Planned examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examplesbykit.html">Examples broken down by kit</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hardware/index.html">Flotilla hardware things</a></li>
@@ -142,11 +141,11 @@
       
           <li><a href="index.html">Examples</a> &raquo;</li>
       
-    <li>Examples broken down by kit</li>
+    <li>Example scripts that aren&#8217;t yet documented</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/examples/examplesbykit.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/examples/examples_no_docs.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -156,59 +155,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="examples-broken-down-by-kit">
-<span id="examples-by-kit"></span><h1>Examples broken down by kit<a class="headerlink" href="#examples-broken-down-by-kit" title="Permalink to this headline">¶</a></h1>
-<p>The <strong>blackpearl</strong> documentation tries to explain all of the various bits both
-of the hardware that comes with the Flotilla and its own internal components.
-That means that some projects will require parts that you may not have if you
-didn&#8217;t get the Mega Treasure Chest.</p>
-<p>This page breaks down the examples by kit.</p>
-<div class="section" id="mini-starter-kit">
-<h2>Mini starter kit<a class="headerlink" href="#mini-starter-kit" title="Permalink to this headline">¶</a></h2>
-<p>The mini starter kit comes with a rainbow LED strip and a touch keypad. This
-means you can make the following example projects:</p>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference internal" href="../gettingstarted.html"><span class="doc">Getting started with blackpearl</span></a></li>
-<li><a class="reference internal" href="example_1.html"><span class="doc">Example 1: Simple interactive light show</span></a></li>
-</ul>
-</div></blockquote>
+  <div class="section" id="example-scripts-that-aren-t-yet-documented">
+<span id="examples-no-docs"></span><h1>Example scripts that aren&#8217;t yet documented<a class="headerlink" href="#example-scripts-that-aren-t-yet-documented" title="Permalink to this headline">¶</a></h1>
+<p>As part of building the API I&#8217;ve prepared a bunch of examples that exercise
+various parts of the code and various bits of hardware. Those scripts are
+included in the examples directory, but many of them aren&#8217;t documented yet.
+They&#8217;re still useful though!</p>
+<div class="section" id="simple-examples">
+<h2>Simple examples<a class="headerlink" href="#simple-examples" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>The clock</dt>
+<dd><p class="first">Uses Timer classes to display the current time on the number display.
+Flashes the colon once every half second, just like the clock on your
+microwave.</p>
+<p class="last"><strong>Source</strong>: <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/clock.py">blackpearl/examples/clock.py</a></p>
+</dd>
+<dt>The discolights</dt>
+<dd><p class="first">Shows how to use the wave modules to make the rainbow LEDs flash in pretty
+patterns.</p>
+<p class="last"><strong>Source</strong>: <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/discolights.py">blackpearl/examples/discolights.py</a></p>
+</dd>
+</dl>
 </div>
-<div class="section" id="medium-starter-kit">
-<h2>Medium starter kit<a class="headerlink" href="#medium-starter-kit" title="Permalink to this headline">¶</a></h2>
-<p>The medium starter kit comes with all of the bits from the mini kit, plus a
-light sensor and a weather sensor. That means that you can make the all of the
-mini kit projects above, plus:</p>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference internal" href="example_2.html"><span class="doc">Example 2: Making a thermometer</span></a></li>
-</ul>
-</div></blockquote>
+<div class="section" id="medium-examples">
+<h2>Medium examples<a class="headerlink" href="#medium-examples" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Scrolling text</dt>
+<dd><p class="first">First use of the matrix and all its madness (matrix)</p>
+<p class="last"><strong>Source</strong>: <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/scrollingtext.py">blackpearl/examples/scrollingtext.py</a></p>
+</dd>
+<dt>The combination lock</dt>
+<dd><p class="first">Use the rainbow and keypad to create a combination lock (rainbow
+and touch)</p>
+<p class="last"><strong>Source</strong>: <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/combinationlock.py">blackpearl/examples/combinationlock.py</a></p>
+</dd>
+</dl>
 </div>
-<div class="section" id="large-starter-kit">
-<h2>Large starter kit<a class="headerlink" href="#large-starter-kit" title="Permalink to this headline">¶</a></h2>
-<p>The large starter kit comes with all the components from the mini and medium,
-plus a motion sensor (accelerometer and magnetometer), a colour sensor, a dial,
-a slider and the 8x8 LED matrix. That means you can make all of the mini and
-medium starter kit examples, plus:</p>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference internal" href="example_3.html"><span class="doc">Example 3: Matching colours</span></a></li>
-</ul>
-</div></blockquote>
-</div>
-<div class="section" id="mega-treasure-chest">
-<h2>Mega treasure chest<a class="headerlink" href="#mega-treasure-chest" title="Permalink to this headline">¶</a></h2>
-<p>The mega treasure chest comes with all the bits from the large, medium and mini
-kits, and adds a second light sensor, two motors (and wheels), the 4 digit
-number output and the joystick. That means you can make all of the above
-examples, plus:</p>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference internal" href="example_4.html"><span class="doc">Example 4: Mighty Mover</span></a></li>
-<li><a class="reference internal" href="example_5.html"><span class="doc">Example 5: The Simple Stopwatch</span></a></li>
-</ul>
-</div></blockquote>
+<div class="section" id="advanced-examples">
+<h2>Advanced examples<a class="headerlink" href="#advanced-examples" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Following the line: A robot!</dt>
+<dd><p class="first">Make a robot that follows a line... (2 light sensors, 2 motors, matrix, rainbow)</p>
+<p class="last"><strong>Source</strong>: <a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/linefollowingrobot.py">blackpearl/examples/linefollowingrobot.py</a></p>
+</dd>
+</dl>
 </div>
 </div>
 
@@ -219,10 +209,10 @@ examples, plus:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../hardware/index.html" class="btn btn-neutral float-right" title="Flotilla hardware things" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="plannedexamples.html" class="btn btn-neutral float-right" title="Planned examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="plannedexamples.html" class="btn btn-neutral" title="Planned examples" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="example_5_2.html" class="btn btn-neutral" title="Example 5 (part 2): A more complex stopwatch" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
