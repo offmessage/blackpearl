@@ -9,18 +9,17 @@ class Weather(Module):
     listening_for = ['weather']
     hardware_required = [Weather,]
     
-    module_name = 'weather_module' # icky, but it can't have the same name as
-                                   # the hardware itself
+    module_name = 'weather_module' # can't have the same name as the hardware
     
     temperature = None
     pressure = None
     
     def receive(self, message):
-        temp = message['temperature']
+        temp = message['weather']['temperature']
         if temp != self.temperature:
             self.temperature = temp
             self.temperature_changed(temp)
-        pressure = message['pressure']
+        pressure = message['weather']['pressure']
         if pressure != self.pressure:
             self.pressure = pressure
             self.pressure_changed(pressure)
@@ -79,7 +78,7 @@ class TemperatureAlert(Weather):
                 self.broadcast(data)
                 return
         if self.above is not None:
-            if temp > self.above and self.status != 'ok':
+            if temp > self.above and self.status != 'above':
                 self.status = 'above'
                 data = {'status': self.status,
                         'temperature': self.temperature,
@@ -92,7 +91,7 @@ class TemperatureAlert(Weather):
                         }
                 self.broadcast(data)
         if self.below is not None:
-            if temp < self.below and self.status != 'ok':
+            if temp < self.below and self.status != 'below':
                 self.status = 'below'
                 data = {'status': self.status,
                         'temperature': self.temperature,
@@ -128,7 +127,7 @@ class PressureAlert(Weather):
                 self.broadcast(data)
                 return
         if self.above is not None:
-            if pressure > self.above and self.status != 'ok':
+            if pressure > self.above and self.status != 'above':
                 self.status = 'above'
                 data = {'status': self.status,
                         'pressure': self.pressure,
@@ -141,7 +140,7 @@ class PressureAlert(Weather):
                         }
                 self.broadcast(data)
         if self.below is not None:
-            if pressure < self.below and self.status != 'ok':
+            if pressure < self.below and self.status != 'below':
                 self.status = 'below'
                 data = {'status': self.status,
                         'pressure': self.pressure,
