@@ -35,7 +35,7 @@ class TimeBased(SoftwareModule):
                    "is likely to impact the performance of other modules "
                    "connected to your Flotilla. Doesn't mean you can't try "
                    "though!")
-            project.log('WARNING', msg)
+            self._module.project.log('WARNING', msg)
         if self.tick_rate < 0.0001:
             raise ValueError("Can't cope with a tick rate below 0.0001")
         
