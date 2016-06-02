@@ -46,5 +46,5 @@ number output and the joystick. That means you can make all of the above
 examples, plus:
 
     * :doc:`/examples/mightymover`
-    * :doc:`/examples/example_4`
+    * :doc:`/examples/stopwatch_1`
     

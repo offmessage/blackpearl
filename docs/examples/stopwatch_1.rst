@@ -1,7 +1,7 @@
-.. _example4:
+.. _example-stopwatch:
     
-Example 4: The Simple Stopwatch
-===============================
+The Simple Stopwatch
+====================
 
 .. note:: This project uses the number display and touch keypad, which come with
           the Mega Treasure Chest.
@@ -23,8 +23,8 @@ Step by step example
 --------------------
 
 This example can be found in
-`blackpearl/examples/example_5.py
-<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_5.py>`_,
+`blackpearl/examples/stopwatch_1.py
+<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/stopwatch_1.py>`_,
 but it's also included here in its entirety for reference::
 
   from blackpearl.modules import Module
@@ -158,6 +158,6 @@ Now our project will run from within our virtual environment as follows::
 
   cd /home/pi/projects/blackpearl
   source venv/bin/activate
-  python blackpearl/examples/example_5.py
+  python blackpearl/examples/stopwatch_1.py
   
   

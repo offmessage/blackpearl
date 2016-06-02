@@ -10,7 +10,7 @@ Examples
    thermometer.rst
    colourmatcher.rst
    mightymover.rst
-   example_4.rst
+   stopwatch_1.rst
    example_4_2.rst
    examples_no_docs.rst
    plannedexamples.rst
