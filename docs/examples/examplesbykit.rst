@@ -25,7 +25,7 @@ The medium starter kit comes with all of the bits from the mini kit, plus a
 light sensor and a weather sensor. That means that you can make the all of the
 mini kit projects above, plus:
 
-    * :doc:`/examples/example_1`
+    * :doc:`/examples/thermometer`
 
 Large starter kit
 -----------------

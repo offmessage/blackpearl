@@ -90,6 +90,5 @@ Complete examples
 The following examples use the Rainbow:
 
  * :doc:`/gettingstarted`
- * :doc:`/examples/example_1`
+ * :doc:`/examples/thermometer`
  * :doc:`/examples/example_2`
- * :doc:`/examples/example_3`

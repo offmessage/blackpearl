@@ -121,8 +121,7 @@ need to define a ``software_required``, as we're using the stopwatch as well::
       software_required = [Stopwatch,]
       listening_for = ['stopwatch', 'touch',]
   
-We also need to define some class attributes to store our state (like we did in 
-:doc:`the very first example </examples/example_1>`)::
+We also need to define some class attributes to store our state::
   
       status = 'STOPPED'
       on = True

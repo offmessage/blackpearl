@@ -7,7 +7,7 @@ Examples
 .. toctree::
    :maxdepth: 2
    
-   example_1.rst
+   thermometer.rst
    example_2.rst
    example_3.rst
    example_4.rst

@@ -32,3 +32,11 @@ updates!
 .. warning:: This module is *very very noisy*. It sends constant updates. 
              You have been warned :)
 
+.. _weather-hardware-examples:
+
+Complete examples
+-----------------
+
+The following examples use the touch keypad:
+
+ * :doc:`/examples/thermometer`

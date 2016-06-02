@@ -1,7 +1,7 @@
-.. _example1:
+.. _example-thermometer:
     
-Example 1: Making a thermometer
-===============================
+Making a thermometer
+====================
 
 .. note:: This project uses the weather sensor, which comes with the Medium
           Starter kit.
@@ -16,12 +16,12 @@ heating really *should* be turned up? Look no further!
 This project makes an impossible to ignore glowing thermometer that shows the
 current temperature in the room. If the room is cold (below 16 Celcius) only
 one LED on the rainbow lights up, and it's **blue**. As the temperature
-increases more LEDs light up orange, until it the temperature gets over 21
+increases more LEDs light up orange, until the temperature gets over 21
 Celcius when all 5 LEDs light up red!
 
 This example can be found in
-`blackpearl/examples/example_2.py
-<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_2.py>`_,
+`blackpearl/examples/thermometer.py
+<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/thermometer.py>`_,
 but it's also included here in its entirety for reference::
 
   from blackpearl.modules import Module
@@ -187,7 +187,7 @@ Now our project will run from within our virtual environment as follows::
 
   cd /home/pi/projects/blackpearl
   source venv/bin/activate
-  python blackpearl/examples/example_2.py
+  python blackpearl/examples/thermometer.py
   
 Making the code neater
 ----------------------
