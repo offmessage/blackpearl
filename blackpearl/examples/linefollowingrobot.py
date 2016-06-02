@@ -37,18 +37,14 @@ class Robot(Module):
         
     def calc_graph(self):
         
-        leftmax = max((min(self.left_light, 2400) - 1600)//100, 0)
-        rightmax = max((min(self.right_light, 2400) - 1600)//100, 0)
-        pixels = [0,
-                  ((2**leftmax) - 1),
-                  ((2**leftmax) - 1),
-                  0,
-                  0,
-                  ((2**rightmax) - 1),
-                  ((2**rightmax) - 1),
-                  0,
-                  ]
+        def col_value(v):
+            m = max((min(v, 2400) - 1600)//100, 0)
+            return (2**m) - 1
+        
         if self.running:
+            lcol = col_value(self.left_light)
+            rcol = col_value(self.right_light)
+            pixels = [lcol,] * 4 + [rcol,] * 4
             self.matrix.update(pixels)
         
     def receive(self, message):
@@ -60,6 +56,7 @@ class Robot(Module):
                 self.set_speed()
                 self.rainbow.set_all(255,255,255)
                 self.rainbow.update()
+                self.matrix.reset()
             elif message['touch']['buttons']['4']:
                 self.right_speed = 0
                 self.left_speed = 0
@@ -74,9 +71,9 @@ class Robot(Module):
             right = 5
             channel = message['light']['channel']
             lux = message['light']['lux']
-            if channel == 4:
+            if channel == left:
                 self.left_light = lux
-            elif channel == 5:
+            elif channel == right:
                 self.right_light = lux
             
             if self.left_light < 1500 or self.right_light < 1500:
@@ -86,14 +83,13 @@ class Robot(Module):
                 self.set_speed()
                 return
             
-            test = self.left_light - self.right_light
+            light_difference = self.left_light - self.right_light
             # right > left means left is over the line, so left should stop
             # left > right means right is over the line, so right should stop
-            if abs(test) > 100:
-                if test < 0:
-                    self.left_speed = 0
-                elif test > 0:
-                    self.right_speed = 0
+            if light_difference < -100:
+                self.left_speed = 0
+            elif light_difference > 100:
+                self.right_speed = 0
             else:
                 self.left_speed = BASE_SPEED
                 self.right_speed = BASE_SPEED
