@@ -16,8 +16,8 @@ The clock
     Flashes the colon once every half second, just like the clock on your
     microwave.
     
-    **Source**: `blackpearl/examples/clock.py 
-    <https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/clock.py>`_
+    **Source**: `blackpearl/examples/newclock.py 
+    <https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/newclock.py>`_
     
 The discolights
     Shows how to use the wave modules to make the rainbow LEDs flash in pretty
