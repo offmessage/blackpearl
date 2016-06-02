@@ -1,26 +1,31 @@
-Missing modules
-===============
+Missing things
+==============
 
-Joystick - lots of maths
+Joystick Module - lots of maths
  - left/right, up/down, steering
-Light - simple, like weather (I think!)
-Motion - simple, like weather
+ 
+Light Module - simple, like weather (I think!)
+
+Motion Module - simple, like weather
  - six axes?
  
 URL fetchers
  - JSON fetcher
  - Scraper?
+ 
 Minecraft
  - event on flotilla causes event in minecraft (e.g. button press, temperature change)
  - event in minecraft causes event on flotilla (e.g. door opening causes rainbow to flash)
+
+Docstrings are woeful
 
 Little refactorings
 ===================
 
 Noticed that the Matrix has a .update() method that takes pixels, whereas the
 other .update() methods (rainbow and number) are called without parameters and
-take the set values. Think this probably needs to be made the same - look at
-.addFrame() and .next()
+take the values set on the class. Think this probably needs to be made the same
+- look at .addFrame() and .next()
 
 New features
 ============
