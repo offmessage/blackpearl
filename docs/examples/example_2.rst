@@ -1,178 +1,98 @@
-.. _example2:
+.. _example3:
     
-Example 2: Making a thermometer
-===============================
+Example 3: Matching colours
+===========================
 
-.. note:: This project uses the weather sensor, which comes with the Medium
-          Starter kit.
+.. note:: This project uses the colour sensor and the rainbow, which come with
+          the Large Starter kit.
+
+This is a very simple example, but it shows how the colour sensor can be used
+to identify the colours it sees, and can be used as the starting point for a
+sock sorter (or similar, but that's what I need to get my drawers in order!)
 
 Step by step example
 --------------------
 
-Ever wanted someone to turn the heating up in your house, but been told that
-it's already too warm? Wanted a way to prove that it really *is* cold and the
-heating really *should* be turned up? Look no further!
-
-This project makes an impossible to ignore glowing thermometer that shows the
-current temperature in the room. If the room is cold (below 16 Celcius) only
-one LED on the rainbow lights up, and it's **blue**. As the temperature
-increases more LEDs light up orange, until it the temperature gets over 21
-Celcius when all 5 LEDs light up red!
-
 This example can be found in
-`blackpearl/examples/example_2.py
-<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_2.py>`_,
+`blackpearl/examples/example_3.py
+<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_3.py>`_,
 but it's also included here in its entirety for reference::
 
   from blackpearl.modules import Module
   from blackpearl.projects import Project
+  from blackpearl.things import Colour
   from blackpearl.things import Rainbow
-  from blackpearl.things import Weather
   
   
-  class Thermometer(Module):
-      listening_for = ['weather',]
-      hardware_required = [Weather, Rainbow,]
-      
-      cold = (0, 0, 255)
-      warm = (255, 153, 0)
-      hot = (255, 0, 0)
-      
+  class ColourMatcher(Module):
+      hardware_required = [Colour, Rainbow,]
+      listening_for = ['colour']
+    
       def receive(self, message):
-          temperature = message['weather']['temperature']
-          
-          if temperature < 16:
-              colour = self.cold
-              leds = [0,]
-          elif temperature < 17:
-              colour = self.warm
-              leds = [0,]
-          elif temperature < 18:
-              colour = self.warm
-              leds = [0, 1,]
-          elif temperature < 19:
-              colour = self.warm
-              leds = [0, 1, 2,]
-          elif temperature < 20:
-              colour = self.warm
-              leds = [0, 1, 2, 3,]
-          elif temperature < 21:
-              colour = self.warm
-              leds = [0, 1, 2, 3, 4,]
-          else:
-              colour = self.hot
-              leds = [0, 1, 2, 3, 4,]
-          
+          colour = message['colour']['rgb']
           self.rainbow.reset()
           r = colour[0]
           g = colour[1]
           b = colour[2]
-          for led in leds:
-              self.rainbow.set_pixel(led, r, g, b)
+          self.rainbow.set_all(r, g, b)
           self.rainbow.update()
-          
+        
   
   class MyProject(Project):
-      required_modules = [Thermometer,]
-      
-      
+      required_modules = [ColourMatcher, ]
+    
+  
   if __name__ == '__main__':
-      MyProject()
+      MyProject()  
   
 As with the all of our projects the first thing we need to do is import all the
 necessary bits and bobs. For this one they are the basic ``Project``, the basic
-``Module`` plus the ``Rainbow`` and ``Weather`` *things*::
+``Module`` plus the ``Rainbow`` and ``Colour`` *things*::
 
   from blackpearl.modules import Module
   from blackpearl.projects import Project
+  from blackpearl.things import Colour
   from blackpearl.things import Rainbow
-  from blackpearl.things import Weather
 
 As before we define our own module, using **blackpearl**'s **Module** class as
 our base class::
 
-  class Thermometer(Module):
+  class ColourMatcher(Module):
   
 Instead of listening for button presses from the touch, this time we're looking
-out for changes to the temperature from the weather sensor, so we change the
-``listening_for``. And this time we need the ``Weather`` and ``Rainbow`` bits
+out for changes to the colour values from the colour sensor, so we change the
+``listening_for``. And this time we need the ``Colour`` and ``Rainbow`` bits
 of hardware for our project to work, so we put them in our ``hardware_required``
 list::
 
-      listening_for = ['weather',]
-      hardware_required = [Rainbow, Weather,]
+      listening_for = ['colour',]
+      hardware_required = [Colour, Rainbow,]
 
 As always all of the real work is done in the ``.receive()`` method. This time
-we want to do something every time the temperature changes (as the weather
-module reports to an accuracy of 0.01 Celcius the temperature will change a
-lot!).
+we want to do something every time the colour that the sensor can see changes.
 
-Like in our last project we have some constants - this time colours for cold,
-warm and hot - which we also define as class attributes::
-  
-      cold = (0, 0, 255)
-      warm = (255, 128, 0)
-      hot = (255, 0, 0)
-  
 This time our ``.receive()`` method is only called when there is a change to the
-weather, because we're only listening for messages from the weather sensor
-(which we defined in our ``listening_for``). We're only interested in the
-temperature, so we pull the temperature out of the message dictionary.
+colour, because we're only listening for messages from the colour sensor
+(which we defined in our ``listening_for``).
 
-.. note:: The format of the message that the weather sends is documented on the
-          :ref:`Weather's page <weather-hardware>`.
+.. note:: The format of the message that the colour sends is documented on the
+          :ref:`Colour's page <colour-hardware>`.
 
 ::
 
       def receive(self, message):
-          temperature = message['weather']['temperature']
+          colour = message['colour']['rgb']
   
-And then we want to take some decisions about what to do with the temperature
-information that we get. This code uses Python's ``if ... elif ... else``
-structure, and says *"if the temperature is less then 16 do this, if it wasn't
-less than 16, but is less than 17 do this"*, and so on right up to *if it
-wasn't any of those then do this one*.
-
-Each ``if`` clause selects a colour (``cold`` if it's below 16C, ``warm`` if
-it's between 16C and 21C and ``hot`` if it's above 21C) and we make a list of
-the LEDs that we want turned on (only 1 for the lowest temperature, upto 5 for
-the hottest temperatures)::
-
-          if temperature < 16:
-              colour = self.cold
-              leds = [0,]
-          elif temperature < 17:
-              colour = self.warm
-              leds = [0,]
-          elif temperature < 18:
-              colour = self.warm
-              leds = [0, 1,]
-          elif temperature < 19:
-              colour = self.warm
-              leds = [0, 1, 2,]
-          elif temperature < 20:
-              colour = self.warm
-              leds = [0, 1, 2, 3,]
-          elif temperature < 21:
-              colour = self.warm
-              leds = [0, 1, 2, 3, 4,]
-          else:
-              colour = self.hot
-              leds = [0, 1, 2, 3, 4,]
-  
-Now we've got both the colour that we want to display (``colour``) and a list
-of LEDs that we want to light up (``leds``) we can set the rainbow. First we
-reset it so that none stay on by accident that we don't want to, and then we
-cycle through the list of LEDs that we want to light up and set each one to
-the colour that we want, before sending ``rainbow.update()`` to make our
-changes take effect::
+This one is really simple. Because the colour sensor returns a list of red, 
+green and blue values in the form that the rainbow accepts all we have to do
+is pass them back in to the rainbow's ``.set_all()`` method (and remember to
+call the ``.update()`` method too)::
   
           self.rainbow.reset()
           r = colour[0]
           g = colour[1]
           b = colour[2]
-          for led in leds:
-              self.rainbow.set_pixel(led, r, g, b)
+          self.rainbow.set_all(r, g, b)
           self.rainbow.update()
 
 As before, the rest of the script is the bit that makes the whole thing run::
@@ -187,35 +107,17 @@ Now our project will run from within our virtual environment as follows::
 
   cd /home/pi/projects/blackpearl
   source venv/bin/activate
-  python blackpearl/examples/example_2.py
+  python blackpearl/examples/example_3.py
   
 Making the code neater
 ----------------------
 
-Only a small one this time...
-
-Python supports the idea that if a function takes multiple *positional*
-arguments (like the Rainbow's ``.set_pixel(posn, r, g, b)`` does it's possible
-to create a list of those arguments and pass them in as a single list, prefixed
-with an asterisk.
-
-So instead of::
+As with :doc:`Example 2 </examples/example_2>` we can use Python's positional
+arguments to neaten this up  even more::
   
+      def receive(self, message):
+          colour = message['colour']['rgb']
           self.rainbow.reset()
-          r = colour[0]
-          g = colour[1]
-          b = colour[2]
-          for led in leds:
-              self.rainbow.set_pixel(led, r, g, b)
+          self.rainbow.set_all(*colour)
           self.rainbow.update()
   
-It's possible to write::
-  
-          self.rainbow.reset()
-          for led in leds:
-              self.rainbow.set_pixel(led, *colour)
-          self.rainbow.update()
-  
-(Really don't worry about it if this makes no sense, but if you're interested
-have a Google for *Python positional and keyword arguments* to start exploring
-this topic)

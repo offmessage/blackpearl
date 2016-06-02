@@ -1,142 +1,155 @@
-.. _example4:
+.. _example5:
     
-Example 4: Mighty Mover
-=======================
+Example 5: The Simple Stopwatch
+===============================
 
-.. note:: This project uses the motors and the slider, which come with
+.. note:: This project uses the number display and touch keypad, which come with
           the Mega Treasure Chest.
 
-This is the beginnings of a remote controlled vehicle. You'll need to attach
-the motors and wheels to the orange plate that came in the Mega Treasure Chest.
-The best way to see instructions for this is in Pimoroni's own
-`Update 47 video <https://www.youtube.com/watch?v=kwXr0Sf1s9k>`_, but it's
-fairly simple: just pop the wheels onto the motor shafts and use the short
-screws to attach the motors to the orange plate in the locations that are marked
-out with motor sized rectangles.
+This is the first pass at a stopwatch. We'll make more sophisticated ones later
+but this one will do the trick for now. It records time to the nearest 1/100th
+of a second, and displays it on the number display. Pressing button 1 on the
+touch keypad starts and stops the timer. Button 2 pauses (and restarts) it. And
+button 4 resets it.
 
-Once the motors are attached wire them up to the dock along with a slider, and
-put the slider as close to the middle as you can, before firing up this script.
+Perfect for timing how long it takes your little brother to get to the bottom
+of the garden (and how long he can stay there!)
 
-By pushing the slider up (so more lights come on) the vehicle will go forward.
-Pushing it down will make it go backwards. The further you push it the faster
-the motors go.
-
-This is a simple example that we'll expand on, but it shows not only how to
-wire up the motors, but how to access a piece of hardware when there is more
-than one of the same type attached.
+This is the first of our examples to use some of **blackpearl**'s software
+components - in this case, the ``Stopwatch`` *thing*. It's also the first
+example that listens for more than one message.
 
 Step by step example
 --------------------
 
 This example can be found in
-`blackpearl/examples/example_4.py
-<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_4.py>`_,
+`blackpearl/examples/example_5.py
+<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_5.py>`_,
 but it's also included here in its entirety for reference::
 
   from blackpearl.modules import Module
   from blackpearl.projects import Project
-  from blackpearl.things import Motor
-  from blackpearl.things import Slider
+  from blackpearl.things import Number
+  from blackpearl.things import Stopwatch
+  from blackpearl.things import Touch
   
   
-  class Mover(Module):
-      listening_for = ['slider',]
-      hardware_required = [Slider, Motor, Motor,]
-    
-      def receive(self, message):
-          value = message['slider']['value']
-          if value == 0:
-              v = -63
-          elif value == 1000:
-              v = 63
-          else:
-              v = (value - 500)//8
+  class MyStopwatch(Module):
+      
+      hardware_required = [Number, Touch,]
+      software_required = [Stopwatch,]
+      listening_for = ['stopwatch', 'touch',]
+      
+      def setup(self):
+          self.number.set_number(0.0, precision='00')
+          self.number.update()
         
-          self.motor1.set_speed(v)
-          self.motor2.set_speed(v * -1)
-  
-  
+      def receive(self, message):
+          if 'stopwatch' in message:
+              tm = message['stopwatch']['time']
+              self.number.set_number(tm, precision='00')
+              self.number.update()
+        
+          elif 'touch' in message:
+              buttons = message['touch']['buttons']
+              if buttons['1'] and self.stopwatch.status == 'STOPPED':
+                  self.stopwatch.start()
+              elif buttons['1'] and self.stopwatch.status == 'RUNNING':
+                  self.stopwatch.stop()
+                  self.stopwatch.reset()
+              elif buttons['2'] and self.stopwatch.status in ['PAUSED', 'RUNNING']:
+                  self.stopwatch.pause()
+              elif buttons['4'] and self.stopwatch.status in ['PAUSED', 'STOPPED']:
+                  self.stopwatch.reset()
+                  self.number.set_number(0.0, precision='00')
+                  self.number.update()
+        
+        
   class MyProject(Project):
-      required_modules = [Mover,]
+      required_modules = [MyStopwatch, ]
     
-  
+
   if __name__ == '__main__':
       MyProject()  
   
 As with the all of our projects the first thing we need to do is import all the
 necessary bits and bobs. For this one they are the basic ``Project``, the basic
-``Module`` plus the ``Motor`` and ``Slider`` *things*::
+``Module`` plus the ``Number``, the ``Touch`` and the ``Stopwatch`` *things*::
 
   from blackpearl.modules import Module
   from blackpearl.projects import Project
-  from blackpearl.things import Motor
-  from blackpearl.things import Slider
+  from blackpearl.things import Number
+  from blackpearl.things import Stopwatch
+  from blackpearl.things import Touch
 
 As before we define our own module, using **blackpearl**'s **Module** class as
 our base class::
 
-  class Mover(Module):
+  class MyStopwatch(Module):
+      
+First we want to make sure that the number displays ``0.00`` before it starts::
   
-We're ``listening_for`` messages from the slider, and we need the slider and
-**two** motors for this to work. The important bit here is that we need to
-include the ``Motor`` class **twice** in the ``hardware_required`` list,
-because we want two of them::
+      def setup(self):
+          self.number.set_number(0.0, precision='00')
+          self.number.update()
+  
+We're ``listening_for`` messages from the stopwatch *and* the touch this time,
+and we need the number and touch for this to work. For the first time we also
+need to define a ``software_required``, as we're using the stopwatch as well::
 
-      listening_for = ['slider',]
-      hardware_required = [Slider, Motor, Motor,]
+      hardware_required = [Number, Touch,]
+      software_required = [Stopwatch,]
+      listening_for = ['stopwatch', 'touch',]
 
-Our ``.receive()`` is called with messages from the ``slider``.
+This time our ``.receive()`` is called with messages from either the ``touch``
+or the ``stopwatch``, so we need to have an ``if ... elif ... else`` right at
+the start our our ``.recieve()``.
 
-.. note:: The format of the message that the slider sends is documented on the
-          :ref:`Slider's page <slider-hardware>`.
+.. note:: The format of the message that the touch sends is documented on the
+          :ref:`Touch's page <touch-hardware>`.
 
-The slider returns a value in the range 0 to 1000.
-
-::
+If the message is from the stopwatch (which it will be once every 1/100th of a
+second!) we want to send the new time to the number display. We use the number's
+``.set_number()`` method to set the time, and we use ``precision='00'`` to force
+it to always use 2 decimal places (so that the decimal point doesn't jump
+around when we go from ``1.89`` to ``1.9`` and so on). Finally we issue 
+``.update()`` so that the number displays our new value::
 
       def receive(self, message):
-          colour = message['slider']['value']
+          if 'stopwatch' in message:
+              tm = message['stopwatch']['time']
+              self.number.set_number(tm, precision='00')
+              self.number.update()
   
-We know that if the slider sends a zero we want full speed in reverse (``-63``)
-and if it sends 1,000 we want full speed ahead (``+63``)::
+If, however, the message was from the touch we want to take some very different
+actions. If it was **button 1** that was pressed, we want to either start or 
+stop the timer::
   
-            if value == 0:
-                v = -63
-            elif value == 1000:
-                v = 63
+          elif 'touch' in message:
+              buttons = message['touch']['buttons']
+              if buttons['1'] and self.stopwatch.status == 'STOPPED':
+                  self.stopwatch.start()
+              elif buttons['1'] and self.stopwatch.status == 'RUNNING':
+                  self.stopwatch.stop()
+                  self.stopwatch.reset()
   
-At the moment the value we get from the slider is between 0 and 1,000. We've
-dealt with the two extremenes, 0 and 1,000; now we want to convert any other
-number to be between -63 and +63, so that it matches the values that motors expect.
-To do this we subtract 500 (so it's now between -500 and +500) and then divide
-by 8 (so it's between -62.5 and +62.5.
-
-However, we know that the motors only take whole numbers as their speed. We can
-convert our number to a whole number in one of two ways - we can pass it through
-``int()``, which will strip off the decimal part (``int(62.5) == 62``) or we 
-can use Python's ``//`` operator.
-
-Remember how ``%`` gave us the remainder? Well, ``//`` is the other half of
-that - it gives us the integer part of **x divided by y**. In other words,
-where ``5 % 2`` is 1, because 1 is the remainder of 5 divided by 2, ``5 // 2``
-is 2, because that 2 goes into 5 twice. In the example we use ``//`` to get
-our new speed between -62 and +62::
+If it was **button 2** we want to either pause or unpause the timer::
   
-          else:
-              v = (value - 500)//8
+              elif buttons['2'] and self.stopwatch.status in ['PAUSED', 'RUNNING']:
+                  self.stopwatch.pause()
   
-Now that we've got our speed we want to send that speed to the motors. Because
-we have two of them they've been magically named ``motor1`` and ``motor2``. And
-because they are on opposite sides of the vehicle we need to set one of them to
-the reverse of the other. So we set the speed like so::
+And if it was **button 4** we want to reset the timer and show ``0.00`` on the
+number display::
   
-          self.motor1.set_speed(v)
-          self.motor2.set_speed(v * -1)
+              elif buttons['4'] and self.stopwatch.status in ['PAUSED', 'STOPPED']:
+                  self.stopwatch.reset()
+                  self.number.set_number(0.0, precision='00')
+                  self.number.update()
   
 As before, the rest of the script is the bit that makes the whole thing run::
 
   class MyProject(Project):
-      required_modules = [Mover,]
+      required_modules = [MyStopwatch,]
   
   if __name__ == '__main__':
       MyProject()
@@ -145,6 +158,6 @@ Now our project will run from within our virtual environment as follows::
 
   cd /home/pi/projects/blackpearl
   source venv/bin/activate
-  python blackpearl/examples/example_4.py
+  python blackpearl/examples/example_5.py
   
   

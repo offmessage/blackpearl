@@ -1,55 +1,53 @@
 from blackpearl.modules import Module
 from blackpearl.projects import Project
 from blackpearl.things import Rainbow
-from blackpearl.things import Touch
+from blackpearl.things import Weather
 
 
-class TouchTheRainbow(Module):
-    listening_for = ['touch',]
-    hardware_required = [Touch, Rainbow,]
+class Thermometer(Module):
+    listening_for = ['weather',]
+    hardware_required = [Weather, Rainbow,]
     
-    button1_press_count = 0
-    button2_press_count = 0
-    colours = [(255,51,204),
-               (255,102,51),
-               (204,255,51),
-               (204,51,255),
-               (102,51,255),
-               (102,255,51),
-               (51,102,255),
-               (255,204,51),
-               (51,255,102),
-               ]
-    
+    cold = (0, 0, 255)
+    warm = (255, 128, 0)
+    hot = (255, 0, 0)
+
     def receive(self, message):
-        buttons = message['touch']['buttons']
-        if buttons['1'] is True:
-            self.button1_press_count = self.button1_press_count + 1
-            
-            colour_index = self.button1_press_count % 9
-            r, g, b = self.colours[colour_index]
-            
-            active_pixel = self.button2_press_count % 5
-            
-            self.rainbow.reset()
-            self.rainbow.set_pixel(active_pixel, r, g, b)
-            self.rainbow.update()
-            
-        if buttons['2'] is True:
-            self.button2_press_count = self.button2_press_count + 1
-            
-            colour_index = self.button1_press_count % 9
-            r, g, b = self.colours[colour_index]
-            
-            active_pixel = self.button2_press_count % 5
-            
-            self.rainbow.reset()
-            self.rainbow.set_pixel(active_pixel, r, g, b)
-            self.rainbow.update()
-            
+        temperature = message['weather']['temperature']
+        
+        if temperature < 16:
+            colour = self.cold
+            leds = [0,]
+        elif temperature < 17:
+            colour = self.warm
+            leds = [0,]
+        elif temperature < 18:
+            colour = self.warm
+            leds = [0, 1,]
+        elif temperature < 19:
+            colour = self.warm
+            leds = [0, 1, 2,]
+        elif temperature < 20:
+            colour = self.warm
+            leds = [0, 1, 2, 3,]
+        elif temperature < 21:
+            colour = self.warm
+            leds = [0, 1, 2, 3, 4,]
+        else:
+            colour = self.hot
+            leds = [0, 1, 2, 3, 4,]
+        
+        self.rainbow.reset()
+        r = colour[0]
+        g = colour[1]
+        b = colour[2]
+        for led in leds:
+            self.rainbow.set_pixel(led, r, g, b)
+        self.rainbow.update()
+        
 
 class MyProject(Project):
-    required_modules = [TouchTheRainbow,]
+    required_modules = [Thermometer,]
     
     
 if __name__ == '__main__':
