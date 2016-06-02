@@ -12,5 +12,6 @@ Examples
    example_3.rst
    example_4.rst
    example_5.rst
+   example_5_2.rst
    plannedexamples.rst
    examplesbykit.rst
