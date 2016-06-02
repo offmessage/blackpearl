@@ -1,209 +1,184 @@
 .. _example1:
     
-Example 1: Simple interactive light show
-========================================
+Example 1: Making a thermometer
+===============================
 
-.. note:: Like the getting started example, this project uses the touch keypad
-          and rainbow LEDs, so it'll work with the Mini Starter Kit.
+.. note:: This project uses the weather sensor, which comes with the Medium
+          Starter kit.
 
 Step by step example
 --------------------
 
-Our first example project (in :doc:`/gettingstarted`) made the rainbow LEDs
-change colour depending on the button that was pressed (red for button 1, green
-for button 2, blue for button 3 and nothing for button 4).
+Ever wanted someone to turn the heating up in your house, but been told that
+it's already too warm? Wanted a way to prove that it really *is* cold and the
+heating really *should* be turned up? Look no further!
 
-This time we want only one LED to light up at a time, and have that change 
-every time someone presses button 1. And we want to change the colour every time
-someone presses button 2.
+This project makes an impossible to ignore glowing thermometer that shows the
+current temperature in the room. If the room is cold (below 16 Celcius) only
+one LED on the rainbow lights up, and it's **blue**. As the temperature
+increases more LEDs light up orange, until it the temperature gets over 21
+Celcius when all 5 LEDs light up red!
 
 This example can be found in
-`blackpearl/examples/example_1.py
-<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_1.py>`_,
+`blackpearl/examples/example_2.py
+<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_2.py>`_,
 but it's also included here in its entirety for reference::
 
   from blackpearl.modules import Module
   from blackpearl.projects import Project
   from blackpearl.things import Rainbow
-  from blackpearl.things import Touch
+  from blackpearl.things import Weather
   
   
-  class TouchTheRainbow(Module):
-      listening_for = ['touch',]
-      hardware_required = [Touch, Rainbow,]
-    
-      button1_press_count = 0
-      button2_press_count = 0
-      colours = [(255,51,204),
-                 (255,102,51),
-                 (204,255,51),
-                 (204,51,255),
-                 (102,51,255),
-                 (102,255,51),
-                 (51,102,255),
-                 (255,204,51),
-                 (51,255,102),
-                 ]
-    
+  class Thermometer(Module):
+      listening_for = ['weather',]
+      hardware_required = [Weather, Rainbow,]
+      
+      cold = (0, 0, 255)
+      warm = (255, 153, 0)
+      hot = (255, 0, 0)
+      
       def receive(self, message):
-          buttons = message['touch']['buttons']
-          if button['1'] is True:
-              self.button1_press_count = self.button1_press_count + 1
-              
-              colour_index = self.button1_press_count % 9
-              r, g, b = self.colours[colour_index]
-              
-              active_pixel = self.button2_press_count % 5
-              
-              self.rainbow.reset()
-              self.rainbow.set_pixel(active_pixel, r, g, b)
-              self.rainbow.update()
-              
-          if button['2'] is True:
-              self.button2_press_count = self.button2_press_count + 1
-              
-              colour_index = self.button1_press_count % 9
-              r, g, b = self.colours[colour_index]
-              
-              active_pixel = self.button2_press_count % 5
-              
-              self.rainbow.reset()
-              self.rainbow.set_pixel(active_pixel, r, g, b)
-              self.rainbow.update()
-  
+          temperature = message['weather']['temperature']
+          
+          if temperature < 16:
+              colour = self.cold
+              leds = [0,]
+          elif temperature < 17:
+              colour = self.warm
+              leds = [0,]
+          elif temperature < 18:
+              colour = self.warm
+              leds = [0, 1,]
+          elif temperature < 19:
+              colour = self.warm
+              leds = [0, 1, 2,]
+          elif temperature < 20:
+              colour = self.warm
+              leds = [0, 1, 2, 3,]
+          elif temperature < 21:
+              colour = self.warm
+              leds = [0, 1, 2, 3, 4,]
+          else:
+              colour = self.hot
+              leds = [0, 1, 2, 3, 4,]
+          
+          self.rainbow.reset()
+          r = colour[0]
+          g = colour[1]
+          b = colour[2]
+          for led in leds:
+              self.rainbow.set_pixel(led, r, g, b)
+          self.rainbow.update()
+          
   
   class MyProject(Project):
-      required_modules = [TouchTheRainbow,]
+      required_modules = [Thermometer,]
       
       
   if __name__ == '__main__':
       MyProject()
   
-This project remembers the state of the rainbow each time a button is pressed
-and changes it the next time a button is pressed. This ability to remembering
-is because we've used Python classes to wrap the functionality of the hardware,
-and can store the state of the hardware in those classes.
-
-As with the :ref:`Getting Started example <gettingstarted-example>` the first
-thing we need to do is import all the necessary bits and bobs. These are the
-basic ``Project``, the basic ``Module`` and the ``Rainbow`` and ``Touch``
-*things*::
+As with the all of our projects the first thing we need to do is import all the
+necessary bits and bobs. For this one they are the basic ``Project``, the basic
+``Module`` plus the ``Rainbow`` and ``Weather`` *things*::
 
   from blackpearl.modules import Module
   from blackpearl.projects import Project
   from blackpearl.things import Rainbow
-  from blackpearl.things import Touch
+  from blackpearl.things import Weather
 
 As before we define our own module, using **blackpearl**'s **Module** class as
 our base class::
 
-  class TouchTheRainbow(Module):
+  class Thermometer(Module):
   
-And as before we are listening for button presses from the touch keypad, and
-need both the touch keypad and the rainbow LEDs for our module to work::
+Instead of listening for button presses from the touch, this time we're looking
+out for changes to the temperature from the weather sensor, so we change the
+``listening_for``. And this time we need the ``Weather`` and ``Rainbow`` bits
+of hardware for our project to work, so we put them in our ``hardware_required``
+list::
 
-      listening_for = ['touch',]
-      hardware_required = [Rainbow, Touch,]
+      listening_for = ['weather',]
+      hardware_required = [Rainbow, Weather,]
 
-We also define some new things that are unique to this module; we want to keep
-count of how many times button 1 and button 2 have been pressed. To do this
-we define new *attributes* of our module class::
-  
-      button1_press_count = 0
-      button2_press_count = 0
-  
-We also want a list of colours to cycle through, so we define that as an
-attribute too::
-  
-      colours = [(255,51,204),
-                 (255,102,51),
-                 (204,255,51),
-                 (204,51,255),
-                 (102,51,255),
-                 (102,255,51),
-                 (51,102,255),
-                 (255,204,51),
-                 (51,255,102),
-                 ]
-  
-The main difference with this module is our ``.receive()`` method, as we want
-to do something different when a button is pressed. 
+As always all of the real work is done in the ``.receive()`` method. This time
+we want to do something every time the temperature changes (as the weather
+module reports to an accuracy of 0.01 Celcius the temperature will change a
+lot!).
 
-Remember, our ``.receive()`` method is only called when a button has been
-pressed or released, because we're only listening for messages from the touch
-(which we defined in our ``listening_for``).
+Like in our last project we have some constants - this time colours for cold,
+warm and hot - which we also define as class attributes::
+  
+      cold = (0, 0, 255)
+      warm = (255, 128, 0)
+      hot = (255, 0, 0)
+  
+This time our ``.receive()`` method is only called when there is a change to the
+weather, because we're only listening for messages from the weather sensor
+(which we defined in our ``listening_for``). We're only interested in the
+temperature, so we pull the temperature out of the message dictionary.
+
+.. note:: The format of the message that the weather sends is documented on the
+          :ref:`Weather's page <weather-hardware>`.
 
 ::
 
       def receive(self, message):
-          # We're listening for buttons!
-          buttons = message['touch']['buttons']
+          temperature = message['weather']['temperature']
   
-The first thing we do is take some actions when button 1 is pressed. In this
-case we want to add 1 to our counter that tells us how many times it's been
-pressed::
+And then we want to take some decisions about what to do with the temperature
+information that we get. This code uses Python's ``if ... elif ... else``
+structure, and says *"if the temperature is less then 16 do this, if it wasn't
+less than 16, but is less than 17 do this"*, and so on right up to *if it
+wasn't any of those then do this one*.
 
-          if buttons['1'] is True:
-              self.button1_press_count = self.button1_press_count + 1
-  
-The next line works out which member of the colour list to use. We do this
-using the ``%`` operator. This is the **remainder** operator. So ``5%2`` is
-``1`` (because 5/2 is 2 *remainder* 1). By using this operator we ensure that
-however big our button counts get we'll always end up with a number that is
-between 0 and 8 which we can use to get a colour from our list (which, because
-computers start from 0, is number 0 to 8 too).
+Each ``if`` clause selects a colour (``cold`` if it's below 16C, ``warm`` if
+it's between 16C and 21C and ``hot`` if it's above 21C) and we make a list of
+the LEDs that we want turned on (only 1 for the lowest temperature, upto 5 for
+the hottest temperatures)::
 
-::
+          if temperature < 16:
+              colour = self.cold
+              leds = [0,]
+          elif temperature < 17:
+              colour = self.warm
+              leds = [0,]
+          elif temperature < 18:
+              colour = self.warm
+              leds = [0, 1,]
+          elif temperature < 19:
+              colour = self.warm
+              leds = [0, 1, 2,]
+          elif temperature < 20:
+              colour = self.warm
+              leds = [0, 1, 2, 3,]
+          elif temperature < 21:
+              colour = self.warm
+              leds = [0, 1, 2, 3, 4,]
+          else:
+              colour = self.hot
+              leds = [0, 1, 2, 3, 4,]
   
-              colour_index = self.button1_press_count % 9
+Now we've got both the colour that we want to display (``colour``) and a list
+of LEDs that we want to light up (``leds``) we can set the rainbow. First we
+reset it so that none stay on by accident that we don't want to, and then we
+cycle through the list of LEDs that we want to light up and set each one to
+the colour that we want, before sending ``rainbow.update()`` to make our
+changes take effect::
   
-Next we get the red green and blue colour values from our selected colour.
-In Python it's possible to access the *nth* item in a list (remembering that
-computers start counting at zero) by saying ``list[n]``. So to get the word
-"two" from the list ``mylist = ['zero', 'one', 'two', 'three',]`` we can say
-``mylist[2]``.
+          self.rainbow.reset()
+          r = colour[0]
+          g = colour[1]
+          b = colour[2]
+          for led in leds:
+              self.rainbow.set_pixel(led, r, g, b)
+          self.rainbow.update()
 
-::
-
-              r, g, b = self.colours[colour_index]
-              
-Using the same process (the ``%`` operator) we can calculate which LED to light
-up. We know there are 5 LEDs on the rainbow, so we get the remainder by
-dividing by 5, which will give us a number between 0 and 4.
-
-::
-
-              active_pixel = self.button2_press_count % 5
-  
-Now we have all the values that we need we can use them to manipulate the
-rainbow LEDs::
-  
-              self.rainbow.reset()
-              self.rainbow.set_pixel(active_pixel, r, g, b)
-              self.rainbow.update()
-  
-The code above resets the rainbow (sets all the LEDs to *off*) and then sets
-the colour of only the one we want to the colour from our list.
-
-The code for when button 2 is pressed is exactly the same, except we add one
-to the counter we're storing for button 2 presses instead::
-  
-          if buttons['2'] is True:
-              self.button2_press_count = self.button2_press_count + 1
-              
-              colour_index = self.button1_press_count % 9
-              r, g, b = self.colours[colour_index]
-              
-              active_pixel = self.button2_press_count % 5
-              
-              self.rainbow.reset()
-              self.rainbow.set_pixel(active_pixel, r, g, b)
-              self.rainbow.update()
-  
 As before, the rest of the script is the bit that makes the whole thing run::
 
   class MyProject(Project):
-      required_modules = [TouchTheRainbow,]
+      required_modules = [Thermometer,]
   
   if __name__ == '__main__':
       MyProject()
@@ -212,118 +187,35 @@ Now our project will run from within our virtual environment as follows::
 
   cd /home/pi/projects/blackpearl
   source venv/bin/activate
-  python blackpearl/examples/example_1.py
+  python blackpearl/examples/example_2.py
   
 Making the code neater
 ----------------------
 
-Some of you will have noticed a couple of things about our project:
+Only a small one this time...
 
- * Firstly, there's a lot of code that repeats itself. Most of what's done in
-   the two ``if`` statements is exactly the same, and 
- * Secondly, nothing happens until we press a button, which means that the
-   first LED to light up is the second one, not the first
-   
-Let's address the first thing. We can break the repeated code out into
-it's own method, so that if we want to change it we only have to change it
-in one place, and we know that if it works for one it will work for the other.
+Python supports the idea that if a function takes multiple *positional*
+arguments (like the Rainbow's ``.set_pixel(posn, r, g, b)`` does it's possible
+to create a list of those arguments and pass them in as a single list, prefixed
+with an asterisk.
 
-We do this by defining a new method (which I've called ``.update_rainbow()``)
-that has all the repeated code in::
+So instead of::
   
-      def update_rainbow(self):
-        colour_index = self.button1_press_count % len(self.colours)
-        r, g, b = self.colours[colour_index]
-        
-        active_pixel = self.button2_press_count % 5
-        
-        self.rainbow.reset()
-        self.rainbow.set_pixel(active_pixel, r, g, b)
-        self.rainbow.update()
-        
-You can also see that instead of doing ``% 9`` to get the ``colour_index`` I've
-changed it to be ``len(self.colours)``. This means that if you change the number
-of colours in the ``self.colours`` list the calculation will always work
-(because the Python ``len()`` function returns the length of a list).
-
-Now our button press code can be much simpler::
-  
-      def receive(self, message):
-        buttons = message['touch']['buttons']
-        if buttons['1'] is True:
-            self.button1_press_count += 1
-            self.update_rainbow()
-        if buttons['2'] is True:
-            self.button2_press_count += 1
-            self.update_rainbow()
-
-(In Python ``foo += 1`` is a shortcut for ``foo = foo + 1``).
-
-We can address the second point because modules define a method called
-``.setup()`` that is called when a new instance of the module is created. We can
-use this to get the first LED lit up with the first colour by calling our new
-``.update_rainbow()`` method from the ``.setup()`` method::
-  
-      def setup(self):
-        self.update_rainbow()
-
-This code works exactly the same way as the example at the top, but is much 
-neater and addresses both of our points (plus a couple of others along the
-way)::
-  
-  from blackpearl.modules import Module
-  from blackpearl.projects import Project
-  from blackpearl.things import Rainbow
-  from blackpearl.things import Touch
-  
-  
-  class TouchTheRainbow(Module):
-      listening_for = ['touch',]
-      hardware_required = [Touch, Rainbow,]
-      
-      button1_press_count = 0
-      button2_press_count = 0
-      colours = [(255,51,204),
-                 (255,102,51),
-                 (204,255,51),
-                 (204,51,255),
-                 (102,51,255),
-                 (102,255,51),
-                 (51,102,255),
-                 (255,204,51),
-                 (51,255,102),
-                 ]
-      
-      def update_rainbow(self):
-          colour_index = self.button1_press_count % len(self.colours)
-          r, g, b = self.colours[colour_index]
-          
-          active_pixel = self.button2_press_count % 5
-          
           self.rainbow.reset()
-          self.rainbow.set_pixel(active_pixel, r, g, b)
+          r = colour[0]
+          g = colour[1]
+          b = colour[2]
+          for led in leds:
+              self.rainbow.set_pixel(led, r, g, b)
           self.rainbow.update()
-          
-      def receive(self, message):
-          buttons = message['touch']['buttons']
-          if buttons['1'] is True:
-              self.button1_press_count += 1
-              self.update_rainbow()
-          if buttons['2'] is True:
-              self.button2_press_count += 1
-              self.update_rainbow()
   
-      def setup(self):
-          self.update_rainbow()
-          
+It's possible to write::
   
-  class MyProject(Project):
-      required_modules = [TouchTheRainbow,]
-      
-      
-  if __name__ == '__main__':
-      MyProject()
-
-This updated, neater, example can be found in
-`blackpearl/examples/example_1_2.py
-<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_1_2.py>`_,
+          self.rainbow.reset()
+          for led in leds:
+              self.rainbow.set_pixel(led, *colour)
+          self.rainbow.update()
+  
+(Really don't worry about it if this makes no sense, but if you're interested
+have a Google for *Python positional and keyword arguments* to start exploring
+this topic)

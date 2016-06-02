@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Example 3: Matching colours &mdash; Black Pearl 1.0 documentation</title>
+  <title>Example 3: Mighty Mover &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -32,8 +32,8 @@
   
     <link rel="top" title="Black Pearl 1.0 documentation" href="../index.html"/>
         <link rel="up" title="Examples" href="index.html"/>
-        <link rel="next" title="Example 4: Mighty Mover" href="example_4.html"/>
-        <link rel="prev" title="Example 2: Making a thermometer" href="example_2.html"/> 
+        <link rel="next" title="Example 4: The Simple Stopwatch" href="example_4.html"/>
+        <link rel="prev" title="Example 2: Matching colours" href="example_2.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -88,16 +88,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started with blackpearl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../messages.html">Messages</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="example_1.html">Example 1: Simple interactive light show</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_2.html">Example 2: Making a thermometer</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 3: Matching colours</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="example_1.html">Example 1: Making a thermometer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_2.html">Example 2: Matching colours</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 3: Mighty Mover</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#step-by-step-example">Step by step example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#making-the-code-neater">Making the code neater</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="example_4.html">Example 4: Mighty Mover</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_5.html">Example 5: The Simple Stopwatch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_5_2.html">Example 5 (part 2): A more complex stopwatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_4.html">Example 4: The Simple Stopwatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_4_2.html">Example 4 (part 2): A more complex stopwatch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples_no_docs.html">Example scripts that aren&#8217;t yet documented</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plannedexamples.html">Planned examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examplesbykit.html">Examples broken down by kit</a></li>
@@ -140,7 +138,7 @@
       
           <li><a href="index.html">Examples</a> &raquo;</li>
       
-    <li>Example 3: Matching colours</li>
+    <li>Example 3: Mighty Mover</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -154,43 +152,58 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="example-3-matching-colours">
-<span id="example3"></span><h1>Example 3: Matching colours<a class="headerlink" href="#example-3-matching-colours" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="example-3-mighty-mover">
+<span id="example3"></span><h1>Example 3: Mighty Mover<a class="headerlink" href="#example-3-mighty-mover" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This project uses the colour sensor and the rainbow, which come with
-the Large Starter kit.</p>
+<p class="last">This project uses the motors and the slider, which come with
+the Mega Treasure Chest.</p>
 </div>
-<p>This is a very simple example, but it shows how the colour sensor can be used
-to identify the colours it sees, and can be used as the starting point for a
-sock sorter (or similar, but that&#8217;s what I need to get my drawers in order!)</p>
+<p>This is the beginnings of a remote controlled vehicle. You&#8217;ll need to attach
+the motors and wheels to the orange plate that came in the Mega Treasure Chest.
+The best way to see instructions for this is in Pimoroni&#8217;s own
+<a class="reference external" href="https://www.youtube.com/watch?v=kwXr0Sf1s9k">Update 47 video</a>, but it&#8217;s
+fairly simple: just pop the wheels onto the motor shafts and use the short
+screws to attach the motors to the orange plate in the locations that are marked
+out with motor sized rectangles.</p>
+<p>Once the motors are attached wire them up to the dock along with a slider, and
+put the slider as close to the middle as you can, before firing up this script.</p>
+<p>By pushing the slider up (so more lights come on) the vehicle will go forward.
+Pushing it down will make it go backwards. The further you push it the faster
+the motors go.</p>
+<p>This is a simple example that we&#8217;ll expand on, but it shows not only how to
+wire up the motors, but how to access a piece of hardware when there is more
+than one of the same type attached.</p>
 <div class="section" id="step-by-step-example">
 <h2>Step by step example<a class="headerlink" href="#step-by-step-example" title="Permalink to this headline">¶</a></h2>
 <p>This example can be found in
-<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_3.py">blackpearl/examples/example_3.py</a>,
+<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_4.py">blackpearl/examples/example_4.py</a>,
 but it&#8217;s also included here in its entirety for reference:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
-<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Colour</span>
-<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Rainbow</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Motor</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Slider</span>
 
 
-<span class="k">class</span> <span class="nc">ColourMatcher</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Colour</span><span class="p">,</span> <span class="n">Rainbow</span><span class="p">,]</span>
-    <span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">]</span>
+<span class="k">class</span> <span class="nc">Mover</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;slider&#39;</span><span class="p">,]</span>
+    <span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Slider</span><span class="p">,</span> <span class="n">Motor</span><span class="p">,</span> <span class="n">Motor</span><span class="p">,]</span>
 
     <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-        <span class="n">colour</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">][</span><span class="s1">&#39;rgb&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">g</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;slider&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">63</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1000</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="mi">63</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="mi">500</span><span class="p">)</span><span class="o">//</span><span class="mi">8</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">motor1</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">motor2</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
-    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">ColourMatcher</span><span class="p">,</span> <span class="p">]</span>
+    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Mover</span><span class="p">,]</span>
 
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -199,56 +212,74 @@ but it&#8217;s also included here in its entirety for reference:</p>
 </div>
 <p>As with the all of our projects the first thing we need to do is import all the
 necessary bits and bobs. For this one they are the basic <code class="docutils literal"><span class="pre">Project</span></code>, the basic
-<code class="docutils literal"><span class="pre">Module</span></code> plus the <code class="docutils literal"><span class="pre">Rainbow</span></code> and <code class="docutils literal"><span class="pre">Colour</span></code> <em>things</em>:</p>
+<code class="docutils literal"><span class="pre">Module</span></code> plus the <code class="docutils literal"><span class="pre">Motor</span></code> and <code class="docutils literal"><span class="pre">Slider</span></code> <em>things</em>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
-<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Colour</span>
-<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Rainbow</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Motor</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Slider</span>
 </pre></div>
 </div>
 <p>As before we define our own module, using <strong>blackpearl</strong>&#8216;s <strong>Module</strong> class as
 our base class:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ColourMatcher</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Mover</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
 </pre></div>
 </div>
-<p>Instead of listening for button presses from the touch, this time we&#8217;re looking
-out for changes to the colour values from the colour sensor, so we change the
-<code class="docutils literal"><span class="pre">listening_for</span></code>. And this time we need the <code class="docutils literal"><span class="pre">Colour</span></code> and <code class="docutils literal"><span class="pre">Rainbow</span></code> bits
-of hardware for our project to work, so we put them in our <code class="docutils literal"><span class="pre">hardware_required</span></code>
-list:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">,]</span>
-<span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Colour</span><span class="p">,</span> <span class="n">Rainbow</span><span class="p">,]</span>
+<p>We&#8217;re <code class="docutils literal"><span class="pre">listening_for</span></code> messages from the slider, and we need the slider and
+<strong>two</strong> motors for this to work. The important bit here is that we need to
+include the <code class="docutils literal"><span class="pre">Motor</span></code> class <strong>twice</strong> in the <code class="docutils literal"><span class="pre">hardware_required</span></code> list,
+because we want two of them:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;slider&#39;</span><span class="p">,]</span>
+<span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Slider</span><span class="p">,</span> <span class="n">Motor</span><span class="p">,</span> <span class="n">Motor</span><span class="p">,]</span>
 </pre></div>
 </div>
-<p>As always all of the real work is done in the <code class="docutils literal"><span class="pre">.receive()</span></code> method. This time
-we want to do something every time the colour that the sensor can see changes.</p>
-<p>This time our <code class="docutils literal"><span class="pre">.receive()</span></code> method is only called when there is a change to the
-colour, because we&#8217;re only listening for messages from the colour sensor
-(which we defined in our <code class="docutils literal"><span class="pre">listening_for</span></code>).</p>
+<p>Our <code class="docutils literal"><span class="pre">.receive()</span></code> is called with messages from the <code class="docutils literal"><span class="pre">slider</span></code>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The format of the message that the colour sends is documented on the
-<a class="reference internal" href="../hardware/inputs/colour.html#colour-hardware"><span class="std std-ref">Colour&#8217;s page</span></a>.</p>
+<p class="last">The format of the message that the slider sends is documented on the
+<a class="reference internal" href="../hardware/inputs/slider.html#slider-hardware"><span class="std std-ref">Slider&#8217;s page</span></a>.</p>
 </div>
+<p>The slider returns a value in the range 0 to 1000.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-    <span class="n">colour</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">][</span><span class="s1">&#39;rgb&#39;</span><span class="p">]</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;slider&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>This one is really simple. Because the colour sensor returns a list of red,
-green and blue values in the form that the rainbow accepts all we have to do
-is pass them back in to the rainbow&#8217;s <code class="docutils literal"><span class="pre">.set_all()</span></code> method (and remember to
-call the <code class="docutils literal"><span class="pre">.update()</span></code> method too):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<p>We know that if the slider sends a zero we want full speed in reverse (<code class="docutils literal"><span class="pre">-63</span></code>)
+and if it sends 1,000 we want full speed ahead (<code class="docutils literal"><span class="pre">+63</span></code>):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">63</span>
+<span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1000</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="mi">63</span>
+</pre></div>
+</div>
+<p>At the moment the value we get from the slider is between 0 and 1,000. We&#8217;ve
+dealt with the two extremenes, 0 and 1,000; now we want to convert any other
+number to be between -63 and +63, so that it matches the values that motors expect.
+To do this we subtract 500 (so it&#8217;s now between -500 and +500) and then divide
+by 8 (so it&#8217;s between -62.5 and +62.5.</p>
+<p>However, we know that the motors only take whole numbers as their speed. We can
+convert our number to a whole number in one of two ways - we can pass it through
+<code class="docutils literal"><span class="pre">int()</span></code>, which will strip off the decimal part (<code class="docutils literal"><span class="pre">int(62.5)</span> <span class="pre">==</span> <span class="pre">62</span></code>) or we
+can use Python&#8217;s <code class="docutils literal"><span class="pre">//</span></code> operator.</p>
+<p>Remember how <code class="docutils literal"><span class="pre">%</span></code> gave us the remainder? Well, <code class="docutils literal"><span class="pre">//</span></code> is the other half of
+that - it gives us the integer part of <strong>x divided by y</strong>. In other words,
+where <code class="docutils literal"><span class="pre">5</span> <span class="pre">%</span> <span class="pre">2</span></code> is 1, because 1 is the remainder of 5 divided by 2, <code class="docutils literal"><span class="pre">5</span> <span class="pre">//</span> <span class="pre">2</span></code>
+is 2, because that 2 goes into 5 twice. In the example we use <code class="docutils literal"><span class="pre">//</span></code> to get
+our new speed between -62 and +62:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">else</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="mi">500</span><span class="p">)</span><span class="o">//</span><span class="mi">8</span>
+</pre></div>
+</div>
+<p>Now that we&#8217;ve got our speed we want to send that speed to the motors. Because
+we have two of them they&#8217;ve been magically named <code class="docutils literal"><span class="pre">motor1</span></code> and <code class="docutils literal"><span class="pre">motor2</span></code>. And
+because they are on opposite sides of the vehicle we need to set one of them to
+the reverse of the other. So we set the speed like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">motor1</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">motor2</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>As before, the rest of the script is the bit that makes the whole thing run:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
-    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Thermometer</span><span class="p">,]</span>
+    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Mover</span><span class="p">,]</span>
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">MyProject</span><span class="p">()</span>
@@ -257,19 +288,7 @@ call the <code class="docutils literal"><span class="pre">.update()</span></code
 <p>Now our project will run from within our virtual environment as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">blackpearl</span>
 <span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
-<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">example_3</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="making-the-code-neater">
-<h2>Making the code neater<a class="headerlink" href="#making-the-code-neater" title="Permalink to this headline">¶</a></h2>
-<p>As with <a class="reference internal" href="example_2.html"><span class="doc">Example 2</span></a> we can use Python&#8217;s positional
-arguments to neaten this up  even more:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-    <span class="n">colour</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">][</span><span class="s1">&#39;rgb&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="o">*</span><span class="n">colour</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">example_4</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>
@@ -282,10 +301,10 @@ arguments to neaten this up  even more:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="example_4.html" class="btn btn-neutral float-right" title="Example 4: Mighty Mover" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="example_4.html" class="btn btn-neutral float-right" title="Example 4: The Simple Stopwatch" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="example_2.html" class="btn btn-neutral" title="Example 2: Making a thermometer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="example_2.html" class="btn btn-neutral" title="Example 2: Matching colours" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

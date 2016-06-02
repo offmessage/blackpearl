@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Example 2: Making a thermometer &mdash; Black Pearl 1.0 documentation</title>
+  <title>Example 2: Matching colours &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -32,8 +32,8 @@
   
     <link rel="top" title="Black Pearl 1.0 documentation" href="../index.html"/>
         <link rel="up" title="Examples" href="index.html"/>
-        <link rel="next" title="Example 3: Matching colours" href="example_3.html"/>
-        <link rel="prev" title="Example 1: Simple interactive light show" href="example_1.html"/> 
+        <link rel="next" title="Example 3: Mighty Mover" href="example_3.html"/>
+        <link rel="prev" title="Example 1: Making a thermometer" href="example_1.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -88,16 +88,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started with blackpearl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../messages.html">Messages</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="example_1.html">Example 1: Simple interactive light show</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 2: Making a thermometer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="example_1.html">Example 1: Making a thermometer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 2: Matching colours</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#step-by-step-example">Step by step example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#making-the-code-neater">Making the code neater</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="example_3.html">Example 3: Matching colours</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_4.html">Example 4: Mighty Mover</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_5.html">Example 5: The Simple Stopwatch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_5_2.html">Example 5 (part 2): A more complex stopwatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_3.html">Example 3: Mighty Mover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_4.html">Example 4: The Simple Stopwatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_4_2.html">Example 4 (part 2): A more complex stopwatch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples_no_docs.html">Example scripts that aren&#8217;t yet documented</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plannedexamples.html">Planned examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examplesbykit.html">Examples broken down by kit</a></li>
@@ -140,7 +139,7 @@
       
           <li><a href="index.html">Examples</a> &raquo;</li>
       
-    <li>Example 2: Making a thermometer</li>
+    <li>Example 2: Matching colours</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -154,76 +153,43 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="example-2-making-a-thermometer">
-<span id="example2"></span><h1>Example 2: Making a thermometer<a class="headerlink" href="#example-2-making-a-thermometer" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="example-2-matching-colours">
+<span id="example2"></span><h1>Example 2: Matching colours<a class="headerlink" href="#example-2-matching-colours" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This project uses the weather sensor, which comes with the Medium
-Starter kit.</p>
+<p class="last">This project uses the colour sensor and the rainbow, which come with
+the Large Starter kit.</p>
 </div>
+<p>This is a very simple example, but it shows how the colour sensor can be used
+to identify the colours it sees, and can be used as the starting point for a
+sock sorter (or similar, but that&#8217;s what I need to get my drawers in order!)</p>
 <div class="section" id="step-by-step-example">
 <h2>Step by step example<a class="headerlink" href="#step-by-step-example" title="Permalink to this headline">¶</a></h2>
-<p>Ever wanted someone to turn the heating up in your house, but been told that
-it&#8217;s already too warm? Wanted a way to prove that it really <em>is</em> cold and the
-heating really <em>should</em> be turned up? Look no further!</p>
-<p>This project makes an impossible to ignore glowing thermometer that shows the
-current temperature in the room. If the room is cold (below 16 Celcius) only
-one LED on the rainbow lights up, and it&#8217;s <strong>blue</strong>. As the temperature
-increases more LEDs light up orange, until it the temperature gets over 21
-Celcius when all 5 LEDs light up red!</p>
 <p>This example can be found in
-<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_2.py">blackpearl/examples/example_2.py</a>,
+<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_3.py">blackpearl/examples/example_3.py</a>,
 but it&#8217;s also included here in its entirety for reference:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Colour</span>
 <span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Rainbow</span>
-<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Weather</span>
 
 
-<span class="k">class</span> <span class="nc">Thermometer</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">,]</span>
-    <span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Weather</span><span class="p">,</span> <span class="n">Rainbow</span><span class="p">,]</span>
-
-    <span class="n">cold</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
-    <span class="n">warm</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">hot</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ColourMatcher</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Colour</span><span class="p">,</span> <span class="n">Rainbow</span><span class="p">,]</span>
+    <span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-        <span class="n">temperature</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">][</span><span class="s1">&#39;temperature&#39;</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">:</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cold</span>
-            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,]</span>
-        <span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
-            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,]</span>
-        <span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">:</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
-            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,]</span>
-        <span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">19</span><span class="p">:</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
-            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,]</span>
-        <span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
-            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,]</span>
-        <span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">21</span><span class="p">:</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
-            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hot</span>
-            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,]</span>
-
+        <span class="n">colour</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">][</span><span class="s1">&#39;rgb&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">g</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">b</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 
 
 <span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
-    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Thermometer</span><span class="p">,]</span>
+    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">ColourMatcher</span><span class="p">,</span> <span class="p">]</span>
 
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -232,95 +198,50 @@ but it&#8217;s also included here in its entirety for reference:</p>
 </div>
 <p>As with the all of our projects the first thing we need to do is import all the
 necessary bits and bobs. For this one they are the basic <code class="docutils literal"><span class="pre">Project</span></code>, the basic
-<code class="docutils literal"><span class="pre">Module</span></code> plus the <code class="docutils literal"><span class="pre">Rainbow</span></code> and <code class="docutils literal"><span class="pre">Weather</span></code> <em>things</em>:</p>
+<code class="docutils literal"><span class="pre">Module</span></code> plus the <code class="docutils literal"><span class="pre">Rainbow</span></code> and <code class="docutils literal"><span class="pre">Colour</span></code> <em>things</em>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Colour</span>
 <span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Rainbow</span>
-<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Weather</span>
 </pre></div>
 </div>
 <p>As before we define our own module, using <strong>blackpearl</strong>&#8216;s <strong>Module</strong> class as
 our base class:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Thermometer</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ColourMatcher</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
 </pre></div>
 </div>
 <p>Instead of listening for button presses from the touch, this time we&#8217;re looking
-out for changes to the temperature from the weather sensor, so we change the
-<code class="docutils literal"><span class="pre">listening_for</span></code>. And this time we need the <code class="docutils literal"><span class="pre">Weather</span></code> and <code class="docutils literal"><span class="pre">Rainbow</span></code> bits
+out for changes to the colour values from the colour sensor, so we change the
+<code class="docutils literal"><span class="pre">listening_for</span></code>. And this time we need the <code class="docutils literal"><span class="pre">Colour</span></code> and <code class="docutils literal"><span class="pre">Rainbow</span></code> bits
 of hardware for our project to work, so we put them in our <code class="docutils literal"><span class="pre">hardware_required</span></code>
 list:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">,]</span>
-<span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Rainbow</span><span class="p">,</span> <span class="n">Weather</span><span class="p">,]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">,]</span>
+<span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Colour</span><span class="p">,</span> <span class="n">Rainbow</span><span class="p">,]</span>
 </pre></div>
 </div>
 <p>As always all of the real work is done in the <code class="docutils literal"><span class="pre">.receive()</span></code> method. This time
-we want to do something every time the temperature changes (as the weather
-module reports to an accuracy of 0.01 Celcius the temperature will change a
-lot!).</p>
-<p>Like in our last project we have some constants - this time colours for cold,
-warm and hot - which we also define as class attributes:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cold</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
-<span class="n">warm</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">hot</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
+we want to do something every time the colour that the sensor can see changes.</p>
 <p>This time our <code class="docutils literal"><span class="pre">.receive()</span></code> method is only called when there is a change to the
-weather, because we&#8217;re only listening for messages from the weather sensor
-(which we defined in our <code class="docutils literal"><span class="pre">listening_for</span></code>). We&#8217;re only interested in the
-temperature, so we pull the temperature out of the message dictionary.</p>
+colour, because we&#8217;re only listening for messages from the colour sensor
+(which we defined in our <code class="docutils literal"><span class="pre">listening_for</span></code>).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The format of the message that the weather sends is documented on the
-<a class="reference internal" href="../hardware/inputs/weather.html#weather-hardware"><span class="std std-ref">Weather&#8217;s page</span></a>.</p>
+<p class="last">The format of the message that the colour sends is documented on the
+<a class="reference internal" href="../hardware/inputs/colour.html#colour-hardware"><span class="std std-ref">Colour&#8217;s page</span></a>.</p>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-    <span class="n">temperature</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">][</span><span class="s1">&#39;temperature&#39;</span><span class="p">]</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">][</span><span class="s1">&#39;rgb&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>And then we want to take some decisions about what to do with the temperature
-information that we get. This code uses Python&#8217;s <code class="docutils literal"><span class="pre">if</span> <span class="pre">...</span> <span class="pre">elif</span> <span class="pre">...</span> <span class="pre">else</span></code>
-structure, and says <em>&#8220;if the temperature is less then 16 do this, if it wasn&#8217;t
-less than 16, but is less than 17 do this&#8221;</em>, and so on right up to <em>if it
-wasn&#8217;t any of those then do this one</em>.</p>
-<p>Each <code class="docutils literal"><span class="pre">if</span></code> clause selects a colour (<code class="docutils literal"><span class="pre">cold</span></code> if it&#8217;s below 16C, <code class="docutils literal"><span class="pre">warm</span></code> if
-it&#8217;s between 16C and 21C and <code class="docutils literal"><span class="pre">hot</span></code> if it&#8217;s above 21C) and we make a list of
-the LEDs that we want turned on (only 1 for the lowest temperature, upto 5 for
-the hottest temperatures):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">:</span>
-    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cold</span>
-    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,]</span>
-<span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
-    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
-    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,]</span>
-<span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">:</span>
-    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
-    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,]</span>
-<span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">19</span><span class="p">:</span>
-    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
-    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,]</span>
-<span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
-    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
-    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,]</span>
-<span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">21</span><span class="p">:</span>
-    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
-    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,]</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hot</span>
-    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,]</span>
-</pre></div>
-</div>
-<p>Now we&#8217;ve got both the colour that we want to display (<code class="docutils literal"><span class="pre">colour</span></code>) and a list
-of LEDs that we want to light up (<code class="docutils literal"><span class="pre">leds</span></code>) we can set the rainbow. First we
-reset it so that none stay on by accident that we don&#8217;t want to, and then we
-cycle through the list of LEDs that we want to light up and set each one to
-the colour that we want, before sending <code class="docutils literal"><span class="pre">rainbow.update()</span></code> to make our
-changes take effect:</p>
+<p>This one is really simple. Because the colour sensor returns a list of red,
+green and blue values in the form that the rainbow accepts all we have to do
+is pass them back in to the rainbow&#8217;s <code class="docutils literal"><span class="pre">.set_all()</span></code> method (and remember to
+call the <code class="docutils literal"><span class="pre">.update()</span></code> method too):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -335,37 +256,21 @@ changes take effect:</p>
 <p>Now our project will run from within our virtual environment as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">blackpearl</span>
 <span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
-<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">example_2</span><span class="o">.</span><span class="n">py</span>
+<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">example_3</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="making-the-code-neater">
 <h2>Making the code neater<a class="headerlink" href="#making-the-code-neater" title="Permalink to this headline">¶</a></h2>
-<p>Only a small one this time...</p>
-<p>Python supports the idea that if a function takes multiple <em>positional</em>
-arguments (like the Rainbow&#8217;s <code class="docutils literal"><span class="pre">.set_pixel(posn,</span> <span class="pre">r,</span> <span class="pre">g,</span> <span class="pre">b)</span></code> does it&#8217;s possible
-to create a list of those arguments and pass them in as a single list, prefixed
-with an asterisk.</p>
-<p>So instead of:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<p>As with <a class="reference internal" href="#"><span class="doc">Example 2</span></a> we can use Python&#8217;s positional
+arguments to neaten this up  even more:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">][</span><span class="s1">&#39;rgb&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="o">*</span><span class="n">colour</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>It&#8217;s possible to write:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="o">*</span><span class="n">colour</span><span class="p">)</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>(Really don&#8217;t worry about it if this makes no sense, but if you&#8217;re interested
-have a Google for <em>Python positional and keyword arguments</em> to start exploring
-this topic)</p>
 </div>
 </div>
 
@@ -376,10 +281,10 @@ this topic)</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="example_3.html" class="btn btn-neutral float-right" title="Example 3: Matching colours" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="example_3.html" class="btn btn-neutral float-right" title="Example 3: Mighty Mover" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="example_1.html" class="btn btn-neutral" title="Example 1: Simple interactive light show" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="example_1.html" class="btn btn-neutral" title="Example 1: Making a thermometer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

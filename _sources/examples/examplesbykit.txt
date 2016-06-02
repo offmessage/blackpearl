@@ -17,7 +17,6 @@ The mini starter kit comes with a rainbow LED strip and a touch keypad. This
 means you can make the following example projects:
 
     * :doc:`/gettingstarted`
-    * :doc:`/examples/example_1`
 
 Medium starter kit
 ------------------
@@ -26,7 +25,7 @@ The medium starter kit comes with all of the bits from the mini kit, plus a
 light sensor and a weather sensor. That means that you can make the all of the
 mini kit projects above, plus:
 
-    * :doc:`/examples/example_2`
+    * :doc:`/examples/example_1`
 
 Large starter kit
 -----------------
@@ -36,7 +35,7 @@ plus a motion sensor (accelerometer and magnetometer), a colour sensor, a dial,
 a slider and the 8x8 LED matrix. That means you can make all of the mini and
 medium starter kit examples, plus:
 
-    * :doc:`/examples/example_3`
+    * :doc:`/examples/example_2`
     
 Mega treasure chest
 -------------------
@@ -46,6 +45,6 @@ kits, and adds a second light sensor, two motors (and wheels), the 4 digit
 number output and the joystick. That means you can make all of the above
 examples, plus:
 
+    * :doc:`/examples/example_3`
     * :doc:`/examples/example_4`
-    * :doc:`/examples/example_5`
     

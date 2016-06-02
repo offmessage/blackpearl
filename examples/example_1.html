@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Example 1: Simple interactive light show &mdash; Black Pearl 1.0 documentation</title>
+  <title>Example 1: Making a thermometer &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
     <link rel="top" title="Black Pearl 1.0 documentation" href="../index.html"/>
         <link rel="up" title="Examples" href="index.html"/>
-        <link rel="next" title="Example 2: Making a thermometer" href="example_2.html"/>
+        <link rel="next" title="Example 2: Matching colours" href="example_2.html"/>
         <link rel="prev" title="Examples" href="index.html"/> 
 
   
@@ -88,16 +88,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting started with blackpearl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../messages.html">Messages</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 1: Simple interactive light show</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 1: Making a thermometer</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#step-by-step-example">Step by step example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#making-the-code-neater">Making the code neater</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="example_2.html">Example 2: Making a thermometer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_3.html">Example 3: Matching colours</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_4.html">Example 4: Mighty Mover</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_5.html">Example 5: The Simple Stopwatch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_5_2.html">Example 5 (part 2): A more complex stopwatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_2.html">Example 2: Matching colours</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_3.html">Example 3: Mighty Mover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_4.html">Example 4: The Simple Stopwatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_4_2.html">Example 4 (part 2): A more complex stopwatch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples_no_docs.html">Example scripts that aren&#8217;t yet documented</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plannedexamples.html">Planned examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examplesbykit.html">Examples broken down by kit</a></li>
@@ -140,7 +139,7 @@
       
           <li><a href="index.html">Examples</a> &raquo;</li>
       
-    <li>Example 1: Simple interactive light show</li>
+    <li>Example 1: Making a thermometer</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -154,195 +153,179 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="example-1-simple-interactive-light-show">
-<span id="example1"></span><h1>Example 1: Simple interactive light show<a class="headerlink" href="#example-1-simple-interactive-light-show" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="example-1-making-a-thermometer">
+<span id="example1"></span><h1>Example 1: Making a thermometer<a class="headerlink" href="#example-1-making-a-thermometer" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Like the getting started example, this project uses the touch keypad
-and rainbow LEDs, so it&#8217;ll work with the Mini Starter Kit.</p>
+<p class="last">This project uses the weather sensor, which comes with the Medium
+Starter kit.</p>
 </div>
 <div class="section" id="step-by-step-example">
 <h2>Step by step example<a class="headerlink" href="#step-by-step-example" title="Permalink to this headline">¶</a></h2>
-<p>Our first example project (in <a class="reference internal" href="../gettingstarted.html"><span class="doc">Getting started with blackpearl</span></a>) made the rainbow LEDs
-change colour depending on the button that was pressed (red for button 1, green
-for button 2, blue for button 3 and nothing for button 4).</p>
-<p>This time we want only one LED to light up at a time, and have that change
-every time someone presses button 1. And we want to change the colour every time
-someone presses button 2.</p>
+<p>Ever wanted someone to turn the heating up in your house, but been told that
+it&#8217;s already too warm? Wanted a way to prove that it really <em>is</em> cold and the
+heating really <em>should</em> be turned up? Look no further!</p>
+<p>This project makes an impossible to ignore glowing thermometer that shows the
+current temperature in the room. If the room is cold (below 16 Celcius) only
+one LED on the rainbow lights up, and it&#8217;s <strong>blue</strong>. As the temperature
+increases more LEDs light up orange, until it the temperature gets over 21
+Celcius when all 5 LEDs light up red!</p>
 <p>This example can be found in
-<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_1.py">blackpearl/examples/example_1.py</a>,
+<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_2.py">blackpearl/examples/example_2.py</a>,
 but it&#8217;s also included here in its entirety for reference:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
 <span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Rainbow</span>
-<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Touch</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Weather</span>
 
 
-<span class="k">class</span> <span class="nc">TouchTheRainbow</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">,]</span>
-    <span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Touch</span><span class="p">,</span> <span class="n">Rainbow</span><span class="p">,]</span>
+<span class="k">class</span> <span class="nc">Thermometer</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">,]</span>
+    <span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Weather</span><span class="p">,</span> <span class="n">Rainbow</span><span class="p">,]</span>
 
-    <span class="n">button1_press_count</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">button2_press_count</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">colours</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">255</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">204</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">204</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">204</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">102</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">102</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">51</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">204</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">51</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">102</span><span class="p">),</span>
-               <span class="p">]</span>
+    <span class="n">cold</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="n">warm</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">hot</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-        <span class="n">buttons</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">][</span><span class="s1">&#39;buttons&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">button</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">temperature</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">][</span><span class="s1">&#39;temperature&#39;</span><span class="p">]</span>
 
-            <span class="n">colour_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">%</span> <span class="mi">9</span>
-            <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">[</span><span class="n">colour_index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">:</span>
+            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cold</span>
+            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,]</span>
+        <span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
+            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
+            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,]</span>
+        <span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">:</span>
+            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
+            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,]</span>
+        <span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">19</span><span class="p">:</span>
+            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
+            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,]</span>
+        <span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
+            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,]</span>
+        <span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">21</span><span class="p">:</span>
+            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
+            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hot</span>
+            <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,]</span>
 
-            <span class="n">active_pixel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">%</span> <span class="mi">5</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">active_pixel</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="n">button</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">+</span> <span class="mi">1</span>
-
-            <span class="n">colour_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">%</span> <span class="mi">9</span>
-            <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">[</span><span class="n">colour_index</span><span class="p">]</span>
-
-            <span class="n">active_pixel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">%</span> <span class="mi">5</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">active_pixel</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 
 
 <span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
-    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">TouchTheRainbow</span><span class="p">,]</span>
+    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Thermometer</span><span class="p">,]</span>
 
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">MyProject</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>This project remembers the state of the rainbow each time a button is pressed
-and changes it the next time a button is pressed. This ability to remembering
-is because we&#8217;ve used Python classes to wrap the functionality of the hardware,
-and can store the state of the hardware in those classes.</p>
-<p>As with the <a class="reference internal" href="../gettingstarted.html#gettingstarted-example"><span class="std std-ref">Getting Started example</span></a> the first
-thing we need to do is import all the necessary bits and bobs. These are the
-basic <code class="docutils literal"><span class="pre">Project</span></code>, the basic <code class="docutils literal"><span class="pre">Module</span></code> and the <code class="docutils literal"><span class="pre">Rainbow</span></code> and <code class="docutils literal"><span class="pre">Touch</span></code>
-<em>things</em>:</p>
+<p>As with the all of our projects the first thing we need to do is import all the
+necessary bits and bobs. For this one they are the basic <code class="docutils literal"><span class="pre">Project</span></code>, the basic
+<code class="docutils literal"><span class="pre">Module</span></code> plus the <code class="docutils literal"><span class="pre">Rainbow</span></code> and <code class="docutils literal"><span class="pre">Weather</span></code> <em>things</em>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
 <span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Rainbow</span>
-<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Touch</span>
+<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Weather</span>
 </pre></div>
 </div>
 <p>As before we define our own module, using <strong>blackpearl</strong>&#8216;s <strong>Module</strong> class as
 our base class:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TouchTheRainbow</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Thermometer</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
 </pre></div>
 </div>
-<p>And as before we are listening for button presses from the touch keypad, and
-need both the touch keypad and the rainbow LEDs for our module to work:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">,]</span>
-<span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Rainbow</span><span class="p">,</span> <span class="n">Touch</span><span class="p">,]</span>
+<p>Instead of listening for button presses from the touch, this time we&#8217;re looking
+out for changes to the temperature from the weather sensor, so we change the
+<code class="docutils literal"><span class="pre">listening_for</span></code>. And this time we need the <code class="docutils literal"><span class="pre">Weather</span></code> and <code class="docutils literal"><span class="pre">Rainbow</span></code> bits
+of hardware for our project to work, so we put them in our <code class="docutils literal"><span class="pre">hardware_required</span></code>
+list:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">,]</span>
+<span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Rainbow</span><span class="p">,</span> <span class="n">Weather</span><span class="p">,]</span>
 </pre></div>
 </div>
-<p>We also define some new things that are unique to this module; we want to keep
-count of how many times button 1 and button 2 have been pressed. To do this
-we define new <em>attributes</em> of our module class:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">button1_press_count</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">button2_press_count</span> <span class="o">=</span> <span class="mi">0</span>
+<p>As always all of the real work is done in the <code class="docutils literal"><span class="pre">.receive()</span></code> method. This time
+we want to do something every time the temperature changes (as the weather
+module reports to an accuracy of 0.01 Celcius the temperature will change a
+lot!).</p>
+<p>Like in our last project we have some constants - this time colours for cold,
+warm and hot - which we also define as class attributes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cold</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+<span class="n">warm</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">hot</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We also want a list of colours to cycle through, so we define that as an
-attribute too:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">colours</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">255</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">204</span><span class="p">),</span>
-           <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-           <span class="p">(</span><span class="mi">204</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-           <span class="p">(</span><span class="mi">204</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
-           <span class="p">(</span><span class="mi">102</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
-           <span class="p">(</span><span class="mi">102</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-           <span class="p">(</span><span class="mi">51</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
-           <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">204</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-           <span class="p">(</span><span class="mi">51</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">102</span><span class="p">),</span>
-           <span class="p">]</span>
-</pre></div>
+<p>This time our <code class="docutils literal"><span class="pre">.receive()</span></code> method is only called when there is a change to the
+weather, because we&#8217;re only listening for messages from the weather sensor
+(which we defined in our <code class="docutils literal"><span class="pre">listening_for</span></code>). We&#8217;re only interested in the
+temperature, so we pull the temperature out of the message dictionary.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The format of the message that the weather sends is documented on the
+<a class="reference internal" href="../hardware/inputs/weather.html#weather-hardware"><span class="std std-ref">Weather&#8217;s page</span></a>.</p>
 </div>
-<p>The main difference with this module is our <code class="docutils literal"><span class="pre">.receive()</span></code> method, as we want
-to do something different when a button is pressed.</p>
-<p>Remember, our <code class="docutils literal"><span class="pre">.receive()</span></code> method is only called when a button has been
-pressed or released, because we&#8217;re only listening for messages from the touch
-(which we defined in our <code class="docutils literal"><span class="pre">listening_for</span></code>).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-    <span class="c1"># We&#39;re listening for buttons!</span>
-    <span class="n">buttons</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">][</span><span class="s1">&#39;buttons&#39;</span><span class="p">]</span>
+    <span class="n">temperature</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">][</span><span class="s1">&#39;temperature&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>The first thing we do is take some actions when button 1 is pressed. In this
-case we want to add 1 to our counter that tells us how many times it&#8217;s been
-pressed:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">+</span> <span class="mi">1</span>
+<p>And then we want to take some decisions about what to do with the temperature
+information that we get. This code uses Python&#8217;s <code class="docutils literal"><span class="pre">if</span> <span class="pre">...</span> <span class="pre">elif</span> <span class="pre">...</span> <span class="pre">else</span></code>
+structure, and says <em>&#8220;if the temperature is less then 16 do this, if it wasn&#8217;t
+less than 16, but is less than 17 do this&#8221;</em>, and so on right up to <em>if it
+wasn&#8217;t any of those then do this one</em>.</p>
+<p>Each <code class="docutils literal"><span class="pre">if</span></code> clause selects a colour (<code class="docutils literal"><span class="pre">cold</span></code> if it&#8217;s below 16C, <code class="docutils literal"><span class="pre">warm</span></code> if
+it&#8217;s between 16C and 21C and <code class="docutils literal"><span class="pre">hot</span></code> if it&#8217;s above 21C) and we make a list of
+the LEDs that we want turned on (only 1 for the lowest temperature, upto 5 for
+the hottest temperatures):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">:</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cold</span>
+    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,]</span>
+<span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">17</span><span class="p">:</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
+    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,]</span>
+<span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">:</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
+    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,]</span>
+<span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">19</span><span class="p">:</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
+    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,]</span>
+<span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
+    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,]</span>
+<span class="k">elif</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">21</span><span class="p">:</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm</span>
+    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">colour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hot</span>
+    <span class="n">leds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,]</span>
 </pre></div>
 </div>
-<p>The next line works out which member of the colour list to use. We do this
-using the <code class="docutils literal"><span class="pre">%</span></code> operator. This is the <strong>remainder</strong> operator. So <code class="docutils literal"><span class="pre">5%2</span></code> is
-<code class="docutils literal"><span class="pre">1</span></code> (because 5/2 is 2 <em>remainder</em> 1). By using this operator we ensure that
-however big our button counts get we&#8217;ll always end up with a number that is
-between 0 and 8 which we can use to get a colour from our list (which, because
-computers start from 0, is number 0 to 8 too).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">colour_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">%</span> <span class="mi">9</span>
-</pre></div>
-</div>
-<p>Next we get the red green and blue colour values from our selected colour.
-In Python it&#8217;s possible to access the <em>nth</em> item in a list (remembering that
-computers start counting at zero) by saying <code class="docutils literal"><span class="pre">list[n]</span></code>. So to get the word
-&#8220;two&#8221; from the list <code class="docutils literal"><span class="pre">mylist</span> <span class="pre">=</span> <span class="pre">['zero',</span> <span class="pre">'one',</span> <span class="pre">'two',</span> <span class="pre">'three',]</span></code> we can say
-<code class="docutils literal"><span class="pre">mylist[2]</span></code>.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">[</span><span class="n">colour_index</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>Using the same process (the <code class="docutils literal"><span class="pre">%</span></code> operator) we can calculate which LED to light
-up. We know there are 5 LEDs on the rainbow, so we get the remainder by
-dividing by 5, which will give us a number between 0 and 4.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">active_pixel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">%</span> <span class="mi">5</span>
-</pre></div>
-</div>
-<p>Now we have all the values that we need we can use them to manipulate the
-rainbow LEDs:</p>
+<p>Now we&#8217;ve got both the colour that we want to display (<code class="docutils literal"><span class="pre">colour</span></code>) and a list
+of LEDs that we want to light up (<code class="docutils literal"><span class="pre">leds</span></code>) we can set the rainbow. First we
+reset it so that none stay on by accident that we don&#8217;t want to, and then we
+cycle through the list of LEDs that we want to light up and set each one to
+the colour that we want, before sending <code class="docutils literal"><span class="pre">rainbow.update()</span></code> to make our
+changes take effect:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">active_pixel</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>The code above resets the rainbow (sets all the LEDs to <em>off</em>) and then sets
-the colour of only the one we want to the colour from our list.</p>
-<p>The code for when button 2 is pressed is exactly the same, except we add one
-to the counter we&#8217;re storing for button 2 presses instead:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">+</span> <span class="mi">1</span>
-
-    <span class="n">colour_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">%</span> <span class="mi">9</span>
-    <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">[</span><span class="n">colour_index</span><span class="p">]</span>
-
-    <span class="n">active_pixel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">%</span> <span class="mi">5</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">active_pixel</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>As before, the rest of the script is the bit that makes the whole thing run:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
-    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">TouchTheRainbow</span><span class="p">,]</span>
+    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Thermometer</span><span class="p">,]</span>
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">MyProject</span><span class="p">()</span>
@@ -351,120 +334,37 @@ to the counter we&#8217;re storing for button 2 presses instead:</p>
 <p>Now our project will run from within our virtual environment as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">blackpearl</span>
 <span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
-<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">example_1</span><span class="o">.</span><span class="n">py</span>
+<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">example_2</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="making-the-code-neater">
 <h2>Making the code neater<a class="headerlink" href="#making-the-code-neater" title="Permalink to this headline">¶</a></h2>
-<p>Some of you will have noticed a couple of things about our project:</p>
-<blockquote>
-<div><ul class="simple">
-<li>Firstly, there&#8217;s a lot of code that repeats itself. Most of what&#8217;s done in
-the two <code class="docutils literal"><span class="pre">if</span></code> statements is exactly the same, and</li>
-<li>Secondly, nothing happens until we press a button, which means that the
-first LED to light up is the second one, not the first</li>
-</ul>
-</div></blockquote>
-<p>Let&#8217;s address the first thing. We can break the repeated code out into
-it&#8217;s own method, so that if we want to change it we only have to change it
-in one place, and we know that if it works for one it will work for the other.</p>
-<p>We do this by defining a new method (which I&#8217;ve called <code class="docutils literal"><span class="pre">.update_rainbow()</span></code>)
-that has all the repeated code in:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_rainbow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-  <span class="n">colour_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">)</span>
-  <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">[</span><span class="n">colour_index</span><span class="p">]</span>
-
-  <span class="n">active_pixel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">%</span> <span class="mi">5</span>
-
-  <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-  <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">active_pixel</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-  <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<p>Only a small one this time...</p>
+<p>Python supports the idea that if a function takes multiple <em>positional</em>
+arguments (like the Rainbow&#8217;s <code class="docutils literal"><span class="pre">.set_pixel(posn,</span> <span class="pre">r,</span> <span class="pre">g,</span> <span class="pre">b)</span></code> does it&#8217;s possible
+to create a list of those arguments and pass them in as a single list, prefixed
+with an asterisk.</p>
+<p>So instead of:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">colour</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>You can also see that instead of doing <code class="docutils literal"><span class="pre">%</span> <span class="pre">9</span></code> to get the <code class="docutils literal"><span class="pre">colour_index</span></code> I&#8217;ve
-changed it to be <code class="docutils literal"><span class="pre">len(self.colours)</span></code>. This means that if you change the number
-of colours in the <code class="docutils literal"><span class="pre">self.colours</span></code> list the calculation will always work
-(because the Python <code class="docutils literal"><span class="pre">len()</span></code> function returns the length of a list).</p>
-<p>Now our button press code can be much simpler:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-  <span class="n">buttons</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">][</span><span class="s1">&#39;buttons&#39;</span><span class="p">]</span>
-  <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">+=</span> <span class="mi">1</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">update_rainbow</span><span class="p">()</span>
-  <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">+=</span> <span class="mi">1</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">update_rainbow</span><span class="p">()</span>
+<p>It&#8217;s possible to write:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">led</span><span class="p">,</span> <span class="o">*</span><span class="n">colour</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>(In Python <code class="docutils literal"><span class="pre">foo</span> <span class="pre">+=</span> <span class="pre">1</span></code> is a shortcut for <code class="docutils literal"><span class="pre">foo</span> <span class="pre">=</span> <span class="pre">foo</span> <span class="pre">+</span> <span class="pre">1</span></code>).</p>
-<p>We can address the second point because modules define a method called
-<code class="docutils literal"><span class="pre">.setup()</span></code> that is called when a new instance of the module is created. We can
-use this to get the first LED lit up with the first colour by calling our new
-<code class="docutils literal"><span class="pre">.update_rainbow()</span></code> method from the <code class="docutils literal"><span class="pre">.setup()</span></code> method:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-  <span class="bp">self</span><span class="o">.</span><span class="n">update_rainbow</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>This code works exactly the same way as the example at the top, but is much
-neater and addresses both of our points (plus a couple of others along the
-way):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
-<span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
-<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Rainbow</span>
-<span class="kn">from</span> <span class="nn">blackpearl.things</span> <span class="k">import</span> <span class="n">Touch</span>
-
-
-<span class="k">class</span> <span class="nc">TouchTheRainbow</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">listening_for</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">,]</span>
-    <span class="n">hardware_required</span> <span class="o">=</span> <span class="p">[</span><span class="n">Touch</span><span class="p">,</span> <span class="n">Rainbow</span><span class="p">,]</span>
-
-    <span class="n">button1_press_count</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">button2_press_count</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">colours</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">255</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">204</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">204</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">204</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">102</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">102</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">51</span><span class="p">,</span><span class="mi">102</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">204</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span>
-               <span class="p">(</span><span class="mi">51</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">102</span><span class="p">),</span>
-               <span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">update_rainbow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">colour_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">)</span>
-        <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colours</span><span class="p">[</span><span class="n">colour_index</span><span class="p">]</span>
-
-        <span class="n">active_pixel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">%</span> <span class="mi">5</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">set_pixel</span><span class="p">(</span><span class="n">active_pixel</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rainbow</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-        <span class="n">buttons</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;touch&#39;</span><span class="p">][</span><span class="s1">&#39;buttons&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">button1_press_count</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">update_rainbow</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">buttons</span><span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">button2_press_count</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">update_rainbow</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update_rainbow</span><span class="p">()</span>
-
-
-<span class="k">class</span> <span class="nc">MyProject</span><span class="p">(</span><span class="n">Project</span><span class="p">):</span>
-    <span class="n">required_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">TouchTheRainbow</span><span class="p">,]</span>
-
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">MyProject</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>This updated, neater, example can be found in
-<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_1_2.py">blackpearl/examples/example_1_2.py</a>,</p>
+<p>(Really don&#8217;t worry about it if this makes no sense, but if you&#8217;re interested
+have a Google for <em>Python positional and keyword arguments</em> to start exploring
+this topic)</p>
 </div>
 </div>
 
@@ -475,7 +375,7 @@ way):</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="example_2.html" class="btn btn-neutral float-right" title="Example 2: Making a thermometer" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="example_2.html" class="btn btn-neutral float-right" title="Example 2: Matching colours" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Examples" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
