@@ -35,7 +35,7 @@ plus a motion sensor (accelerometer and magnetometer), a colour sensor, a dial,
 a slider and the 8x8 LED matrix. That means you can make all of the mini and
 medium starter kit examples, plus:
 
-    * :doc:`/examples/example_2`
+    * :doc:`/examples/colourmatcher`
     
 Mega treasure chest
 -------------------

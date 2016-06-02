@@ -91,4 +91,4 @@ The following examples use the Rainbow:
 
  * :doc:`/gettingstarted`
  * :doc:`/examples/thermometer`
- * :doc:`/examples/example_2`
+ * :doc:`/examples/colourmatcher`

@@ -8,7 +8,7 @@ Examples
    :maxdepth: 2
    
    thermometer.rst
-   example_2.rst
+   colourmatcher.rst
    example_3.rst
    example_4.rst
    example_4_2.rst

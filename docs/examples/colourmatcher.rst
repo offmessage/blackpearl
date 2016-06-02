@@ -1,7 +1,7 @@
-.. _example2:
+.. _example-colourmatcher:
     
-Example 2: Matching colours
-===========================
+Matching colours
+================
 
 .. note:: This project uses the colour sensor and the rainbow, which come with
           the Large Starter kit.
@@ -14,8 +14,8 @@ Step by step example
 --------------------
 
 This example can be found in
-`blackpearl/examples/example_3.py
-<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_3.py>`_,
+`blackpearl/examples/colourmatcher.py
+<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/colourmatcher.py>`_,
 but it's also included here in its entirety for reference::
 
   from blackpearl.modules import Module
@@ -107,12 +107,12 @@ Now our project will run from within our virtual environment as follows::
 
   cd /home/pi/projects/blackpearl
   source venv/bin/activate
-  python blackpearl/examples/example_3.py
+  python blackpearl/examples/colourmatcher.py
   
 Making the code neater
 ----------------------
 
-As with :doc:`Example 2 </examples/example_2>` we can use Python's positional
+As with :doc:`the thermometer </examples/thermometer>` we can use Python's positional
 arguments to neaten this up  even more::
   
       def receive(self, message):
