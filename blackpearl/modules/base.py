@@ -105,11 +105,10 @@ class Module:
         module = self
         for klass in self.software_required:
             name = klass.module
-            if hasattr(self, name):
-                msg = ('Could not create "{}" software module, as hardware '
-                       'module with that name already exists.')
-                self.project.log('ERROR', msg.format(name))
-            obj = klass(module)
+            obj = getattr(self.project, name, None)
+            if obj is None:
+                obj = klass(module)
+                setattr(self.project, name, obj)
             setattr(self, name, obj)
             if getattr(obj, 'sync', False):
                 if klass.tick_rate not in self._ticks:

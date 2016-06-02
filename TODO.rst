@@ -22,12 +22,6 @@ other .update() methods (rainbow and number) are called without parameters and
 take the set values. Think this probably needs to be made the same - look at
 .addFrame() and .next()
 
-Check where waves and clocks and so on get created - are they attributes of
-modules (in which case they can't be manipulated by other modules)? If they are
-fix this so that they are attributes of the project, and then attached to
-modules as required (so self.sawtoothwave is the same instance of SawtoothWave
-for every module)
-
 New features
 ============
 
