@@ -73,7 +73,7 @@ but it's also included here in its entirety for reference::
           
   
   class MyProject(Project):
-      required_modules = [Thermometer,]
+      modules_required = [Thermometer,]
       
       
   if __name__ == '__main__':
@@ -178,7 +178,7 @@ changes take effect::
 As before, the rest of the script is the bit that makes the whole thing run::
 
   class MyProject(Project):
-      required_modules = [Thermometer,]
+      modules_required = [Thermometer,]
   
   if __name__ == '__main__':
       MyProject()

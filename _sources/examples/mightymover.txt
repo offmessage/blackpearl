@@ -57,7 +57,7 @@ but it's also included here in its entirety for reference::
   
   
   class MyProject(Project):
-      required_modules = [Mover,]
+      modules_required = [Mover,]
     
   
   if __name__ == '__main__':
@@ -136,7 +136,7 @@ the reverse of the other. So we set the speed like so::
 As before, the rest of the script is the bit that makes the whole thing run::
 
   class MyProject(Project):
-      required_modules = [Mover,]
+      modules_required = [Mover,]
   
   if __name__ == '__main__':
       MyProject()

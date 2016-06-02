@@ -86,7 +86,7 @@ but it's also included here in its entirety for reference::
           
           
   class MyProject(Project):
-      required_modules = [MyStopwatch, ]
+      modules_required = [MyStopwatch, ]
       
   
   if __name__ == '__main__':
@@ -193,7 +193,7 @@ number display::
 As before, the rest of the script is the bit that makes the whole thing run::
 
   class MyProject(Project):
-      required_modules = [MyStopwatch,]
+      modules_required = [MyStopwatch,]
   
   if __name__ == '__main__':
       MyProject()
