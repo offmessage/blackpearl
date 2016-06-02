@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Example 2: Matching colours &mdash; Black Pearl 1.0 documentation</title>
+  <title>Matching colours &mdash; Black Pearl 1.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
     <link rel="top" title="Black Pearl 1.0 documentation" href="../index.html"/>
         <link rel="up" title="Examples" href="index.html"/>
-        <link rel="next" title="Example 3: Mighty Mover" href="example_3.html"/>
+        <link rel="next" title="Mighty Mover" href="mightymover.html"/>
         <link rel="prev" title="Making a thermometer" href="thermometer.html"/> 
 
   
@@ -89,14 +89,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../messages.html">Messages</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="thermometer.html">Making a thermometer</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 2: Matching colours</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Matching colours</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#step-by-step-example">Step by step example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#making-the-code-neater">Making the code neater</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="example_3.html">Example 3: Mighty Mover</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_4.html">Example 4: The Simple Stopwatch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="example_4_2.html">Example 4 (part 2): A more complex stopwatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mightymover.html">Mighty Mover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stopwatch_1.html">The Simple Stopwatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stopwatch_2.html">A more complex stopwatch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples_no_docs.html">Example scripts that aren&#8217;t yet documented</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plannedexamples.html">Planned examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examplesbykit.html">Examples broken down by kit</a></li>
@@ -139,11 +139,11 @@
       
           <li><a href="index.html">Examples</a> &raquo;</li>
       
-    <li>Example 2: Matching colours</li>
+    <li>Matching colours</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/examples/example_2.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/examples/colourmatcher.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -153,8 +153,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="example-2-matching-colours">
-<span id="example2"></span><h1>Example 2: Matching colours<a class="headerlink" href="#example-2-matching-colours" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="matching-colours">
+<span id="example-colourmatcher"></span><h1>Matching colours<a class="headerlink" href="#matching-colours" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This project uses the colour sensor and the rainbow, which come with
@@ -166,7 +166,7 @@ sock sorter (or similar, but that&#8217;s what I need to get my drawers in order
 <div class="section" id="step-by-step-example">
 <h2>Step by step example<a class="headerlink" href="#step-by-step-example" title="Permalink to this headline">¶</a></h2>
 <p>This example can be found in
-<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_3.py">blackpearl/examples/example_3.py</a>,
+<a class="reference external" href="https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/colourmatcher.py">blackpearl/examples/colourmatcher.py</a>,
 but it&#8217;s also included here in its entirety for reference:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">blackpearl.modules</span> <span class="k">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">blackpearl.projects</span> <span class="k">import</span> <span class="n">Project</span>
@@ -256,13 +256,13 @@ call the <code class="docutils literal"><span class="pre">.update()</span></code
 <p>Now our project will run from within our virtual environment as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">blackpearl</span>
 <span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
-<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">example_3</span><span class="o">.</span><span class="n">py</span>
+<span class="n">python</span> <span class="n">blackpearl</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">colourmatcher</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="making-the-code-neater">
 <h2>Making the code neater<a class="headerlink" href="#making-the-code-neater" title="Permalink to this headline">¶</a></h2>
-<p>As with <a class="reference internal" href="#"><span class="doc">Example 2</span></a> we can use Python&#8217;s positional
+<p>As with <a class="reference internal" href="thermometer.html"><span class="doc">the thermometer</span></a> we can use Python&#8217;s positional
 arguments to neaten this up  even more:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
     <span class="n">colour</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;colour&#39;</span><span class="p">][</span><span class="s1">&#39;rgb&#39;</span><span class="p">]</span>
@@ -281,7 +281,7 @@ arguments to neaten this up  even more:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="example_3.html" class="btn btn-neutral float-right" title="Example 3: Mighty Mover" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mightymover.html" class="btn btn-neutral float-right" title="Mighty Mover" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="thermometer.html" class="btn btn-neutral" title="Making a thermometer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

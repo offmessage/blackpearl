@@ -36,4 +36,4 @@ Complete examples
 
 The following examples use the motors:
 
- * :doc:`/examples/example_4`
+ * :doc:`/examples/mightymover`

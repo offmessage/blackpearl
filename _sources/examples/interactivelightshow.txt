@@ -1,4 +1,4 @@
-.. _example1:
+.. _example-lightshow:
     
 Example 1: Simple interactive light show
 ========================================

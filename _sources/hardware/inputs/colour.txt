@@ -51,5 +51,5 @@ Complete examples
 
 The following examples use the colour sensor:
 
- * :doc:`/examples/example_3`
+ * :doc:`/examples/colourmatcher`
  
