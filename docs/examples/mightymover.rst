@@ -1,7 +1,7 @@
-.. _example3:
+.. _example-mightymover:
     
-Example 3: Mighty Mover
-=======================
+Mighty Mover
+============
 
 .. note:: This project uses the motors and the slider, which come with
           the Mega Treasure Chest.
@@ -29,8 +29,8 @@ Step by step example
 --------------------
 
 This example can be found in
-`blackpearl/examples/example_4.py
-<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/example_4.py>`_,
+`blackpearl/examples/mightymover.py
+<https://github.com/offmessage/blackpearl/blob/master/blackpearl/examples/mightymover.py>`_,
 but it's also included here in its entirety for reference::
 
   from blackpearl.modules import Module
@@ -145,6 +145,6 @@ Now our project will run from within our virtual environment as follows::
 
   cd /home/pi/projects/blackpearl
   source venv/bin/activate
-  python blackpearl/examples/example_4.py
+  python blackpearl/examples/mightymover.py
   
   

@@ -45,6 +45,6 @@ kits, and adds a second light sensor, two motors (and wheels), the 4 digit
 number output and the joystick. That means you can make all of the above
 examples, plus:
 
-    * :doc:`/examples/example_3`
+    * :doc:`/examples/mightymover`
     * :doc:`/examples/example_4`
     
