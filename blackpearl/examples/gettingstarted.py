@@ -25,7 +25,7 @@ class TouchTheRainbow(Module):
 
 
 class MyProject(Project):
-    required_modules = [TouchTheRainbow,]
+    modules_required = [TouchTheRainbow,]
     
     
 if __name__ == '__main__':

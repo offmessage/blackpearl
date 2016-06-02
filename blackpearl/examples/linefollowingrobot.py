@@ -98,7 +98,7 @@ class Robot(Module):
     
     
 class MyProject(Project):
-    required_modules = [Robot,]
+    modules_required = [Robot,]
     
 
 if __name__ == '__main__':

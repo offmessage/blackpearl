@@ -21,7 +21,7 @@ class KitchenClock(Module):
         
         
 class MyProject(Project):
-    required_modules = [KitchenClock,]
+    modules_required = [KitchenClock,]
     
 if __name__ == '__main__':
     MyProject()

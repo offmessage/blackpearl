@@ -22,7 +22,7 @@ class DiscoLights(Module):
 
 
 class MyProject(Project):
-    required_modules = [DiscoLights, ]
+    modules_required = [DiscoLights, ]
     
 
 if __name__ == '__main__':

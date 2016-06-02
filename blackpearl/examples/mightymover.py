@@ -27,7 +27,7 @@ class Mover(Module):
 
 
 class MyProject(Project):
-    required_modules = [Mover,]
+    modules_required = [Mover,]
     
 
 if __name__ == '__main__':

@@ -19,7 +19,7 @@ class ColourMatcher(Module):
         
 
 class MyProject(Project):
-    required_modules = [ColourMatcher, ]
+    modules_required = [ColourMatcher, ]
     
 
 if __name__ == '__main__':

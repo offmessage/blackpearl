@@ -37,7 +37,7 @@ class MyStopwatch(Module):
         
         
 class MyProject(Project):
-    required_modules = [MyStopwatch, ]
+    modules_required = [MyStopwatch, ]
     
 
 if __name__ == '__main__':

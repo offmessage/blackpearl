@@ -17,8 +17,6 @@ Minecraft
 Little refactorings
 ===================
 
-Noticed that ``hardware_required``, ``software_required`` but ``required_modules``
-
 Noticed that the Matrix has a .update() method that takes pixels, whereas the
 other .update() methods (rainbow and number) are called without parameters and
 take the set values. Think this probably needs to be made the same - look at

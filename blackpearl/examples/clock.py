@@ -22,7 +22,7 @@ class Listener(Module):
         
         
 class MyProject(Project):
-    required_modules = [Clock, Listener,]
+    modules_required = [Clock, Listener,]
     
 
 if __name__ == '__main__':

@@ -57,7 +57,7 @@ class SimpleCombinationLock(Module):
             
             
 class MyProject(Project):
-    required_modules = [SimpleCombinationLock,]
+    modules_required = [SimpleCombinationLock,]
     
 if __name__ == '__main__':
     MyProject()

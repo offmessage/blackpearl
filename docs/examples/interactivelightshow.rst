@@ -73,7 +73,7 @@ but it's also included here in its entirety for reference::
   
   
   class MyProject(Project):
-      required_modules = [TouchTheRainbow,]
+      modules_required = [TouchTheRainbow,]
       
       
   if __name__ == '__main__':
@@ -203,7 +203,7 @@ to the counter we're storing for button 2 presses instead::
 As before, the rest of the script is the bit that makes the whole thing run::
 
   class MyProject(Project):
-      required_modules = [TouchTheRainbow,]
+      modules_required = [TouchTheRainbow,]
   
   if __name__ == '__main__':
       MyProject()

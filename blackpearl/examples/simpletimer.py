@@ -14,7 +14,7 @@ class Listener(Module):
         print(message['timer']['time'])
         
 class MyProject(Project):
-    required_modules = [MyTimer, Listener,]
+    modules_required = [MyTimer, Listener,]
     
 
 if __name__ == '__main__':

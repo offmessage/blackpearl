@@ -64,7 +64,7 @@ class Listener(Module):
             
 
 class MyProject(Project):
-    required_modules = [Scroller, SpeedChanger, Listener, ]
+    modules_required = [Scroller, SpeedChanger, Listener, ]
     
 
 if __name__ == '__main__':

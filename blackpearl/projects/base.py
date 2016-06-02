@@ -28,7 +28,7 @@ from ..things import FlotillaClient
 
 class BaseProject:
     
-    required_modules = []
+    modules_required = []
     flotilla = None
     
     def __init__(self, flotilla_port="/dev/ttyACM0", baudrate=115200):
@@ -49,7 +49,7 @@ class BaseProject:
         if self._running:
             self.log("ERROR", "Cannot add new modules to an already running project")
             return
-        self.required_modules.append(klass)
+        self.modules_required.append(klass)
         
     def connectModules(self):
         # This is called by the flotilla once the hardware is all available

@@ -47,7 +47,7 @@ class Thermometer(Module):
         
 
 class MyProject(Project):
-    required_modules = [Thermometer,]
+    modules_required = [Thermometer,]
     
     
 if __name__ == '__main__':

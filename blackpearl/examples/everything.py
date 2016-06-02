@@ -119,7 +119,7 @@ class ClockDisplay(Module):
         
 
 class MyProject(Project):
-    required_modules = [Scroller, SpeedChanger, RainbowSetter, 
+    modules_required = [Scroller, SpeedChanger, RainbowSetter, 
                         MyTimer, Listener, DiscoLights, Mover, Clock, 
                         ClockDisplay, ]
     
