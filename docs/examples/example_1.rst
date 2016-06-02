@@ -1,6 +1,6 @@
-.. _example2:
+.. _example1:
     
-Example 2: Making a thermometer
+Example 1: Making a thermometer
 ===============================
 
 .. note:: This project uses the weather sensor, which comes with the Medium

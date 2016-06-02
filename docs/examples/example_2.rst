@@ -1,6 +1,6 @@
-.. _example3:
+.. _example2:
     
-Example 3: Matching colours
+Example 2: Matching colours
 ===========================
 
 .. note:: This project uses the colour sensor and the rainbow, which come with

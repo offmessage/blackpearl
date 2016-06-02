@@ -1,6 +1,6 @@
-.. _example4:
+.. _example3:
     
-Example 4: Mighty Mover
+Example 3: Mighty Mover
 =======================
 
 .. note:: This project uses the motors and the slider, which come with

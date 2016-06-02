@@ -1,6 +1,6 @@
-.. _example5_2:
+.. _example4_2:
     
-Example 5 (part 2): A more complex stopwatch
+Example 4 (part 2): A more complex stopwatch
 ============================================
 
 .. note:: This project uses the number display and touch keypad, which come with

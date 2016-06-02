@@ -1,6 +1,6 @@
-.. _example5:
+.. _example4:
     
-Example 5: The Simple Stopwatch
+Example 4: The Simple Stopwatch
 ===============================
 
 .. note:: This project uses the number display and touch keypad, which come with

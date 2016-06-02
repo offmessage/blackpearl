@@ -221,5 +221,5 @@ Complete examples
 
 The following examples use the Number:
 
- * :doc:`/examples/example_5`
+ * :doc:`/examples/example_4`
  
