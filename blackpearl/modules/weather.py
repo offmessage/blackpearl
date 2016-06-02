@@ -1,15 +1,19 @@
 from twisted.internet import defer
 
 from .base import Module
+from ..things import Weather
 
 
 class Weather(Module):
     
-    module_name = 'weather'
+    listening_for = ['weather']
+    hardware_required = [Weather,]
+    
+    module_name = 'weather_module' # icky, but it can't have the same name as
+                                   # the hardware itself
+    
     temperature = None
     pressure = None
-    listening_for = ['weather']
-    hardware_required = ['weather']
     
     def receive(self, message):
         temp = message['temperature']
@@ -44,8 +48,11 @@ class WeatherRecorder(Weather):
         
     @defer.deferredGenerator
     def start(self):
+        # XXX Should this use the system clock? If so, do we inherit a timer
+        #     mixin?
         d = defer.Deferred()
-        reactor.callLater(self.freqency, d.callback, self.update())
+        self.update() # Don't swallow exceptions
+        reactor.callLater(self.freqency, d.callback, None)
         wfd = defer.waitForDeferred(d)
         yield wfd
      

@@ -1,9 +1,15 @@
 from .base import Module
+from ..things import Touch
 
 
 class Touch(Module):
     
-    module_name = 'touch'
+    listening_for = ['touch']
+    hardware_required = [Touch,]
+
+    module_name = 'touch_module' # icky, but it can't have the same name as the
+                                 # hardwar itself
+                                 
     buttons = {'1': False,
                '2': False,
                '3': False,
@@ -17,9 +23,11 @@ class Touch(Module):
             if not self.buttons[k] and buttons[k]:
                 # Button k has been pressed
                 method_name = 'button{}_pressed'.format(k)
+                self.buttons[k] = True
             if self.buttons[k] and not buttons[k]:
                 # Button k has been released
                 method_name = 'button{}_released'.format(k)
+                self.buttons[k] = False
             if method_name is not None:
                 method = getattr(self, method_name, None)
                 if method is not None:

@@ -1,12 +1,16 @@
 from .base import Module
+from ..things import Slider
 
 
 class Slider(Module):
     
-    module_name = 'slider'
-    listening_for = ['slider',]
+    listening_for = ['slider']
+    hardware_required = [Slider,]
+
+    module_name = 'slider_module' # icky, but it can't have the same name as the
+                                  # hardware itself
     value = None
-    
+
     def receive(self, message):
         value = message['value']
         if value != self.value:
