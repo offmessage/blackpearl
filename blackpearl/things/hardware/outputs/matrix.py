@@ -31,7 +31,8 @@ class Matrix(FlotillaOutput):
         self.lastindex = 0
         self.loop = False
         self.steps = 1
-        self.update([0, 0, 0, 0, 0, 0, 0, 0])
+        self.pixels = [0, 0, 0, 0, 0, 0, 0, 0]
+        self.update()
     
     def addText(self, text):
         for ch in text:
@@ -59,14 +60,14 @@ class Matrix(FlotillaOutput):
         """left to right"""
         self.queue.extend(frame)
         
-    def update(self, pixels):
-        self.pixels = pixels
-        data = pixels + [self.brightness,]
+    def update(self):
+        data = self.pixels + [self.brightness,]
         self.send(data)
         
     def next_frame(self):
-        # XXX TODO Consume the next frame from the queue
-        pass
+        self.pixels = self.queue[:8]
+        self.queue = self.queue[8:]
+        self.update()
     
     def frames(self):
         self.scroller(steps=8)
@@ -91,7 +92,8 @@ class Matrix(FlotillaOutput):
                     break
                 if len(chars) < 8 and self.loop:
                     chars += self.queue[:8-len(chars)]
-                self.update(chars) 
+                self.pixels = chars
+                self.update() 
                 d = defer.Deferred()
                 reactor.callLater(self.scrollspeed, d.callback, None)
                 wfd = defer.waitForDeferred(d)

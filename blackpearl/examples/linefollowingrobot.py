@@ -45,7 +45,8 @@ class Robot(Module):
             lcol = col_value(self.left_light)
             rcol = col_value(self.right_light)
             pixels = [lcol,] * 4 + [rcol,] * 4
-            self.matrix.update(pixels)
+            self.matrix.addFrame(pixels)
+            self.matrix.next_frame()
         
     def receive(self, message):
         if 'touch' in message:
