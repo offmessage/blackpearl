@@ -19,6 +19,9 @@ Minecraft
 
 Docstrings are woeful
 
+There are like literally *no* tests
+
+
 Little refactorings
 ===================
 
@@ -26,6 +29,8 @@ Noticed that the Matrix has a .update() method that takes pixels, whereas the
 other .update() methods (rainbow and number) are called without parameters and
 take the values set on the class. Think this probably needs to be made the same
 - look at .addFrame() and .next()
+
+Why on earth does the user need to decide if something is hardware or software?
 
 New features
 ============
