@@ -75,8 +75,8 @@ class TimeBasedUnsynced(SoftwareModule):
         self.status = "RUNNING"
         while self.check():
             d = defer.Deferred()
-            d.addCallback(self.tick)
-            reactor.callLater(self.tick_rate, d.callback, self.time)
+            self.tick(self.time)
+            reactor.callLater(self.tick_rate, d.callback, None)
             wfd = defer.waitForDeferred(d)
             self.time += self.tick_rate
             self.time = float(Decimal(self.time).quantize(Decimal(str(self.tick_rate))))            
