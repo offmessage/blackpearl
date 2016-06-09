@@ -91,8 +91,9 @@ class Matrix(FlotillaOutput):
                     break
                 if len(chars) < 8 and self.loop:
                     chars += self.queue[:8-len(chars)]
+                self.update(chars) 
                 d = defer.Deferred()
-                reactor.callLater(self.scrollspeed, d.callback, self.update(chars))
+                reactor.callLater(self.scrollspeed, d.callback, None)
                 wfd = defer.waitForDeferred(d)
                 yield wfd
                 if self.status == 'RUNNING':
